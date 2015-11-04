@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="GiamCan.Views.ThongTinBMI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <TextBlock Grid.Row="1" TextAlignment="Left" Margin="4" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Chỉ số BMI" VerticalAlignment="Top" Style="{StaticResource TitleTextBlockStyle}" />
+        <ScrollViewer Grid.Row="2" Height="1000" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock xml:space="preserve" Text="" FontSize="16" HorizontalAlignment="Stretch" Margin="12" TextWrapping="Wrap" VerticalAlignment="Stretch">
+<Bold>Chỉ số BMI (Body Mass Index)</Bold> chính là chỉ số cơ thể được các bác sĩ và các chuyên gia sức khỏe sử dụng để xác định tình trạng cơ thể của một người nào đó có bị béo phì, thừa cân hay quá gầy hay không. Thông thường, người ta dùng để tính toán mức độ béo phì.
+
+Bạn có thể tự đánh giá được chỉ số BMI của bản thân qua bảng thống kê dưới đây:
+- Dưới chuẩn: BMI ít hơn 18.5 
+- Chuẩn: BMI từ 18,5 - 25
+- Thừa cân: BMI từ 25-30 
+- Béo - nên giảm cân: BMI 30 - 40
+- Rất béo – cần giảm cân ngay: BMI trên 40 
+
+<Bold>Lưu ý:</Bold> Chỉ số BMI sẽ không chính xác nếu bạn là vận động viên hoặc người tập thể hình (bởi các múi cơ luôn nặng hơn mỡ) và khi đó, chỉ số BMI của bạn sẽ nằm trong mức béo, rất béo. Nó cũng không chính xác với các bà bầu, đang cho con bú hay những người vừa ốm dậy.
+            </TextBlock>
+        </ScrollViewer>
+        <Button x:ConnectionId='1' x:Name="troveButton"                           Content="Trở về" Grid.Row="3" Width="120"  FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+    </Grid>
+</Page>
+

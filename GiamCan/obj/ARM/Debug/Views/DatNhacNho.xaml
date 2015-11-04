@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="GiamCan.Views.DatNhacNho"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="huyButton"                         Label="Hủy" Icon="Cancel" />
+            <AppBarButton x:ConnectionId='2' x:Name="themnhacnhoButton"                                 Label="Thêm nhắc nhở" Icon="Accept" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <ScrollViewer Grid.Row="1" Margin="10">
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap" Text="Đặt nhắc nhở" Margin="0,0,0,12" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                <!--<TextBlock TextWrapping="Wrap" Text="Nội dung" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                <TextBox x:ConnectionId='3' x:Name="noidungTextBox" Text="" FontSize="16" Header="Nội dung" AcceptsReturn="True" Margin="0,0,0,12" TextWrapping="Wrap" Height="100" MaxHeight="120" MaxLength="60"/>
+                <!--<TextBlock TextWrapping="Wrap" Text="Lặp lại" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                
+                <!--Hiện tại chưa hỗ trợ thì phải-->
+                <!--<ComboBox x:Name="laplaiComboBox" Header="Lặp lại" FontSize="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <CheckBox Content="Thứ 2"/>
+                    <CheckBox Content="Thứ 3"/>
+                    <CheckBox Content="Thứ 4"/>
+                    <CheckBox Content="Thứ 5"/>
+                    <CheckBox Content="Thứ 6"/>
+                    <CheckBox Content="Thứ 7"/>
+                    <CheckBox Content="Chủ Nhật"/>
+                </ComboBox>-->
+                <!--<TextBlock TextWrapping="Wrap" Text="Thời gian" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                <TimePicker x:ConnectionId='4' x:Name="gioTimePicker" Header="Thời gian" FontSize="16" Margin="0,0,0,12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <!--<TextBlock TextWrapping="Wrap" Text="Ngày" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                <CalendarDatePicker x:ConnectionId='5' x:Name="ngayDatePicker" Header="Ngày" FontSize="16" Margin="0,0,0,12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <!--<TextBlock TextWrapping="Wrap" Text="Đặt báo lại" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                <!--<ComboBox x:Name="baolaiComboBox" Header="Báo lại" FontSize="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <ComboBoxItem Content="1 phút" Tag="1" IsSelected="True"/>
+                    <ComboBoxItem Content="5 phút" Tag="5"/>
+                    <ComboBoxItem Content="10 phút" Tag="10"/>
+                    <ComboBoxItem Content="20 phút" Tag="20"/>
+                    <ComboBoxItem Content="30 phút" Tag="30" />
+                    <ComboBoxItem Content="1 giờ" Tag="60" />
+                </ComboBox>-->
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
+

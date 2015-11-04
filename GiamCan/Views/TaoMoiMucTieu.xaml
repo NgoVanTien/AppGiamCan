@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="GiamCan.Views.TaoMoiMucTieu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="huyButton" Icon="Cancel" Click="huyButton_Click" Label="Hủy"/>
+            <AppBarButton x:Name="tiepButton" Icon="Forward" Click="themMucTieuButton_Click" Label="Tiếp"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Chiều cao hiện tại (cm):" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="chieucaobdTextBox" TextWrapping="Wrap" Grid.Column="1" FontSize="16" Margin="12" TextAlignment="Right" InputScope="Number" HorizontalAlignment="Stretch" TextChanged="chieucaobdTextBox_TextChanged"/>
+
+                <TextBlock Text="Cân nặng hiện tại (kg):" Grid.Row="1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="cannangbdTextBox" TextChanged="cannangbdTextBox_TextChanged" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" FontSize="16" TextAlignment="Right" InputScope="Number" Margin="12" />
+
+                <TextBlock Text="Mức hoạt động" Grid.Row="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                <ComboBox x:Name="muchoatdongComboBox"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="12" SelectionChanged="muchoatdongComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Ít vận động" Tag="1.2"/>
+                    <ComboBoxItem Content="Vận động nhẹ" Tag="1.375"/>
+                    <ComboBoxItem Content="Vận động vừa phải" Tag="1.55"/>
+                    <ComboBoxItem Content="Vận động cao" Tag="1.725"/>
+                    <ComboBoxItem Content="Vận động vô cùng cao" Tag="1.9"/>
+                </ComboBox>
+
+                <TextBlock Text="Chỉ số BMI:" Grid.Row="3" FontSize="16" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" PointerPressed="TextBlock_PointerPressed"/>
+                <TextBlock x:Name="chisobmiTextBlock" TextWrapping="Wrap" Grid.Row="3" FontSize="16" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Margin="12"/>
+
+                <TextBlock Text="Cân nặng lý tưởng:" Grid.Row="4" FontSize="16" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="cannanglytuongTextBlock" TextWrapping="Wrap" FontSize="16" Grid.Row="4" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Margin="12"/>
+
+                <TextBlock Text="Chỉ số BMR:" Grid.Row="5" FontSize="16" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="bmrTextBlock" TextWrapping="Wrap" FontSize="16" Grid.Row="5" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Margin="12"/>
+                
+                <TextBlock x:Name="loikhuyenTextBlock" Margin="12" FontSize="16" TextWrapping="Wrap" Grid.Row="6" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+               
+
+                <!--<TextBlock TextWrapping="Wrap" Text="Số cân muốn giảm (kg):" Grid.Row="4" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="canmuongiamTextBox" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" FontSize="16" TextAlignment="Right" InputScope="Number" Margin="12"/>
+
+                <TextBlock TextWrapping="Wrap" Text="Trong khoảng thời gian (ngày):" Grid.Row="5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                <TextBox x:Name="songaycangiamTextBox" TextWrapping="Wrap" Grid.Row="5" Grid.Column="2"  FontSize="16" TextAlignment="Right" InputScope="Number" Margin="12"/>-->
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="GiamCan.Views.TrangChu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="baitapButton" Click="baitapButton_Click" Content="Bài tập hôm nay" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" FontSize="20" Margin="4,4,4,4"/>
+                <Button x:Name="thongtinButton" Click="thongtinButton_Click" Content="Thông tin cá nhân" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
+                <Button x:Name="thongkeButton" Click="thongkeButton_Click" Content="Thống kê" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
+                <Button x:Name="nhacnhoButton" Click="nhacnhoButton_Click" Content="Đặt nhắc nhở tập" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
+                <Button x:Name="lichtapButton" Content="Lịch tập" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
+                <Button x:Name="chedoanButton" Click="chedoanButton_Click" Content="Chế độ ăn" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
+                <Button x:Name="muctieumoiButton" Click="muctieumoiButton_Click" Content="Mục tiêu mới" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
+
+            </Grid>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

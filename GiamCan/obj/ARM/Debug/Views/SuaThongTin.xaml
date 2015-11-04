@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="GiamCan.Views.SuaThongTin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="huyButton"                         Label="Hủy" Icon="Cancel" />
+            <AppBarButton x:ConnectionId='2' x:Name="xongButton"                          Label="Xong" Icon="Accept" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top">
+                <TextBlock Text="Tên đăng nhập" TextWrapping="Wrap"  Margin="0,20,0,4" FontSize="20"/>
+                <TextBox x:ConnectionId='3' x:Name="tendangnhapTextBox" Text="{Binding TenDangNhap}" IsEnabled="False" FontSize="20" HorizontalAlignment="Stretch" AcceptsReturn="True"/>
+                <!--<TextBlock Text="Mật khẩu" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                <!--<TextBox x:Name="matkhauTextBox" Header="Mật khẩu" FontSize="20" Margin="0,12,0,0" Text="" HorizontalAlignment="Stretch"/>-->
+                <!--<TextBlock Text="Ngày sinh" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
+                <DatePicker x:ConnectionId='4' x:Name="ngaysinhDatePicker" Header="Ngày sinh" Margin="0,12,0,0" FontSize="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <TextBlock Text="Giới tính" TextWrapping="Wrap"  Margin="0,12,0,0" FontSize="20"/>
+                <StackPanel x:ConnectionId='5' x:Name="gioitinhPanel" Orientation="Horizontal" >
+                    <RadioButton GroupName="gioiTinh" Content="Nam" Margin="20,0,0,0" />
+                    <RadioButton GroupName="gioiTinh" Content="Nữ" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+</Page>
+

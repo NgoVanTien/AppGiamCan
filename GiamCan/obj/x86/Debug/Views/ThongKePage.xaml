@@ -1,0 +1,201 @@
+﻿<Page
+    x:Class="GiamCan.Views.ThongKePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:valueconverter="using:GiamCan.Converters"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    >
+    <Page.Resources>
+        <valueconverter:StringToDateTimeConverter x:Key="StringToDateTimeConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+
+        <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
+            <StackPanel>
+                <StackPanel HorizontalAlignment="Center" BorderBrush="Beige" BorderThickness="1">
+                    <StackPanel>
+                        <Grid>
+                            <Button x:ConnectionId='3' Content="-" BorderBrush="{x:Null}" HorizontalAlignment="Left"                      />
+                            <TextBlock x:ConnectionId='4' Name="CalendarHeader" Text="August 2014" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraLight" FontSize="20"/>
+                            <Button x:ConnectionId='5' Content="+" BorderBrush="{x:Null}" HorizontalAlignment="Right"                  />
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="CN" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="T2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="T3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="T4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="T5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="T6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Width="40" Height="40" Background="#FF363636">
+                            <TextBlock Text="T7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel x:ConnectionId='1' Name="Calendar" Margin="0, 0, 0, 5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="1">
+                            <Grid x:ConnectionId='2' Width="40" Height="30" BorderBrush="White"                                                                            >
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="2">
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
+

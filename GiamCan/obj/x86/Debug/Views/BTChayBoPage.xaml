@@ -1,0 +1,39 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GiamCan.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
+    x:Class="GiamCan.Views.BTChayBoPage"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="tiepButton"                          Icon="Forward" Label="Tiếp"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <ScrollViewer  Grid.Row="1">
+            <StackPanel>
+                <!--MapServiceToken="HCCgJt9uRe8zBNLL7NEC~xQKSPpesCRA54NJA3M5zTQ~AhDT4YL4g9B1R6xVUa3BeZQ6i1i6sCVkjnkzhqeRc3yQsQzToPry-onoXHbhRzpb"-->
+                <Maps:MapControl x:ConnectionId='2' x:Name="myMap" VerticalAlignment="Stretch" Height="300"/>
+                <Button x:ConnectionId='3' x:Name="startButton"                           Content="Bắt đầu chạy" FontSize="16" HorizontalAlignment="Center" Margin="0,20,0,0" />
+                <StackPanel Orientation="Horizontal" Margin="20,4">
+                    <TextBlock Text="Khoảng cách:" FontSize="16" Margin="4"/>
+                    <TextBlock x:ConnectionId='5' x:Name="khoangcachTextBlock" Text="{Binding Distance}" FontSize="16" Margin="8,4,4,4"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Margin="20,4">
+                    <TextBlock Text="Thời gian ước tính" FontSize="16" Margin="4"/>
+                    <TextBlock x:ConnectionId='4' x:Name="thoigianTextBlock" Text="{Binding Duration}" FontSize="16" Margin="8,4,4,4"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
+
