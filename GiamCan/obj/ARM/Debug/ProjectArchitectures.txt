@@ -1,1 +1,0 @@
-C:\Users\dracu\documents\visual studio 2015\Projects\GiamCan\GiamCan\GiamCan.csproj;arm
