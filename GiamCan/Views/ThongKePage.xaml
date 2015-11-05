@@ -30,168 +30,190 @@
                             <Button Content="+" BorderBrush="{x:Null}" HorizontalAlignment="Right" Click="nextMonth"/>
                         </Grid>
                     </StackPanel>
+                    <!-- T2 T3 T4 ... -->
                     <StackPanel Orientation="Horizontal">
-                        <Grid Width="40" Height="40" Background="#FF363636">
-                            <TextBlock Text="CN" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Grid Width="40" Height="30" Background="#FF363636">
+                            <TextBlock Text="CN" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
-                        <Grid Width="40" Height="40" Background="#FF363636">
+                        <Grid Width="40" Height="30" Background="#FF363636">
                             <TextBlock Text="T2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="40" Background="#FF363636">
+                        <Grid Width="40" Height="30" Background="#FF363636">
                             <TextBlock Text="T3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="40" Background="#FF363636">
+                        <Grid Width="40" Height="30" Background="#FF363636">
                             <TextBlock Text="T4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="40" Background="#FF363636">
+                        <Grid Width="40" Height="30" Background="#FF363636">
                             <TextBlock Text="T5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="40" Background="#FF363636">
+                        <Grid Width="40" Height="30" Background="#FF363636">
                             <TextBlock Text="T6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="40" Background="#FF363636">
+                        <Grid Width="40" Height="30" Background="#FF363636">
                             <TextBlock Text="T7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </StackPanel>
+                    <!-- Calendar -->
                     <StackPanel Name="Calendar" Margin="0, 0, 0, 5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="1">
-                            <Grid Width="40" Height="30" BorderBrush="White" PointerPressed="Grid_PointerPressed" PointerReleased="Grid_PointerReleased">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="2">
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <Grid Width="40" Height="30">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+                <Line Fill="Black" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="-10,10,-10,0" X2="1" />
+                <StackPanel Margin="10,20,0,0" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Tổng lượng Kalo tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                        <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Tổng lượng Kalo đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                        <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                        <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

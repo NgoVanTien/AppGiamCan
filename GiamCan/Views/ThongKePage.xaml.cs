@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -31,7 +32,9 @@ namespace GiamCan.Views
         SQLite.Net.SQLiteConnection connection;
         DateTime calendarDate;
         public List<ThongKeNgay> ThongKeNgayList { get; set; }
+        public List<ThongKeNgay> ThongKeNgayKhacList { get; set; }
         private List<ThongKeBaiTap> thongkeBaiTapList;
+        MucTieu muctieu;
 
         public event PropertyChangedEventHandler PropertyChanged;
         SolidColorBrush myBrush;
@@ -65,15 +68,18 @@ namespace GiamCan.Views
         {
 
             // lay muctieu hien tai
-            MucTieu muctieu = e.Parameter as MucTieu;
+            muctieu = e.Parameter as MucTieu;
             // tu muc tieu lay danh sach thongkengay
             ThongKeNgayList = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu).ToList<ThongKeNgay>();
+            // lay danh sach thongkengay tu cac muc tieu KHAC -> de nguoidung xem lai
+            ThongKeNgayKhacList = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu != muctieu.IdMucTieu).ToList<ThongKeNgay>();
             Initialize_Calendar(calendarDate);
         }
 
         void Initialize_Calendar(DateTime date)
         {
             CalendarHeader.Text = date.ToString("MMMM yyyy");
+            CalendarHeader.Tag = date.ToString("MM/yyyy");
             DateTime date1 = new DateTime(date.Year, date.Month, 1);
             int dayOfWeek = (int)date1.DayOfWeek + 1;
             int daysOfMonth = DateTime.DaysInMonth(date1.Year, date1.Month);
@@ -87,34 +93,49 @@ namespace GiamCan.Views
                     if (i >= dayOfWeek && i < (daysOfMonth + dayOfWeek))
                     {
                         o3.Text = (i - dayOfWeek + 1).ToString();
-                        // border ngay hien tai
-                        myBrush = new SolidColorBrush(Colors.Black);
-                        if (i == date.Day && DateTime.Today.Month == date.Month)
-                        {
-                            (o2 as Grid).Background = new SolidColorBrush(Colors.LightGray);
-                        }
-                        else
-                        {
-                            (o2 as Grid).Background = new SolidColorBrush();
-                        }
-                        foreach (var tkNgay in ThongKeNgayList)
-                        {
-                            DateTime date2 = DateTime.Parse(tkNgay.Ngay);
-                            if(i == date2.Day && date2.Month == date.Month)
-                            {
-                                (o2 as Grid).BorderBrush = new SolidColorBrush(Colors.OrangeRed);
-                                (o2 as Grid).BorderThickness = new Thickness(0, 0, 0, 1);
-                            }
-                            
-                        }
                     }
                     else
                     {
                         o3.Text = "";
-                        (o2 as Grid).BorderThickness = new Thickness();
-                        (o2 as Grid).Background = new SolidColorBrush();
+                        
                     }
+                    (o2 as Grid).BorderThickness = new Thickness();
+                    (o2 as Grid).Background = new SolidColorBrush();
                     i++;
+                }
+            }
+            myBrush = new SolidColorBrush(Colors.Black);
+            foreach (var o1 in Calendar.Children)
+            {
+                foreach (var o2 in (o1 as StackPanel).Children)
+                {
+                    var o3 = (o2 as Grid).Children[0] as TextBlock;
+                    if (Int32.TryParse(o3.Text, out i) == false) return;
+                    // hight light ngay hien tai
+                    if (i == date.Day && DateTime.Today.Month == date.Month)
+                    {
+                        (o2 as Grid).Background = new SolidColorBrush(Colors.LightGray);
+                    }
+                    foreach (var tkn in ThongKeNgayKhacList)
+                    {
+                        DateTime date2 = DateTime.Parse(tkn.Ngay);
+                        if (i == date2.Day && date2.Month == date.Month)
+                        {
+                            (o2 as Grid).BorderBrush = new SolidColorBrush(Colors.Yellow);
+                            (o2 as Grid).BorderThickness = new Thickness(0, 0, 0, 2);
+                            break;
+                        }
+                    }
+                    foreach (var tkn in ThongKeNgayList)
+                    {
+                        DateTime date2 = DateTime.Parse(tkn.Ngay);
+                        if (i == date2.Day && date2.Month == date.Month)
+                        {
+                            (o2 as Grid).BorderBrush = new SolidColorBrush(Colors.OrangeRed);
+                            (o2 as Grid).BorderThickness = new Thickness(0, 0, 0, 2);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -138,18 +159,32 @@ namespace GiamCan.Views
             Initialize_Calendar(calendarDate);
         }
 
-        
-
-        private void Grid_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            myBrush = new SolidColorBrush(Colors.CadetBlue);
-            (sender as Grid).Background = myBrush;
-        }
-
-        private void Grid_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            myBrush = new SolidColorBrush(Colors.White);
-            (sender as Grid).Background = myBrush;
+            Initialize_Calendar(calendarDate);
+            (sender as Grid).Background = new SolidColorBrush(Colors.LightSeaGreen);
+            TextBlock textblock = (sender as Grid).Children[0] as TextBlock;
+            if (textblock.Text == null || textblock.Text == "") return;
+            string date = Int32.Parse(textblock.Text).ToString("00") + "/" + CalendarHeader.Tag.ToString(); /* dd/MM/yyyy */
+            //DateTime date = DateTime.ParseExact(str, "dd/MM/yyyy", new CultureInfo("vi-vn"));
+            ThongKeNgay tkn = connection.Table<ThongKeNgay>().Where(r => r.Ngay == date).FirstOrDefault();
+            if (tkn != null)
+            {
+                kaloduavaoTextBlock.Text = tkn.LuongKaloDuaVao.ToString();
+                kalotieuhaoTextBlock.Text = tkn.LuongKaloTieuHao.ToString();
+                int soluongbaitap = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM ThongKeBaiTap WHERE IdThongKeNgay =?", tkn.IdThongKeNgay);
+                soluongbtTextBlock.Text = soluongbaitap.ToString();
+                int tongthoigiantap = connection.ExecuteScalar<int>("SELECT SUM(ThoiGianTap) FROM THONGKEBAITAP WHERE IdThongKeNgay =?", tkn.IdThongKeNgay);
+                thoigiantapTextBlock.Text = tongthoigiantap.ToString();
+            }
+            else
+            {
+                kaloduavaoTextBlock.Text = "0";
+                kalotieuhaoTextBlock.Text = "0";
+                soluongbtTextBlock.Text = "0";
+                thoigiantapTextBlock.Text = "0";
+            }
+            
         }
     }
 }
