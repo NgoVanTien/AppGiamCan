@@ -23,6 +23,8 @@ namespace GiamCan.Model
         public double ChieuCaoBanDau { get; set; }
         public double CanNangBanDau { get; set; }
         public int SoCanMuonGiam { get; set; }
+        // trạng thái .. hoàn thành or hủy or chưa bắt đầu or đã bắt đầu
+        public string TrangThai { get; set; }
         public double MucHoanThanh { get; set; }
         [ManyToOne]
         public NguoiDung NguoiDung { get; set; }

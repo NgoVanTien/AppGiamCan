@@ -67,7 +67,7 @@ namespace GiamCan.Views
             // lay muctieu hien tai
             MucTieu muctieu = e.Parameter as MucTieu;
             // tu muc tieu lay danh sach thongkengay
-            ThongKeNgayList = connection.Query<ThongKeNgay>("SELECT * FROM ThongKeNgay WHERE IdMucTieu=?", muctieu.IdMucTieu);
+            ThongKeNgayList = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu).ToList<ThongKeNgay>();
             Initialize_Calendar(calendarDate);
         }
 
@@ -91,12 +91,11 @@ namespace GiamCan.Views
                         myBrush = new SolidColorBrush(Colors.Black);
                         if (i == date.Day && DateTime.Today.Month == date.Month)
                         {
-                            (o2 as Grid).BorderBrush = myBrush;   
-                            (o2 as Grid).BorderThickness = new Thickness(1);
+                            (o2 as Grid).Background = new SolidColorBrush(Colors.LightGray);
                         }
                         else
                         {
-                            (o2 as Grid).BorderThickness = new Thickness();
+                            (o2 as Grid).Background = new SolidColorBrush();
                         }
                         foreach (var tkNgay in ThongKeNgayList)
                         {

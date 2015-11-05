@@ -50,6 +50,7 @@ namespace GiamCan.Views
             {
                 muctieu.SoCanMuonGiam = socanmuongiam;
                 muctieu.SoNgay = thoigian;
+                muctieu.TrangThai = "Chưa bắt đầu";
                 connection.Insert(muctieu);
                 MessageDialog msDialog = new MessageDialog("Tạo mục tiêu thành công");
                 await msDialog.ShowAsync();

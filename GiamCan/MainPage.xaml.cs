@@ -51,18 +51,8 @@ namespace GiamCan
             NguoiDung nguoidung = connection.Query<NguoiDung>("SELECT * FROM NGUOIDUNG WHERE tenDangNhap=?", tendangnhapTextBox.Text).FirstOrDefault();
             if (nguoidung != null && nguoidung.TenDangNhap == tendangnhapTextBox.Text && nguoidung.MatKhau == matkhauTextBox.Text)
             {
-                // kiem tra da co muc tieu chua, neu chua co thi chuyen den trang taomuctieu moi
-                MucTieu muctieu = connection.Query<MucTieu>("SELECT * FROM MUCTIEU WHERE TenDangNhap =? and MucHoanThanh=0", nguoidung.TenDangNhap).FirstOrDefault();
-                if (muctieu == null)
-                {
-                    MessageDialog msDialog = new MessageDialog("Bạn chưa chọn mục tiêu nào!");
-                    await msDialog.ShowAsync();
-                    Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung);
-                }
-                else
-                {
-                    Frame.Navigate(typeof(TrangChu), nguoidung);
-                }
+                // chuyen den TrangChu
+                Frame.Navigate(typeof(TrangChu), nguoidung);
             }
             else
             {
