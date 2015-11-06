@@ -76,6 +76,7 @@ namespace GiamCan.Views
                     muctieuhientai.ThoiGianBatDau = today;
                     muctieuhientai.TrangThai = "Đã bắt đầu";
                     conn.Update(muctieuhientai);
+                    Frame.Navigate(typeof(DanhSachBaiTap));
                 }
 
             }

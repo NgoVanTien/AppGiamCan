@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,9 +28,13 @@ namespace GiamCan.Views
     public sealed partial class TaoMoiMucTieu2 : Page
     {
         MucTieu muctieu;
+        ChiSo chiso;
         int socanmuongiam, thoigian;
         string path;
         SQLite.Net.SQLiteConnection connection;
+
+        public double SoCanGiamDeNghi { get; set; }
+        public int SoNgayGiamDeNghi { get; set; }
         public TaoMoiMucTieu2()
         {
             this.InitializeComponent();
@@ -40,7 +45,24 @@ namespace GiamCan.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             muctieu = (MucTieu)e.Parameter;
+            NguoiDung nguoidung = connection.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
+            int tuoi = DateTime.Today.Year - DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn")).Year;
+            chiso = new ChiSo(muctieu.CanNangBanDau, muctieu.ChieuCaoBanDau, nguoidung.GioiTinh, tuoi);
 
+            // so ngay giam de nghi cho mac dinh = 30;
+            SoCanGiamDeNghi = chiso.tinhSoCanGiamDeNghi(); // cannang - cannanglytuong
+
+            // muc 1
+            SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(SoCanGiamDeNghi / 0.05));
+            muc1Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", SoCanGiamDeNghi, SoNgayGiamDeNghi);
+            // muc 2 
+            SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(SoCanGiamDeNghi / 0.1));
+            muc2Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", SoCanGiamDeNghi, SoNgayGiamDeNghi);
+            // muc3
+            SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(SoCanGiamDeNghi / 0.15));
+             muc3Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", SoCanGiamDeNghi, SoNgayGiamDeNghi);
+
+            
         }
 
         private async void themmuctieuButton_Click(object sender, RoutedEventArgs e)

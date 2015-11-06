@@ -22,26 +22,37 @@
         <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock TextWrapping="Wrap" Text="Mục tiêu đề nghị" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}" />
-                <Button Content="Giảm 5kg trong vòng 2 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Button Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <TextBlock TextWrapping="Wrap" Text="Mục tiêu tùy chọn" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock TextWrapping="Wrap" Text="Số cân muốn giảm" FontSize="16" Margin="0,8,0,0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="canmuongiamTextBox" Margin="0,12,0,0" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap"  VerticalAlignment="Center"/>
-                    <TextBlock TextWrapping="Wrap" Text="Thời gian" Grid.Row="1" FontSize="16" Margin="0,8,0,0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="thoigiangiamTextBox"  Margin="0,12,0,0" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" TextWrapping="Wrap"  VerticalAlignment="Center"/>
-
-                </Grid>
+                <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0">
+                    <TextBlock Text="Lời nhắc:" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="Giảm cân nên ở mức 0,25 - 1kg mỗi tuần. Nếu giảm cân quá nhanh bạn sẽ đối diện với nguy cơ tăng cân lên cũng nhanh." FontSize="12" TextWrapping="Wrap" Margin="4,0,0,0"/>
+                    <TextBlock Text="Bạn không nên giảm lượng Kalo xuống dưới mức 1000-1200. Trạng thái đói có thể được kích hoạt làm tốc độ giảm cần giảm đi." FontSize="12" TextWrapping="Wrap" Margin="4,0,0,0"/>
+                </StackPanel>
+                <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
+                    <TextBlock TextWrapping="Wrap" Text="Mục tiêu đề nghị" FontSize="16" FontWeight="SemiBold"  />
+                    <Button x:Name="muc1Button" Content="Giảm 5kg trong vòng 2 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="muc2Button" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="muc3Button" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </StackPanel>
+                <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
+                    <TextBlock TextWrapping="Wrap" Text="Chọn mục tiêu cho riêng bạn" FontSize="16" FontWeight="SemiBold"  />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock TextWrapping="Wrap" Text="Số cân muốn giảm (kg):" FontSize="16" Margin="0,8,0,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="canmuongiamTextBox" InputScope="Number" Margin="0,12,0,0" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap"  VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="Thời gian (ngày):" Grid.Row="1" FontSize="16" Margin="0,8,0,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="thoigiangiamTextBox" InputScope="Number"  Margin="0,12,0,0" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" TextWrapping="Wrap"  VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+                
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -39,6 +39,13 @@ namespace GiamCan.Views
             muctieu = new MucTieu();
             if(await checkNumberTextBox() == true)
             {
+                // nếu cân cặng thấp hơn cân nặng lý tưởng ==> không thuộc đối tượng giảm cân => không cho tạo mục tiêu
+                if(idealweight >= weight)
+                {
+                    MessageDialog msDialog = new MessageDialog("Bạn không nên giảm cân!");
+                    await msDialog.ShowAsync();
+                    return;
+                }
                 muctieu.TenDangNhap = nguoidung.TenDangNhap;
                 muctieu.CanNangBanDau = weight;
                 muctieu.ChieuCaoBanDau = height;
@@ -188,13 +195,24 @@ namespace GiamCan.Views
             if (GioiTinh == "Nam")
             {
                 bmr = 13.397 * Weight + 4.799 * Height - 5.677 * Tuoi + 88.362;
-                return bmr;
             }
             else
             {
                 bmr = 9.247 * Weight + 3.098 * Height - 4.330 * Tuoi + 447.593;
-                return bmr;
             }
+            return bmr;
+        }
+
+        public double tinhSoCanGiamDeNghi()
+        {
+            return Math.Round(Weight - tinhCanNangLyTuong());
+        }
+        
+        public int tinhSoNgayGiamDeNghi()
+        {
+            int songay = Convert.ToInt32(Math.Round(tinhSoCanGiamDeNghi() / 0.1));
+            return songay;
+
         }
     }
 }

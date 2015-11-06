@@ -163,6 +163,7 @@ namespace GiamCan.Views
         {
             Initialize_Calendar(calendarDate);
             (sender as Grid).Background = new SolidColorBrush(Colors.LightSeaGreen);
+            //(sender as Grid).CornerRadius = new CornerRadius(16);
             TextBlock textblock = (sender as Grid).Children[0] as TextBlock;
             if (textblock.Text == null || textblock.Text == "") return;
             string date = Int32.Parse(textblock.Text).ToString("00") + "/" + CalendarHeader.Tag.ToString(); /* dd/MM/yyyy */
