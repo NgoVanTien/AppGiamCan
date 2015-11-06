@@ -29,9 +29,9 @@
                 </StackPanel>
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
                     <TextBlock TextWrapping="Wrap" Text="Mục tiêu đề nghị" FontSize="16" FontWeight="SemiBold"  />
-                    <Button x:Name="muc1Button" Content="Giảm 5kg trong vòng 2 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Button x:Name="muc2Button" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Button x:Name="muc3Button" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="muc1Button" Click="mucButton_Click" Content="Giảm 5kg trong vòng 2 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="muc2Button" Click="mucButton_Click" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="muc3Button" Click="mucButton_Click" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </StackPanel>
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
                     <TextBlock TextWrapping="Wrap" Text="Chọn mục tiêu cho riêng bạn" FontSize="16" FontWeight="SemiBold"  />

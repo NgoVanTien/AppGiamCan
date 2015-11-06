@@ -33,8 +33,7 @@ namespace GiamCan.Views
         string path;
         SQLite.Net.SQLiteConnection connection;
 
-        public double SoCanGiamDeNghi { get; set; }
-        public int SoNgayGiamDeNghi { get; set; }
+        DeNghi denghi;
         public TaoMoiMucTieu2()
         {
             this.InitializeComponent();
@@ -48,19 +47,29 @@ namespace GiamCan.Views
             NguoiDung nguoidung = connection.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
             int tuoi = DateTime.Today.Year - DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn")).Year;
             chiso = new ChiSo(muctieu.CanNangBanDau, muctieu.ChieuCaoBanDau, nguoidung.GioiTinh, tuoi);
-
             // so ngay giam de nghi cho mac dinh = 30;
-            SoCanGiamDeNghi = chiso.tinhSoCanGiamDeNghi(); // cannang - cannanglytuong
+            int socangiamdenghi = chiso.tinhSoCanGiamDeNghi(); // cannang - cannanglytuong
 
             // muc 1
-            SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(SoCanGiamDeNghi / 0.05));
-            muc1Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", SoCanGiamDeNghi, SoNgayGiamDeNghi);
+            denghi = new DeNghi();
+            denghi.SoCanGiamDeNghi = socangiamdenghi;
+            denghi.SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(denghi.SoCanGiamDeNghi / 0.05));
+            muc1Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", denghi.SoCanGiamDeNghi, denghi.SoNgayGiamDeNghi);
+            muc1Button.Tag = denghi;
+
             // muc 2 
-            SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(SoCanGiamDeNghi / 0.1));
-            muc2Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", SoCanGiamDeNghi, SoNgayGiamDeNghi);
+            denghi = new DeNghi();
+            denghi.SoCanGiamDeNghi = socangiamdenghi;
+            denghi.SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(denghi.SoCanGiamDeNghi / 0.1));
+            muc2Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", denghi.SoCanGiamDeNghi, denghi.SoNgayGiamDeNghi);
+            muc2Button.Tag = denghi;
+
             // muc3
-            SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(SoCanGiamDeNghi / 0.15));
-             muc3Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", SoCanGiamDeNghi, SoNgayGiamDeNghi);
+            denghi = new DeNghi();
+            denghi.SoCanGiamDeNghi = socangiamdenghi;
+            denghi.SoNgayGiamDeNghi = Convert.ToInt32(Math.Round(denghi.SoCanGiamDeNghi / 0.15));
+             muc3Button.Content = string.Format("Giảm {0} kg trong vòng {1} ngày", denghi.SoCanGiamDeNghi, denghi.SoNgayGiamDeNghi);
+            muc3Button.Tag = denghi;
 
             
         }
@@ -91,6 +100,13 @@ namespace GiamCan.Views
             //Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
         }
 
+        private void mucButton_Click(object sender, RoutedEventArgs e)
+        {
+            denghi = (sender as Button).Tag as DeNghi;
+            canmuongiamTextBox.Text = denghi.SoCanGiamDeNghi.ToString();
+            thoigiangiamTextBox.Text = denghi.SoNgayGiamDeNghi.ToString();
+        }
+
         private async Task<bool> checkNumberTextBox()
         {
             MessageDialog msDialog;
@@ -114,5 +130,10 @@ namespace GiamCan.Views
             return false;
         }
       
+    }
+    class DeNghi
+    {
+        public int SoNgayGiamDeNghi { get; set; }
+        public int SoCanGiamDeNghi { get; set; }
     }
 }

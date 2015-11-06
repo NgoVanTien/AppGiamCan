@@ -203,9 +203,9 @@ namespace GiamCan.Views
             return bmr;
         }
 
-        public double tinhSoCanGiamDeNghi()
+        public int tinhSoCanGiamDeNghi()
         {
-            return Math.Round(Weight - tinhCanNangLyTuong());
+            return Convert.ToInt32(Math.Round(Weight - tinhCanNangLyTuong()));
         }
         
         public int tinhSoNgayGiamDeNghi()
