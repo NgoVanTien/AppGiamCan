@@ -26,6 +26,7 @@ namespace GiamCan.Views
 
         string path;
         SQLite.Net.SQLiteConnection connection;
+        MucTieu muctieuhientai;
         public DanhSachBaiTap()
         {
             this.InitializeComponent();
@@ -35,6 +36,13 @@ namespace GiamCan.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            muctieuhientai = e.Parameter as MucTieu;
+            if(muctieuhientai.ThoiGianBatDau==null || muctieuhientai.TrangThai=="Chưa bắt đầu")
+            {
+                muctieuhientai.TrangThai = "Đã bắt đầu";
+                muctieuhientai.ThoiGianBatDau = DateTime.Today.ToString("dd/MM/yyyy");
+                connection.Update(muctieuhientai);
+            }
             IEnumerable<BaiTap> baitapCollection = connection.Table<BaiTap>();
             this.DataContext = baitapCollection;
         }

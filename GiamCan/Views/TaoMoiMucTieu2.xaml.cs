@@ -82,6 +82,8 @@ namespace GiamCan.Views
                 muctieu.SoCanMuonGiam = socanmuongiam;
                 muctieu.SoNgay = thoigian;
                 muctieu.TrangThai = "Chưa bắt đầu";
+                // 1kg = 7700;
+                muctieu.LuongKaloCanTieuHaoMoiNgay = socanmuongiam * 7700.0 / thoigian ;
                 connection.Insert(muctieu);
                 MessageDialog msDialog = new MessageDialog("Tạo mục tiêu thành công");
                 await msDialog.ShowAsync();

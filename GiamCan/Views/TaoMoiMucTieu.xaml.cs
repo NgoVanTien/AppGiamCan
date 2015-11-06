@@ -49,6 +49,7 @@ namespace GiamCan.Views
                 muctieu.TenDangNhap = nguoidung.TenDangNhap;
                 muctieu.CanNangBanDau = weight;
                 muctieu.ChieuCaoBanDau = height;
+                muctieu.ChiSoBMR = bmr;
                 Frame.Navigate(typeof(TaoMoiMucTieu2), muctieu);
             }
            

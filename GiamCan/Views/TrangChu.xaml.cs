@@ -1,9 +1,11 @@
 ﻿using GiamCan.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,13 +25,42 @@ namespace GiamCan.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TrangChu : Page
+    public sealed partial class TrangChu : Page, INotifyPropertyChanged
     {
         string path;
         SQLite.Net.SQLiteConnection conn;
         NguoiDung nguoidung;
         MucTieu muctieuhientai;
         ThongKeNgay thongkengay;
+        private double _kalocangiammoingay;
+        public double KaloCanGiamMoiNgay
+        {
+            get { return _kalocangiammoingay; }
+            set
+            {
+                if (value != _kalocangiammoingay)
+                {
+                    _kalocangiammoingay = value;
+                    NotifyPropertyChanged();
+                }
+
+            }
+        }
+        private double _kalodagiam;
+
+        public double KaloDaGiam
+        {
+            get { return _kalodagiam; }
+            set {
+                if (value!= _kalodagiam)
+                {
+                    _kalodagiam = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
         public TrangChu()
         {
             this.InitializeComponent();
@@ -59,6 +90,7 @@ namespace GiamCan.Views
             }
 
             string today = DateTime.Today.ToString("dd/MM/yyyy");
+
             // neu nguoi dung chua bat dau muc tieu hien tai
             if (muctieuhientai.ThoiGianBatDau == null || muctieuhientai.TrangThai == "Chưa bắt đầu")
             {
@@ -76,7 +108,7 @@ namespace GiamCan.Views
                     muctieuhientai.ThoiGianBatDau = today;
                     muctieuhientai.TrangThai = "Đã bắt đầu";
                     conn.Update(muctieuhientai);
-                    Frame.Navigate(typeof(DanhSachBaiTap));
+                    Frame.Navigate(typeof(DanhSachBaiTap), muctieuhientai);
                 }
 
             }
@@ -114,8 +146,16 @@ namespace GiamCan.Views
                     thongkengay = new ThongKeNgay();
                     thongkengay.IdMucTieu = muctieuhientai.IdMucTieu;
                     thongkengay.Ngay = today;
+                    // mặc định = chỉ số bmr
+                    thongkengay.LuongKaloDuaVao = muctieuhientai.ChiSoBMR;
                     conn.Insert(thongkengay);
                 }
+                KaloCanGiamMoiNgay = muctieuhientai.LuongKaloCanTieuHaoMoiNgay;
+                KaloDaGiam = thongkengay.LuongKaloTieuHao;
+                kalocangiamTextBlock.Text = string.Format("Bạn cần giảm {0} kalo ngày hôm nay", KaloCanGiamMoiNgay - KaloDaGiam);
+                progressbarHeaderTextBlock.Text = string.Format("Đã giảm {0} trên tổng {1} kalo hôm nay", KaloDaGiam, KaloCanGiamMoiNgay);
+                progressbar.Value = KaloDaGiam;
+                progressbar.Maximum = KaloCanGiamMoiNgay;
             }
 
         }
@@ -137,7 +177,7 @@ namespace GiamCan.Views
 
         private void baitapButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DanhSachBaiTap));
+            Frame.Navigate(typeof(DanhSachBaiTap), muctieuhientai);
         }
 
         private void thongkeButton_Click(object sender, RoutedEventArgs e)
@@ -172,6 +212,19 @@ namespace GiamCan.Views
                 }
             }
             Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung);
+        }
+
+        private void dangxuatButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
