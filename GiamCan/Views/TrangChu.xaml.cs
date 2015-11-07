@@ -33,7 +33,7 @@ namespace GiamCan.Views
         MucTieu muctieuhientai;
         ThongKeNgay thongkengay;
         private double _kalocangiammoingay;
-        public double KaloCanGiamMoiNgay
+        public double KaloCanGiamHomNay
         {
             get { return _kalocangiammoingay; }
             set
@@ -78,6 +78,9 @@ namespace GiamCan.Views
             // neu muctieuhientai == null ---> tuc nguoidung chua co muc tieu nao hien tai
             if (muctieuhientai == null)
             {
+                // an header dau tien
+                kalogiamStackPanel.Visibility = Visibility.Collapsed;
+
                 MessageDialog msDialog = new MessageDialog("Bạn chưa bắt đầu một mục tiêu nào!");
                 msDialog.Commands.Add(new UICommand("Bắt đầu ngay"));
                 msDialog.Commands.Add(new UICommand("Để sau"));
@@ -150,12 +153,13 @@ namespace GiamCan.Views
                     thongkengay.LuongKaloDuaVao = muctieuhientai.ChiSoBMR;
                     conn.Insert(thongkengay);
                 }
-                KaloCanGiamMoiNgay = muctieuhientai.LuongKaloCanTieuHaoMoiNgay;
+                // LuongKaloCanGiamHomNay = KaloCanTieuHaoMoiNgay (để giảm cân) - LuongKaloTieuHao (chohoatdongbaitap) - chisobmr (luongkalo chohoatdonghangngay) + tongluongkaloduavao
+                KaloCanGiamHomNay = muctieuhientai.LuongKaloCanTieuHaoMoiNgay - thongkengay.LuongKaloTieuHao - muctieuhientai.ChiSoBMR + thongkengay.LuongKaloDuaVao + thongkengay.LuongKaloNgoaiDuKien;
                 KaloDaGiam = thongkengay.LuongKaloTieuHao;
-                kalocangiamTextBlock.Text = string.Format("Bạn cần giảm {0} kalo ngày hôm nay", KaloCanGiamMoiNgay - KaloDaGiam);
-                progressbarHeaderTextBlock.Text = string.Format("Đã giảm {0} trên tổng {1} kalo hôm nay", KaloDaGiam, KaloCanGiamMoiNgay);
+                kalocangiamTextBlock.Text = string.Format("Bạn cần giảm {0} kalo ngày hôm nay", KaloCanGiamHomNay - KaloDaGiam);
+                progressbarHeaderTextBlock.Text = string.Format("Đã giảm {0} trên tổng {1} kalo hôm nay", KaloDaGiam, KaloCanGiamHomNay);
                 progressbar.Value = KaloDaGiam;
-                progressbar.Maximum = KaloCanGiamMoiNgay;
+                progressbar.Maximum = KaloCanGiamHomNay;
             }
 
         }
