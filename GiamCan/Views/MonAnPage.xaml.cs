@@ -86,6 +86,9 @@ namespace GiamCan.Views
             {
                 conn.Insert(item);
             }
+
+            tkngay.LuongKaloDuaVao = conn.ExecuteScalar<double>("SELECT SUM(LuongKalo) FROM THUCDON WHERE IdThongKeNgay =?", tkngay.IdThongKeNgay);
+            conn.Update(tkngay);
             // lay thong tin nguoidung de chuyen ve trang chu
             MucTieu muctieu = conn.Table<MucTieu>().Where(r => r.IdMucTieu == tkngay.IdMucTieu).FirstOrDefault();
             NguoiDung nguoidung = conn.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
@@ -245,18 +248,6 @@ namespace GiamCan.Views
                 _List.AddRange(AllChildren(_Child));
             }
             return _List;
-        }
-
-
-        private void searchBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            searchBox.Text = "";
-        }
-
-        private void searchBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (searchBox.Text == "")
-                searchBox.Text = "Tìm món ăn";
         }
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
