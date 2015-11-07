@@ -97,6 +97,7 @@ namespace GiamCan.Views
             // neu nguoi dung chua bat dau muc tieu hien tai
             if (muctieuhientai.ThoiGianBatDau == null || muctieuhientai.TrangThai == "Chưa bắt đầu")
             {
+                kalogiamStackPanel.Visibility = Visibility.Collapsed;
                 MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa bắt đầu tập luyện!\n");
                 msDialog.Commands.Add(new UICommand("Ok, đến trang tập luyện"));
                 msDialog.Commands.Add(new UICommand("Để sau"));
