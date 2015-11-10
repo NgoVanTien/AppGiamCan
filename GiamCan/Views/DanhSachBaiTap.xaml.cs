@@ -46,5 +46,9 @@ namespace GiamCan.Views
            
         }
 
+        private void chayboButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChayBo_Version1));
+        }
     }
 }
