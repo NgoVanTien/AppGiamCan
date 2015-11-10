@@ -178,6 +178,7 @@ namespace GiamCan.Views
         
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            thongkengayFlipView.Visibility = Visibility.Visible;
             Initialize_Calendar(calendarDate);
 
             // change background of the grid that is tapped
@@ -189,7 +190,7 @@ namespace GiamCan.Views
             if (textblock.Text == null || textblock.Text == "") return;
 
             string date = Int32.Parse(textblock.Text).ToString("00") + "/" + CalendarHeader.Tag.ToString(); /* dd/MM/yyyy */
-            
+            ngayTextBlock.Text = date;
             //DateTime date = DateTime.ParseExact(str, "dd/MM/yyyy", new CultureInfo("vi-vn"));
             ThongKeNgay tkn = connection.Table<ThongKeNgay>().Where(r => r.Ngay == date).FirstOrDefault();
 

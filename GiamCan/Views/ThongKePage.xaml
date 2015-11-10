@@ -198,24 +198,35 @@
 
                 </StackPanel>
                 <Line Fill="Black" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="-10,10,-10,0" X2="1" />
-                <StackPanel Margin="10,20,0,0" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tổng lượng Kalo tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                        <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tổng lượng Kalo đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                        <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
-                        <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
-                        <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
-                    </StackPanel>
-                </StackPanel>
+                <FlipView x:Name="thongkengayFlipView">
+                    <FlipViewItem>
+                        <StackPanel Margin="20">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ngày " Margin="-10,0,8,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
+                                <TextBlock x:Name="ngayTextBlock" Margin="0,0,0,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Tổng lượng Kalo tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Tổng lượng Kalo đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                                <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                                <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </FlipViewItem>
+                    <FlipViewItem>
+                        
+                    </FlipViewItem>
+                </FlipView>
             </StackPanel>
         </ScrollViewer>
     </Grid>
