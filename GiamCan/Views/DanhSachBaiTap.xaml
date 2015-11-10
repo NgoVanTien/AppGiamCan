@@ -31,7 +31,7 @@
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
                 <Button x:Name="chayboButton" Click="chayboButton_Click" Content="Chạy bộ" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="dapxeButton" Content="Đạp xe" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="dapxeButton" Click="dapxeButton_Click" Content="Đạp xe" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
                 <Button x:Name="gapbungButton" Content="Gập bụng" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
                 <Button x:Name="yogaButton" Content="Yoga" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
                 <Button x:Name="nhaydayButton" Content="Nhảy dây" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>

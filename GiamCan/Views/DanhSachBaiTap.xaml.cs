@@ -50,5 +50,10 @@ namespace GiamCan.Views
         {
             Frame.Navigate(typeof(ChayBo_Version1));
         }
+
+        private void dapxeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DapXe));
+        }
     }
 }
