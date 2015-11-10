@@ -43,42 +43,8 @@ namespace GiamCan.Views
                 muctieuhientai.ThoiGianBatDau = DateTime.Today.ToString("dd/MM/yyyy");
                 connection.Update(muctieuhientai);
             }
-            IEnumerable<BaiTap> baitapCollection = connection.Table<BaiTap>();
-            this.DataContext = baitapCollection;
+           
         }
 
-        private void baitapGridView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            // xử lý cái này Item Click là gì?
-            //Frame.Navigate(typeof(BTChayBoPage));
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(BTChayBoPage));
-        }
-
-        //private void uncheckallButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var checkboxes = AllChildren(baitapGridView).OfType<CheckBox>();
-        //    foreach (var checkbox in checkboxes)
-        //    {
-        //        checkbox.IsChecked = false;   
-        //    }
-        //}
-        //private List<Control> AllChildren(DependencyObject parent)
-        //{
-        //    var _List = new List<Control>();
-        //    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-        //    {
-        //        var _Child = VisualTreeHelper.GetChild(parent, i);
-        //        if (_Child is Control)
-        //        {
-        //            _List.Add(_Child as Control);
-        //        }
-        //        _List.AddRange(AllChildren(_Child));
-        //    }
-        //    return _List;
-        //}
     }
 }

@@ -19,22 +19,25 @@
 
         <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
         <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Top">
-            <GridView x:Name="baitapGridView" ItemsSource="{Binding}"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      ItemClick="baitapGridView_ItemClick">
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <Button Click="Button_Click" Content="{Binding TenBaiTap}" Tag="{Binding IdBaiTap}" Width="120" Height="120" Margin="4"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-
-            </GridView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="chayboButton" Content="Chạy bộ" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="dapxeButton" Content="Đạp xe" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="gapbungButton" Content="Gập bụng" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="yogaButton" Content="Yoga" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="nhaydayButton" Content="Nhảy dây" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="lacvongButton" Content="Lắc vòng" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="hitdatButton" Content="Hít đất" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+            </Grid>
         </ScrollViewer>
 
     </Grid>
