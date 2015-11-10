@@ -171,7 +171,7 @@
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
                             <Grid Width="40" Height="30" Tapped="Grid_Tapped">
                                 <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>

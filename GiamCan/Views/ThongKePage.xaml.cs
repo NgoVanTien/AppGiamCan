@@ -79,8 +79,20 @@ namespace GiamCan.Views
         void Initialize_Calendar(DateTime date)
         {
             CalendarHeader.Text = date.ToString("MMMM yyyy");
+            // gan thang hien tai vao CalanderHeader.Tag de sau nay truy xuat thang hien tai
             CalendarHeader.Tag = date.ToString("MM/yyyy");
             DateTime date1 = new DateTime(date.Year, date.Month, 1);
+
+            int daysInMoth = DateTime.DaysInMonth(date1.Year, date1.Month);
+            // neu thang chua 6 tuan, thi hien hang thu 6 
+            if((date1.DayOfWeek == DayOfWeek.Friday && daysInMoth == 31) || (date1.DayOfWeek == DayOfWeek.Saturday && daysInMoth > 30))
+            {
+                (Calendar.Children[5] as StackPanel).Visibility = Visibility.Visible;
+            }
+            else
+            {
+                (Calendar.Children[5] as StackPanel).Visibility = Visibility.Collapsed;
+            }
             int dayOfWeek = (int)date1.DayOfWeek + 1;
             int daysOfMonth = DateTime.DaysInMonth(date1.Year, date1.Month);
             int i = 1;
@@ -92,6 +104,7 @@ namespace GiamCan.Views
                     var o3 = (o2 as Grid).Children[0] as TextBlock;
                     if (i >= dayOfWeek && i < (daysOfMonth + dayOfWeek))
                     {
+                        //if (i < 7 && dayOfWeek > 6) ((o2 as Grid).Children[5] as StackPanel).Visibility = Visibility.Visible;
                         o3.Text = (i - dayOfWeek + 1).ToString();
                     }
                     else
@@ -159,16 +172,27 @@ namespace GiamCan.Views
             Initialize_Calendar(calendarDate);
         }
 
+        /// <summary>
+        /// Khi người dùng tab vào một ngày, sẽ hiện ra thống kê cho ngày hôm đó
+        /// </summary>
+        
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Initialize_Calendar(calendarDate);
+
+            // change background of the grid that is tapped
             (sender as Grid).Background = new SolidColorBrush(Colors.LightSeaGreen);
-            //(sender as Grid).CornerRadius = new CornerRadius(16);
+           
             TextBlock textblock = (sender as Grid).Children[0] as TextBlock;
+            
+            // neu o trong thi bo qua
             if (textblock.Text == null || textblock.Text == "") return;
+
             string date = Int32.Parse(textblock.Text).ToString("00") + "/" + CalendarHeader.Tag.ToString(); /* dd/MM/yyyy */
+            
             //DateTime date = DateTime.ParseExact(str, "dd/MM/yyyy", new CultureInfo("vi-vn"));
             ThongKeNgay tkn = connection.Table<ThongKeNgay>().Where(r => r.Ngay == date).FirstOrDefault();
+
             if (tkn != null)
             {
                 kaloduavaoTextBlock.Text = tkn.LuongKaloDuaVao.ToString();
