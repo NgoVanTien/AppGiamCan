@@ -53,6 +53,7 @@ namespace GiamCan
             {
                 // chuyen den TrangChu
                 Frame.Navigate(typeof(TrangChu), nguoidung);
+                Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
             }
             else
             {
