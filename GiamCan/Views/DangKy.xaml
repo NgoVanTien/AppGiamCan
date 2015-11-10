@@ -23,12 +23,13 @@
             <StackPanel HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top">
                 
                 <!--<TextBlock Text="Tên đăng nhập" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
-                <TextBox x:Name="tendangnhapTextBox" Header="Tên đăng nhập" FontSize="20" Margin="0,12,0,0" Text="" HorizontalAlignment="Stretch" AcceptsReturn="True"/>
+                <TextBox x:Name="tendangnhapTextBox" Header="Tên đăng nhập" FontSize="16" Margin="0,12,0,0" Text="" HorizontalAlignment="Stretch" AcceptsReturn="True"/>
                 <!--<TextBlock Text="Mật khẩu" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
-                <TextBox x:Name="matkhauTextBox" Header="Mật khẩu" FontSize="20" Margin="0,12,0,0" Text="" HorizontalAlignment="Stretch"/>
+                <!--<TextBox x:Name="matkhauTextBox" Header="Mật khẩu" FontSize="20" Margin="0,12,0,0" Text="" HorizontalAlignment="Stretch"/>-->
+                <PasswordBox x:Name="matkhauPasswordBox" Header="Mật khẩu" IsPasswordRevealButtonEnabled="True" FontSize="16" Margin="0,12,0,0" />
                 <!--<TextBlock Text="Ngày sinh" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
-                <DatePicker x:Name="ngaysinhDatePicker" Header="Ngày sinh" Margin="0,12,0,0" FontSize="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <TextBlock Text="Giới tính" TextWrapping="Wrap"  Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>
+                <DatePicker x:Name="ngaysinhDatePicker" Header="Ngày sinh" Margin="0,12,0,0" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <TextBlock Text="Giới tính" TextWrapping="Wrap" FontSize="16" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel x:Name="gioitinhPanel" Orientation="Horizontal" >
                     <RadioButton GroupName="gioiTinh" Content="Nam" IsChecked="True" />
                     <RadioButton GroupName="gioiTinh" Content="Nữ" />

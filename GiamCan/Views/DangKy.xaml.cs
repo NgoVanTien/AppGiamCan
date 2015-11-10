@@ -43,7 +43,7 @@ namespace GiamCan.Views
         {
             try
             {
-                if(tendangnhapTextBox.Text.Trim() == "" || matkhauTextBox.Text.Trim() == "")
+                if(tendangnhapTextBox.Text.Trim() == "" || matkhauPasswordBox.Password.Trim() == "")
                 {
                     // neu khong nhap tendangnhap, matkhau thi se hien len thong bao
                     var msDialog = new MessageDialog("TÊN ĐĂNG NHẬP và MẬT KHẨU không được để trống");
@@ -76,7 +76,7 @@ namespace GiamCan.Views
                 //lay gioitinh
                 RadioButton selectedRadio = gioitinhPanel.Children.OfType<RadioButton>().FirstOrDefault(r => r.IsChecked == true);
                 // tao moi nguoidung
-                NguoiDung nguoidung = new NguoiDung(tendangnhapTextBox.Text, matkhauTextBox.Text, ngaysinh, selectedRadio.Content.ToString());
+                NguoiDung nguoidung = new NguoiDung(tendangnhapTextBox.Text, matkhauPasswordBox.Password, ngaysinh, selectedRadio.Content.ToString());
                 //insert nguoidung 
                 connection.Insert(nguoidung);
 

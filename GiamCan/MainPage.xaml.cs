@@ -49,7 +49,7 @@ namespace GiamCan
         {
             //kiem tra xem co nguoidung khong
             NguoiDung nguoidung = connection.Query<NguoiDung>("SELECT * FROM NGUOIDUNG WHERE tenDangNhap=?", tendangnhapTextBox.Text).FirstOrDefault();
-            if (nguoidung != null && nguoidung.TenDangNhap == tendangnhapTextBox.Text && nguoidung.MatKhau == matkhauTextBox.Text)
+            if (nguoidung != null && nguoidung.TenDangNhap == tendangnhapTextBox.Text && nguoidung.MatKhau == matkhauPasswordBox.Password)
             {
                 // chuyen den TrangChu
                 Frame.Navigate(typeof(TrangChu), nguoidung);

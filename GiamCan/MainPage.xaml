@@ -25,7 +25,11 @@
                 <!--<TextBlock TextWrapping="Wrap" Text="Tên đăng nhập" Style="{StaticResource TitleTextBlockStyle}"/>-->
                 <TextBox x:Name="tendangnhapTextBox" Header="Tên đăng nhập" TextWrapping="Wrap" Text="" FontSize="16"/>
                 <!--<TextBlock TextWrapping="Wrap" Text="Mật khẩu" Style="{StaticResource TitleTextBlockStyle}" Margin="0,20,0,0"/>-->
-                <TextBox x:Name="matkhauTextBox" Header="Mật khẩu" Margin="0,20,0,0" TextWrapping="Wrap" Text="" FontSize="16" />
+                <!--<TextBox x:Name="matkhauTextBox" Header="Mật khẩu" Margin="0,20,0,0" TextWrapping="Wrap" Text="" FontSize="16" />-->
+                <PasswordBox x:Name="matkhauPasswordBox" Header="Mật khẩu" 
+                    Margin="0,20,0,0" FontSize="16" 
+                    IsPasswordRevealButtonEnabled="True"/>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
