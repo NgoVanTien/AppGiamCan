@@ -46,12 +46,10 @@ namespace GiamCan.Views
         long timeStart = 0; //time bat dau
         long saveTime = 0;
         long timeCount = 0;
-        bool tracking = false;
-        bool isGo = false;
+
         ThreadPoolTimer timeThread;
         //Time
         DispatcherTimer mytimer= new DispatcherTimer();
-        int timercount = 0;
 
         public enum MediaState
         {
@@ -85,7 +83,7 @@ namespace GiamCan.Views
         private async void UpdateTime(ThreadPoolTimer timer)
         {
             //while (true)
-            {
+            //{
                 string s1, s2, s3;
                 long currentTime = DateTime.Now.Ticks;
                 long toDisplay = currentTime - timeStart;
@@ -129,7 +127,7 @@ namespace GiamCan.Views
                                timeblock.Text= s;
                            });
 
-            }
+            //}
         }
 
 
