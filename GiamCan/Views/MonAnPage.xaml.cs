@@ -78,6 +78,12 @@ namespace GiamCan.Views
         //hien thi dialog ve nhan xet luon kalo da an
         private async void XongBtn_Click(object sender, RoutedEventArgs e)
         {
+            if(kaloSum == 0)
+            {
+                var ms = new MessageDialog("Bạn nên chọn lượng kalo nhập vào \nđể thống kê chính xác nhất");
+                await ms.ShowAsync();
+                return;
+            }
             var msKalo = new MessageDialog("Tổng lượng kalo bạn đã ăn là: " + kaloSum);
             await msKalo.ShowAsync();
             conn.Execute("DELETE FROM ThucDon WHERE IdThongKeNgay =?", tkngay.IdThongKeNgay);
