@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,35 +33,6 @@ namespace GiamCan.Views
         NguoiDung nguoidung;
         MucTieu muctieuhientai;
         ThongKeNgay thongkengay;
-        private double _kalocangiammoingay;
-        public double KaloCanGiamHomNay
-        {
-            get { return _kalocangiammoingay; }
-            set
-            {
-                if (value != _kalocangiammoingay)
-                {
-                    _kalocangiammoingay = value;
-                    NotifyPropertyChanged();
-                }
-
-            }
-        }
-        private double _kalodagiam;
-
-        public double KaloDaGiam
-        {
-            get { return _kalodagiam; }
-            set {
-                if (value!= _kalodagiam)
-                {
-                    _kalodagiam = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-
         public TrangChu()
         {
             this.InitializeComponent();
@@ -79,7 +51,7 @@ namespace GiamCan.Views
             if (muctieuhientai == null)
             {
                 // an header dau tien
-                kalogiamStackPanel.Visibility = Visibility.Collapsed;
+                calsGiamGrid.Visibility = Visibility.Collapsed;
 
                 MessageDialog msDialog = new MessageDialog("Bạn chưa bắt đầu một mục tiêu nào!");
                 msDialog.Commands.Add(new UICommand("Bắt đầu ngay"));
@@ -97,7 +69,7 @@ namespace GiamCan.Views
             // neu nguoi dung chua bat dau muc tieu hien tai
             if (muctieuhientai.ThoiGianBatDau == null || muctieuhientai.TrangThai == "Chưa bắt đầu")
             {
-                kalogiamStackPanel.Visibility = Visibility.Collapsed;
+                calsGiamGrid.Visibility = Visibility.Collapsed;
                 MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa bắt đầu tập luyện!\n");
                 msDialog.Commands.Add(new UICommand("Ok, đến trang tập luyện"));
                 msDialog.Commands.Add(new UICommand("Để sau"));
@@ -155,21 +127,20 @@ namespace GiamCan.Views
                     conn.Insert(thongkengay);
                 }
                 // LuongKaloCanGiamHomNay = KaloCanTieuHaoMoiNgay (để giảm cân) - LuongKaloTieuHao (chohoatdongbaitap) - chisobmr (luongkalo chohoatdonghangngay) + tongluongkaloduavao
-                KaloCanGiamHomNay = muctieuhientai.LuongKaloCanTieuHaoMoiNgay - thongkengay.LuongKaloTieuHao - muctieuhientai.ChiSoBMR + thongkengay.LuongKaloDuaVao + thongkengay.LuongKaloNgoaiDuKien;
-                KaloDaGiam = thongkengay.LuongKaloTieuHao;
-                double kaloconthieu = KaloCanGiamHomNay - KaloDaGiam;
-                if(kaloconthieu > 0)
-                    kalocangiamTextBlock.Text = string.Format("Bạn cần giảm {0} Cals ngày hôm nay", kaloconthieu);
 
-                if (kaloconthieu == 0)
-                    kalocangiamTextBlock.Text = string.Format("Bạn đã hoàn thành mục tiêu hôm nay");
+                double calsCanGiam = muctieuhientai.LuongKaloCanTieuHaoMoiNgay;
+                calsCanGiamTextBlock.Text = calsCanGiam.ToString();
+                // luong cals giam tu bai tap
+                double calsGiamBaiTap = thongkengay.LuongKaloTieuHao;
+                calsBaiTapTextBlock.Text = calsGiamBaiTap.ToString();
 
-                if (kaloconthieu < 0)
-                    kalocangiamTextBlock.Text = string.Format("Bạn cần nạp thêm {0} Cals ngày hôm nay", -kaloconthieu);
+                // luong Cals giam tu thuc don
+                double calsGiamThucDon = muctieuhientai.ChiSoBMR - thongkengay.LuongKaloDuaVao - thongkengay.LuongKaloNgoaiDuKien;
+                calsThucDonTextBlock.Text = calsGiamThucDon.ToString();
 
-                progressbarHeaderTextBlock.Text = string.Format("Tiêu hao {0} trên tổng {1} Cals", KaloDaGiam, KaloCanGiamHomNay);
-                progressbar.Value = KaloDaGiam;
-                progressbar.Maximum = KaloCanGiamHomNay;
+                double calsConThieu = calsCanGiam - calsGiamBaiTap - calsGiamThucDon;
+                calsConThieuTextBlock.Text = calsConThieu.ToString();
+
             }
 
         }

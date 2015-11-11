@@ -5,6 +5,7 @@
     xmlns:local="using:GiamCan.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -14,12 +15,39 @@
         <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
         <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
             <StackPanel>
-                <StackPanel x:Name="kalogiamStackPanel" Height="100" BorderBrush="Gray" BorderThickness="1,2,1,2" Padding="4">
-                    <TextBlock x:Name="kalocangiamTextBlock" Text="Bạn cần giảm 500 Cals ngày hôm nay" FontSize="16" TextAlignment="Center" />
-                    <TextBlock x:Name="progressbarHeaderTextBlock" Text="Đã giảm 200 trên tổng 700 Cals hôm nay" TextAlignment="Left" Margin="8,8,0,0"/>
-                    <ProgressBar x:Name="progressbar" Value="200" Minimum="0" Maximum="700" Height="10" VerticalAlignment="Stretch" Margin="8,0,8,0" />
+                <Grid x:Name="calsGiamGrid" Padding="8 0" Background="LightBlue" BorderBrush="Blue" BorderThickness="0 1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Mức giảm: " FontSize="14"/>      
+                    <TextBlock Text="Tập bài tập giảm: " Grid.Row="1" FontSize="14" />
+                    <TextBlock Text="Thực đơn giảm:" Grid.Row="2" FontSize="14" />
+                    <TextBlock Text="Cals còn thiếu:" Grid.Row="3" FontSize="14" />
 
-                </StackPanel>
+                    <TextBlock Grid.Column="1"  FontSize="12">
+                        <Run x:Name="calsCanGiamTextBlock" Text="770" FontSize="16"/>
+                        <Run Text="  Cals/ngày" FontSize="12" />
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
+                        <Run x:Name="calsBaiTapTextBlock" Text="200" FontSize="16"/>
+                        <Run Text="  Cals" />
+                    </TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12" >
+                        <Run x:Name="calsThucDonTextBlock" Text="0" FontSize="16" />
+                        <Run Text="  Cals" />
+                    </TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="1" FontSize="12">
+                        <Run x:Name="calsConThieuTextBlock" Text="500" FontSize="16"/>
+                        <Run Text="  Cals"/>
+                    </TextBlock>
+                </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -43,6 +71,6 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        
+
     </Grid>
 </Page>
