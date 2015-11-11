@@ -121,7 +121,7 @@ namespace GiamCan.Views
                 ComboBoxItem selected = (ComboBoxItem)muchoatdongComboBox.SelectedItem;
                 if(selected!=null && Double.TryParse(selected.Tag.ToString(), out heso)){
                     bmr = bmr * heso;
-                    bmrTextBlock.Text = string.Format("{0:0.00}", bmr);
+                    bmrTextBlock.Text = string.Format("{0:0.00} Cals", bmr);
                 }
             }
         }

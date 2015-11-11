@@ -15,8 +15,8 @@
         <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
             <StackPanel>
                 <StackPanel x:Name="kalogiamStackPanel" Height="100" BorderBrush="Gray" BorderThickness="1,2,1,2" Padding="4">
-                    <TextBlock x:Name="kalocangiamTextBlock" Text="Bạn cần giảm 500 kalo ngày hôm nay" FontSize="16" TextAlignment="Center" />
-                    <TextBlock x:Name="progressbarHeaderTextBlock" Text="Đã giảm 200 trên tổng 700 kalo hôm nay" TextAlignment="Left" Margin="8,8,0,0"/>
+                    <TextBlock x:Name="kalocangiamTextBlock" Text="Bạn cần giảm 500 Cals ngày hôm nay" FontSize="16" TextAlignment="Center" />
+                    <TextBlock x:Name="progressbarHeaderTextBlock" Text="Đã giảm 200 trên tổng 700 Cals hôm nay" TextAlignment="Left" Margin="8,8,0,0"/>
                     <ProgressBar x:Name="progressbar" Value="200" Minimum="0" Maximum="700" Height="10" VerticalAlignment="Stretch" Margin="8,0,8,0" />
 
                 </StackPanel>

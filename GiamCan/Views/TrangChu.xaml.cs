@@ -159,15 +159,15 @@ namespace GiamCan.Views
                 KaloDaGiam = thongkengay.LuongKaloTieuHao;
                 double kaloconthieu = KaloCanGiamHomNay - KaloDaGiam;
                 if(kaloconthieu > 0)
-                    kalocangiamTextBlock.Text = string.Format("Bạn cần giảm {0} kalo ngày hôm nay", kaloconthieu);
+                    kalocangiamTextBlock.Text = string.Format("Bạn cần giảm {0} Cals ngày hôm nay", kaloconthieu);
 
                 if (kaloconthieu == 0)
                     kalocangiamTextBlock.Text = string.Format("Bạn đã hoàn thành mục tiêu hôm nay");
 
                 if (kaloconthieu < 0)
-                    kalocangiamTextBlock.Text = string.Format("Bạn cần nạp thêm {0} kalo ngày hôm nay", -kaloconthieu);
+                    kalocangiamTextBlock.Text = string.Format("Bạn cần nạp thêm {0} Cals ngày hôm nay", -kaloconthieu);
 
-                progressbarHeaderTextBlock.Text = string.Format("Tiêu hao {0} trên tổng {1} kalo", KaloDaGiam, KaloCanGiamHomNay);
+                progressbarHeaderTextBlock.Text = string.Format("Tiêu hao {0} trên tổng {1} Cals", KaloDaGiam, KaloCanGiamHomNay);
                 progressbar.Value = KaloDaGiam;
                 progressbar.Maximum = KaloCanGiamHomNay;
             }

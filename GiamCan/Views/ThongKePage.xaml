@@ -8,6 +8,9 @@
     mc:Ignorable="d"
     xmlns:valueconverter="using:GiamCan.Converters"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    xmlns:datavis="using:WinRTXamlToolkit.Controls.DataVisualization"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:chartingprimitives="using:WinRTXamlToolkit.Controls.DataVisualization.Charting.Primitives"
     >
     <Page.Resources>
         <valueconverter:StringToDateTimeConverter x:Key="StringToDateTimeConverter"/>
@@ -206,11 +209,11 @@
                                 <TextBlock x:Name="ngayTextBlock" Margin="0,0,0,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tổng lượng Kalo tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                <TextBlock Text="Tổng lượng Cals tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
                                 <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tổng lượng Kalo đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                <TextBlock Text="Tổng lượng Cals đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
                                 <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">

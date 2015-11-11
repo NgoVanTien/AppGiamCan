@@ -25,7 +25,7 @@
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0">
                     <TextBlock Text="Lời nhắc:" FontSize="16" FontWeight="SemiBold"/>
                     <TextBlock Text="Giảm cân nên ở mức 0,25 - 1kg mỗi tuần. Nếu giảm cân quá nhanh bạn sẽ đối diện với nguy cơ tăng cân lên cũng nhanh." FontSize="12" TextWrapping="Wrap" Margin="4,0,0,0"/>
-                    <TextBlock Text="Bạn không nên giảm lượng Kalo xuống dưới mức 1000-1200. Trạng thái đói có thể được kích hoạt làm tốc độ giảm cần giảm đi." FontSize="12" TextWrapping="Wrap" Margin="4,0,0,0"/>
+                    <TextBlock Text="Bạn không nên giảm lượng Cals xuống dưới mức 1000-1200. Trạng thái đói có thể được kích hoạt làm tốc độ giảm cần giảm đi." FontSize="12" TextWrapping="Wrap" Margin="4,0,0,0"/>
                 </StackPanel>
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
                     <TextBlock TextWrapping="Wrap" Text="Mục tiêu đề nghị" FontSize="16" FontWeight="SemiBold"  />

@@ -9,7 +9,7 @@
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Name="ThemLuongKaloBtn" Click="ThemLuongKaloBtn_Click" Label="Thêm lượng kalo ngoài dự kiến" Icon="Add"  />
+            <AppBarButton x:Name="ThemLuongKaloBtn" Click="ThemLuongKaloBtn_Click" Label="Thêm lượng Cals ngoài dự kiến" Icon="Add"  />
             <AppBarButton x:Name="HuyBtn" Click="HuyBtn_Click" Label="Trở về" Icon="Cancel" />
             <AppBarButton x:Name="XongBtn" Click="XongBtn_Click" Label="Xong" Icon="Accept" />
         </CommandBar>
@@ -41,7 +41,7 @@
                         <TextBlock Text="Món Ăn" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"/>
                     </Border>
                     <Border>
-                        <TextBlock Text="Lượng kalo" Width="80" TextAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Text="Lượng Cals" Width="80" TextAlignment="Center" HorizontalAlignment="Center" />
                     </Border>
                     <Border>
                         <TextBlock Text="Số lượng" TextAlignment="Center" Width="80" HorizontalAlignment="Center" />
@@ -93,7 +93,7 @@
             </StackPanel>
         </ScrollViewer>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20,10,0,0">
-            <TextBlock Text="Tổng lượng kalo:" FontSize="16"/>
+            <TextBlock Text="Tổng lượng Cals:" FontSize="16"/>
             <TextBlock Text="{Binding TongLuongKalo}" Padding="20,0,0,0" FontSize="16"/>
         </StackPanel>
     </Grid>
