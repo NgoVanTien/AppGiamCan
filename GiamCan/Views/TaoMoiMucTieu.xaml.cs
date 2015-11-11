@@ -97,7 +97,7 @@ namespace GiamCan.Views
 
         private void tinhChiSo()
         {
-            if (Double.TryParse(chieucaobdTextBox.Text.Replace(".", ","), out height) && Double.TryParse(cannangbdTextBox.Text.Replace(".", ","), out weight))
+            if (Double.TryParse(chieucaobdTextBox.Text, out height) && Double.TryParse(cannangbdTextBox.Text, out weight))
             {
                 chiso.Weight = weight;
                 chiso.Height = height;
@@ -119,7 +119,7 @@ namespace GiamCan.Views
             {
                 double heso;
                 ComboBoxItem selected = (ComboBoxItem)muchoatdongComboBox.SelectedItem;
-                if(selected!=null && Double.TryParse(selected.Tag.ToString().Replace(".",","), out heso)){
+                if(selected!=null && Double.TryParse(selected.Tag.ToString(), out heso)){
                     bmr = bmr * heso;
                     bmrTextBlock.Text = string.Format("{0:0.00}", bmr);
                 }
@@ -156,7 +156,7 @@ namespace GiamCan.Views
     class ChiSo
     {
         /// <summary>
-        /// Weight tính bằng cm, Height tính bằng kg
+        /// Weight tính bằng kg, Height tính bằng cm
         /// </summary>
         public double Weight { get; set; }
         public double Height { get; set; }
@@ -194,13 +194,14 @@ namespace GiamCan.Views
         public double tinhBMR()
         {
             double bmr;
+            
             if (GioiTinh == "Nam")
             {
-                bmr = 13.397 * Weight + 4.799 * Height - 5.677 * Tuoi + 88.362;
+                bmr = 13.7 * Weight + 5 * Height - 6.8 * Tuoi + 66;
             }
             else
             {
-                bmr = 9.247 * Weight + 3.098 * Height - 4.330 * Tuoi + 447.593;
+                bmr = 4.35 * Weight + 4.7 * Height - 4.7 * Tuoi + 655;
             }
             return bmr;
         }
