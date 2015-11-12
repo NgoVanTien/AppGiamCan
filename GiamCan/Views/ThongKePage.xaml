@@ -8,9 +8,7 @@
     mc:Ignorable="d"
     xmlns:valueconverter="using:GiamCan.Converters"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
-    xmlns:datavis="using:WinRTXamlToolkit.Controls.DataVisualization"
     xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
-    xmlns:chartingprimitives="using:WinRTXamlToolkit.Controls.DataVisualization.Charting.Primitives"
     >
     <Page.Resources>
         <valueconverter:StringToDateTimeConverter x:Key="StringToDateTimeConverter"/>
@@ -23,37 +21,37 @@
         </Grid.RowDefinitions>
         <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
 
-        <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
+        <ScrollViewer Margin="10,0,10,10" Grid.Row="1">
             <StackPanel>
-                <StackPanel HorizontalAlignment="Center" BorderBrush="Beige" BorderThickness="1">
+                <StackPanel HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1">
                     <StackPanel>
-                        <Grid>
-                            <Button Content="-" BorderBrush="{x:Null}" HorizontalAlignment="Left" Click="previousMonth"/>
+                        <Grid Height="30">
+                            <Button Content="&#x2190;" Background="{x:Null}" HorizontalAlignment="Left" Click="previousMonth"/>
                             <TextBlock Name="CalendarHeader" Text="August 2014" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraLight" FontSize="20"/>
-                            <Button Content="+" BorderBrush="{x:Null}" HorizontalAlignment="Right" Click="nextMonth"/>
+                            <Button Content="&#x2192;" Background="{x:Null}" HorizontalAlignment="Right" Click="nextMonth"/>
                         </Grid>
                     </StackPanel>
                     <!-- T2 T3 T4 ... -->
-                    <StackPanel Orientation="Horizontal">
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                    <StackPanel Orientation="Horizontal" BorderBrush="Gray" BorderThickness="0 1">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="CN" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="T2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="T3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="T4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="T5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="T6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
-                        <Grid Width="40" Height="30" Background="#FF363636">
+                        <Grid Width="40" Height="20" Background="LightGray">
                             <TextBlock Text="T7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </StackPanel>
@@ -201,7 +199,7 @@
 
                 </StackPanel>
                 <Line Fill="Black" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="-10,10,-10,0" X2="1" />
-                <FlipView x:Name="thongkengayFlipView">
+                <FlipView x:Name="thongkengayFlipView" Background="{x:Null}">
                     <FlipViewItem>
                         <StackPanel Margin="20">
                             <StackPanel Orientation="Horizontal">
@@ -224,10 +222,197 @@
                                 <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
                                 <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
                             </StackPanel>
+                            
                         </StackPanel>
                     </FlipViewItem>
                     <FlipViewItem>
-                        
+                        <StackPanel>
+                            <charting:Chart x:Name="PieChart"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                            <charting:Chart.Series>
+                                <charting:PieSeries Margin="0" IndependentValuePath="TenBaiTap" DependentValuePath="LuongKaloTieuHao" IsSelectionEnabled="True"/>
+                            </charting:Chart.Series>
+                            <charting:Chart.Palette>
+                                <charting:ResourceDictionaryCollection>
+                                    <!-- Blue -->
+                                    <ResourceDictionary>
+                                        <SolidColorBrush
+                                            x:Key="Background"
+                                            Color="#FF4586D8" />
+                                        <Style
+                                            x:Key="DataPointStyle"
+                                            TargetType="Control">
+                                            <Setter
+                                                Property="Background"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                        <Style
+                                            x:Key="DataShapeStyle"
+                                            TargetType="Shape">
+                                            <Setter
+                                                Property="Stroke"
+                                                Value="{StaticResource Background}" />
+                                            <Setter
+                                                Property="StrokeThickness"
+                                                Value="2" />
+                                            <Setter
+                                                Property="StrokeMiterLimit"
+                                                Value="1" />
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                    <!-- Red -->
+                                    <ResourceDictionary>
+                                        <SolidColorBrush
+                                            x:Key="Background"
+                                            Color="#FFDC443F" />
+                                        <Style
+                                            x:Key="DataPointStyle"
+                                            TargetType="Control">
+                                            <Setter
+                                                Property="Background"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                        <Style
+                                            x:Key="DataShapeStyle"
+                                            TargetType="Shape">
+                                            <Setter
+                                                Property="Stroke"
+                                                Value="{StaticResource Background}" />
+                                            <Setter
+                                                Property="StrokeThickness"
+                                                Value="2" />
+                                            <Setter
+                                                Property="StrokeMiterLimit"
+                                                Value="1" />
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                    <!-- Yellow -->
+                                    <ResourceDictionary>
+                                        <SolidColorBrush
+                                            x:Key="Background"
+                                            Color="#FFD6DC3B" />
+                                        <Style
+                                            x:Key="DataPointStyle"
+                                            TargetType="Control">
+                                            <Setter
+                                                Property="Background"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                        <Style
+                                            x:Key="DataShapeStyle"
+                                            TargetType="Shape">
+                                            <Setter
+                                                Property="Stroke"
+                                                Value="{StaticResource Background}" />
+                                            <Setter
+                                                Property="StrokeThickness"
+                                                Value="2" />
+                                            <Setter
+                                                Property="StrokeMiterLimit"
+                                                Value="1" />
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                    <!-- Green -->
+                                    <ResourceDictionary>
+                                        <SolidColorBrush
+                                            x:Key="Background"
+                                            Color="#FFAAD34F" />
+                                        <Style
+                                            x:Key="DataPointStyle"
+                                            TargetType="Control">
+                                            <Setter
+                                                Property="Background"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                        <Style
+                                            x:Key="DataShapeStyle"
+                                            TargetType="Shape">
+                                            <Setter
+                                                Property="Stroke"
+                                                Value="{StaticResource Background}" />
+                                            <Setter
+                                                Property="StrokeThickness"
+                                                Value="2" />
+                                            <Setter
+                                                Property="StrokeMiterLimit"
+                                                Value="1" />
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary>
+                                        <SolidColorBrush
+                                            x:Key="Background"
+                                            Color="#FF4FCDD3" />
+                                        <Style
+                                            x:Key="DataPointStyle"
+                                            TargetType="Control">
+                                            <Setter
+                                                Property="Background"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                        <Style
+                                            x:Key="DataShapeStyle"
+                                            TargetType="Shape">
+                                            <Setter
+                                                Property="Stroke"
+                                                Value="{StaticResource Background}" />
+                                            <Setter
+                                                Property="StrokeThickness"
+                                                Value="2" />
+                                            <Setter
+                                                Property="StrokeMiterLimit"
+                                                Value="1" />
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary>
+                                        <SolidColorBrush
+                                            x:Key="Background"
+                                            Color="#FFAF4FD3" />
+                                        <Style
+                                            x:Key="DataPointStyle"
+                                            TargetType="Control">
+                                            <Setter
+                                                Property="Background"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                        <Style
+                                            x:Key="DataShapeStyle"
+                                            TargetType="Shape">
+                                            <Setter
+                                                Property="Stroke"
+                                                Value="{StaticResource Background}" />
+                                            <Setter
+                                                Property="StrokeThickness"
+                                                Value="2" />
+                                            <Setter
+                                                Property="StrokeMiterLimit"
+                                                Value="1" />
+                                            <Setter
+                                                Property="Fill"
+                                                Value="{StaticResource Background}" />
+                                        </Style>
+                                    </ResourceDictionary>
+                                </charting:ResourceDictionaryCollection>
+                            </charting:Chart.Palette>
+
+                        </charting:Chart>
+                            <StackPanel>
+                               <!--more detail about bai tap, when click pieseries-->
+                            </StackPanel>
+                        </StackPanel>
                     </FlipViewItem>
                 </FlipView>
             </StackPanel>

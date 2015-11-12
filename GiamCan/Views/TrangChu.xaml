@@ -29,7 +29,7 @@
                     <TextBlock Text="Mức giảm: " FontSize="14"/>      
                     <TextBlock Text="Tập bài tập giảm: " Grid.Row="1" FontSize="14" />
                     <TextBlock Text="Thực đơn giảm:" Grid.Row="2" FontSize="14" />
-                    <TextBlock Text="Cals còn thiếu:" Grid.Row="3" FontSize="14" />
+                    <TextBlock Text="Cals cần tiêu hao:" Grid.Row="3" FontSize="14" />
 
                     <TextBlock Grid.Column="1"  FontSize="12">
                         <Run x:Name="calsCanGiamTextBlock" Text="770" FontSize="16"/>

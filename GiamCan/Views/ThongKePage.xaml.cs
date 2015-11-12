@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,26 +31,17 @@ namespace GiamCan.Views
     {
         string path;
         SQLite.Net.SQLiteConnection connection;
-        DateTime calendarDate;
-        public List<ThongKeNgay> ThongKeNgayList { get; set; }
-        public List<ThongKeNgay> ThongKeNgayKhacList { get; set; }
-        private List<ThongKeBaiTap> thongkeBaiTapList;
-        MucTieu muctieu;
-
         public event PropertyChangedEventHandler PropertyChanged;
         SolidColorBrush myBrush;
 
-        public List<ThongKeBaiTap> BaiTapList
-        {
-            get { return thongkeBaiTapList; }
-            set {
-                if (value != BaiTapList)
-                {
-                    thongkeBaiTapList = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
+        DateTime calendarDate;
+
+        public List<ThongKeNgay> ThongKeNgayList { get; set; }
+        public List<ThongKeNgay> ThongKeNgayKhacList { get; set; }
+
+        MucTieu muctieu;
+
+        
 
         public double LuongKaloTieuHao { get; set; }
         public double LuongKaloDuaVao { get; set; }
@@ -74,6 +66,7 @@ namespace GiamCan.Views
             // lay danh sach thongkengay tu cac muc tieu KHAC -> de nguoidung xem lai
             ThongKeNgayKhacList = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu != muctieu.IdMucTieu).ToList<ThongKeNgay>();
             Initialize_Calendar(calendarDate);
+
         }
 
         void Initialize_Calendar(DateTime date)
@@ -173,9 +166,8 @@ namespace GiamCan.Views
         }
 
         /// <summary>
-        /// Khi người dùng tab vào một ngày, sẽ hiện ra thống kê cho ngày hôm đó
+        /// Khi người dùng tap vào một ngày, sẽ hiện ra thống kê cho ngày hôm đó
         /// </summary>
-        
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             thongkengayFlipView.Visibility = Visibility.Visible;
@@ -186,7 +178,7 @@ namespace GiamCan.Views
            
             TextBlock textblock = (sender as Grid).Children[0] as TextBlock;
             
-            // neu o trong thi bo qua
+            // nếu ô trống thì bỏ qua
             if (textblock.Text == null || textblock.Text == "") return;
 
             string date = Int32.Parse(textblock.Text).ToString("00") + "/" + CalendarHeader.Tag.ToString(); /* dd/MM/yyyy */
@@ -202,6 +194,24 @@ namespace GiamCan.Views
                 soluongbtTextBlock.Text = soluongbaitap.ToString();
                 int tongthoigiantap = connection.ExecuteScalar<int>("SELECT SUM(ThoiGianTap) FROM THONGKEBAITAP WHERE IdThongKeNgay =?", tkn.IdThongKeNgay);
                 thoigiantapTextBlock.Text = tongthoigiantap.ToString();
+                var q = connection.Table<ThongKeBaiTap>().Where(r=> r.IdThongKeNgay == tkn.IdThongKeNgay);
+                List<BaiTapDaTap> baidatapList = new List<BaiTapDaTap>();
+                foreach (var item in q)
+                {
+                    var tenbaitap = connection.Table<BaiTap>().Where(r => r.IdBaiTap == item.IdBaiTap).FirstOrDefault().TenBaiTap;
+                    baidatapList.Add(new BaiTapDaTap() {
+                                                        IdThongKeBaiTap = item.IdThongKeNgay,
+                                                        IdThongKeNgay = item.IdThongKeNgay,
+                                                        IdBaiTap = item.IdBaiTap,
+                                                        TenBaiTap = tenbaitap,
+                                                        LuongKaloTieuHao = item.LuongKaloTieuHao,
+                                                        QuangDuong = item.QuangDuong,
+                                                        ThoiGianTap = item.ThoiGianTap
+                                                    });
+                }
+                (PieChart.Series[0] as PieSeries).ItemsSource = baidatapList;
+
+               
             }
             else
             {
@@ -212,5 +222,10 @@ namespace GiamCan.Views
             }
             
         }
+        public class BaiTapDaTap: ThongKeBaiTap
+        {
+            public string TenBaiTap { get; set; }
+        }
+        
     }
 }
