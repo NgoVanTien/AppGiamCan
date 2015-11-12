@@ -55,7 +55,6 @@ namespace GiamCan.Views
             
         }
 
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
@@ -210,7 +209,6 @@ namespace GiamCan.Views
                                                     });
                 }
                 (PieChart.Series[0] as PieSeries).ItemsSource = baidatapList;
-
                
             }
             else
@@ -222,10 +220,27 @@ namespace GiamCan.Views
             }
             
         }
+
         public class BaiTapDaTap: ThongKeBaiTap
         {
             public string TenBaiTap { get; set; }
         }
-        
+
+        private void PieSeries_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            BaiTapDaTap bt = (sender as PieSeries).SelectedItem as BaiTapDaTap;
+            btdetailStackPanel.Visibility = Visibility.Visible;
+            tenbaitapTextBlock.Text = bt.TenBaiTap;
+            thoigiantap1TextBlock.Text = bt.ThoiGianTap.ToString();
+            luongkalotieuhaoTextBlock.Text = bt.LuongKaloTieuHao.ToString();
+            if (bt.QuangDuong > 0.0)
+            {
+                quangduongTextBlock.Text = bt.QuangDuong.ToString();
+            }
+            else
+                quangduongGrid.Visibility = Visibility.Collapsed;
+
+            
+        }
     }
 }

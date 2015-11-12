@@ -229,7 +229,7 @@
                         <StackPanel>
                             <charting:Chart x:Name="PieChart"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
                             <charting:Chart.Series>
-                                <charting:PieSeries Margin="0" IndependentValuePath="TenBaiTap" DependentValuePath="LuongKaloTieuHao" IsSelectionEnabled="True"/>
+                                <charting:PieSeries Tag="IdBaiTap" Margin="0" IndependentValuePath="TenBaiTap" DependentValuePath="LuongKaloTieuHao" IsSelectionEnabled="True" Tapped="PieSeries_Tapped"/>
                             </charting:Chart.Series>
                             <charting:Chart.Palette>
                                 <charting:ResourceDictionaryCollection>
@@ -409,8 +409,22 @@
                             </charting:Chart.Palette>
 
                         </charting:Chart>
-                            <StackPanel>
-                               <!--more detail about bai tap, when click pieseries-->
+                            <StackPanel x:Name="btdetailStackPanel" Visibility="Collapsed" Padding="8">
+                                <TextBlock x:Name="tenbaitapTextBlock" FontSize="20"/>
+                                <Grid>
+                                    <TextBlock Text="Thời gian tập: " HorizontalAlignment="Left" FontSize="16" />
+                                    <TextBlock x:Name="thoigiantap1TextBlock" HorizontalAlignment="Right" FontSize="20" />
+                                </Grid>
+                                <Grid>
+                                    <TextBlock Text="Lượng Cals tiêu hao: " HorizontalAlignment="Left" FontSize="16"/>
+                                    <TextBlock x:Name="luongkalotieuhaoTextBlock" HorizontalAlignment="Right" FontSize="20"/>
+                                </Grid>
+                                <Grid x:Name="quangduongGrid">
+                                    <TextBlock Text="Quãng đường đi được" HorizontalAlignment="Left" FontSize="16"/>
+                                    <TextBlock x:Name="quangduongTextBlock" HorizontalAlignment="Right" FontSize="20" />
+                                </Grid>
+                                
+                                
                             </StackPanel>
                         </StackPanel>
                     </FlipViewItem>
