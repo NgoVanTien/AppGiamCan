@@ -14,14 +14,17 @@
     </Page.BottomAppBar>
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="LightGoldenrodYellow">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" Text="GIẢM CÂN 360" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}" />
+        <StackPanel Margin="20">
+            <Image Source="Assets/logo.png" Width="100" Height="100" VerticalAlignment="Top"/>
+            <TextBlock Text="GIẢM CÂN 360" HorizontalAlignment="Center" FontSize="40" Foreground="#FFDE574A" FontFamily="UTM Daxline" FontWeight="Bold"  />
+        </StackPanel>
         <ScrollViewer Grid.Row="1">
-            <StackPanel Margin="20,100,20,0"  VerticalAlignment="Top">
+            <StackPanel Margin="20,0,20,20"  VerticalAlignment="Top">
                 <!--<TextBlock TextWrapping="Wrap" Text="Tên đăng nhập" Style="{StaticResource TitleTextBlockStyle}"/>-->
                 <TextBox x:Name="tendangnhapTextBox" Header="Tên đăng nhập" TextWrapping="Wrap" Text="" FontSize="16"/>
                 <!--<TextBlock TextWrapping="Wrap" Text="Mật khẩu" Style="{StaticResource TitleTextBlockStyle}" Margin="0,20,0,0"/>-->

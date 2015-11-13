@@ -133,7 +133,7 @@ namespace GiamCan.Views
                     }
                     foreach (var tkn in ThongKeNgayList)
                     {
-                        DateTime date2 = DateTime.Parse(tkn.Ngay);
+                        DateTime date2 = DateTime.ParseExact(tkn.Ngay,"dd/MM/yyyy", new CultureInfo("vi-vn"));
                         if (i == date2.Day && date2.Month == date.Month)
                         {
                             (o2 as Grid).BorderBrush = new SolidColorBrush(Colors.OrangeRed);
