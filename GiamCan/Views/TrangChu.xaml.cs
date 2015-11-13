@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -201,6 +202,14 @@ namespace GiamCan.Views
 
         private void dangxuatButton_Click(object sender, RoutedEventArgs e)
         {
+            IsolatedStorageFile ISOFile = IsolatedStorageFile.GetUserStoreForApplication();
+            if(ISOFile.FileExists("CurrentUser"))
+            {
+                ISOFile.DeleteFile("CurrentUser");
+            }
+           
+            Frame.Navigate(typeof(MainPage));
+            Frame.BackStack.Clear();
 
         }
         public event PropertyChangedEventHandler PropertyChanged;

@@ -3,8 +3,10 @@ using GiamCan.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -27,6 +29,8 @@ namespace GiamCan
     {
         string path;
         SQLite.Net.SQLiteConnection connection;
+        IsolatedStorageFile ISOFile = IsolatedStorageFile.GetUserStoreForApplication();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -51,6 +55,13 @@ namespace GiamCan
             NguoiDung nguoidung = connection.Query<NguoiDung>("SELECT * FROM NGUOIDUNG WHERE tenDangNhap=?", tendangnhapTextBox.Text).FirstOrDefault();
             if (nguoidung != null && nguoidung.TenDangNhap == tendangnhapTextBox.Text && nguoidung.MatKhau == matkhauPasswordBox.Password)
             {
+                using (IsolatedStorageFileStream fileStream = ISOFile.OpenFile("CurrentUser", FileMode.Create))
+                {
+                    DataContractSerializer serializer = new DataContractSerializer(typeof(NguoiDung));
+
+                    serializer.WriteObject(fileStream, nguoidung);
+
+                }
                 // chuyen den TrangChu
                 Frame.Navigate(typeof(TrangChu), nguoidung);
                 Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
@@ -61,6 +72,7 @@ namespace GiamCan
                 await msDialog.ShowAsync();
             }
 
+
             
 
         }
@@ -68,6 +80,20 @@ namespace GiamCan
         private void dangkyButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(DangKy));
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ISOFile.FileExists("CurrentUser"))
+            {
+                using (IsolatedStorageFileStream fileStream = ISOFile.OpenFile("CurrentUser", FileMode.Open))
+                {
+                    DataContractSerializer serializer = new DataContractSerializer(typeof(NguoiDung));
+                    NguoiDung nguoidung = serializer.ReadObject(fileStream) as NguoiDung;
+                    Frame.Navigate(typeof(TrangChu), nguoidung);
+                    Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
+                }
+            }
         }
     }
 }
