@@ -24,8 +24,6 @@ namespace GiamCan
     /// </summary>
     sealed partial class App : Application
     {
-
-        private Shell shell;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -119,8 +117,15 @@ namespace GiamCan
         /// </summary>
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            Frame rootFrame = (Window.Current.Content as Shell)?.DataContext as Frame;
+            
+            Frame rootFrame = Window.Current.Content as Frame;
 
+            Shell shell = rootFrame.Content as Shell;
+            if(shell.DataContext as Frame != null)
+            {
+                rootFrame = shell.DataContext as Frame;
+            }
+            
             if (rootFrame.CanGoBack)
             {
                 e.Handled = true;
