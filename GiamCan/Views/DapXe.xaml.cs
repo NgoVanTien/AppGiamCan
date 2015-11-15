@@ -39,9 +39,8 @@ namespace GiamCan.Views
         long saveTime = 0;
         long timeCount = 0;
         bool tracking = false;
-        bool isGo = false;
-        bool checkDistance = false;
-        SynchronizationContext ctx;
+
+        
         ThreadPoolTimer timeThread;
         string path;
         SQLite.Net.SQLiteConnection connection;

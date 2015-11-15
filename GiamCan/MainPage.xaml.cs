@@ -63,7 +63,7 @@ namespace GiamCan
 
                 }
                 // chuyen den TrangChu
-                Frame.Navigate(typeof(TrangChu), nguoidung);
+                Frame.Navigate(typeof(Shell), nguoidung);
                 Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
             }
             else
@@ -90,7 +90,7 @@ namespace GiamCan
                 {
                     DataContractSerializer serializer = new DataContractSerializer(typeof(NguoiDung));
                     NguoiDung nguoidung = serializer.ReadObject(fileStream) as NguoiDung;
-                    Frame.Navigate(typeof(TrangChu), nguoidung);
+                    Frame.Navigate(typeof(Shell), nguoidung);
                     Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
                 }
             }
