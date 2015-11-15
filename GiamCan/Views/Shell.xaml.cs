@@ -58,6 +58,12 @@ namespace GiamCan.Views
             {
                 rootFrame.Navigate(typeof(TrangChu), nguoidung);
             }
+            (this.DataContext as Frame).Navigated += OnNavigated;
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            this.SplitView.IsPaneOpen = false;
         }
 
         private void HamburgerRadioButton_Click(object sender, RoutedEventArgs e)
