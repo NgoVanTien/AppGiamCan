@@ -19,12 +19,9 @@
             <RowDefinition Height="Auto"/>
 
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Padding="8 4" Height="44" Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 0 0 2">
-            <Image Source="ms-appx:///Assets/logo.png" />
-            <TextBlock TextAlignment="Left" FontSize="28" Margin="20,0,0,0" Text="GIẢM CÂN 360"/>
-        </StackPanel>
+        <TextBlock Text="Mục tiêu mới" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 10 0 0" />
         <ScrollViewer Grid.Row="1">
-            <StackPanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel Margin="8 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0">
                     <TextBlock Text="Lời nhắc:" FontSize="16" FontWeight="SemiBold"/>
                     <TextBlock Text="Giảm cân nên ở mức 0,25 - 1kg mỗi tuần. Nếu giảm cân quá nhanh bạn sẽ đối diện với nguy cơ tăng cân lên cũng nhanh." FontSize="12" TextWrapping="Wrap" Margin="4,0,0,0"/>
@@ -32,9 +29,9 @@
                 </StackPanel>
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
                     <TextBlock TextWrapping="Wrap" Text="Mục tiêu đề nghị" FontSize="16" FontWeight="SemiBold"  />
-                    <Button x:Name="muc1Button" Click="mucButton_Click" Content="Giảm 5kg trong vòng 2 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Button x:Name="muc2Button" Click="mucButton_Click" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Button x:Name="muc3Button" Click="mucButton_Click" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="muc1Button" Click="mucButton_Click" Content="Giảm 5kg trong vòng 2 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGreen"/>
+                    <Button x:Name="muc2Button" Click="mucButton_Click" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightBlue"/>
+                    <Button x:Name="muc3Button" Click="mucButton_Click" Content="Giảm 2kg trong vòng 1 tháng" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightCoral"/>
                 </StackPanel>
                 <StackPanel BorderBrush="Blue" BorderThickness="3,1,0,0" Padding="4,0,0,0" Margin="0,12,0,0">
                     <TextBlock TextWrapping="Wrap" Text="Chọn mục tiêu cho riêng bạn" FontSize="16" FontWeight="SemiBold"  />

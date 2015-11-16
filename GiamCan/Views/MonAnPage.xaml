@@ -31,10 +31,6 @@
                 <Setter Property="Foreground" Value="Black" />
             </Style>
         </Grid.Resources>
-        <StackPanel Orientation="Horizontal" Padding="8 4" Height="44" Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 0 0 2">
-            <Image Source="ms-appx:///Assets/logo.png" />
-            <TextBlock TextAlignment="Left" FontSize="28" Margin="20,0,0,0" Text="GIẢM CÂN 360"/>
-        </StackPanel>
         <TextBox x:Name="searchBox" PlaceholderText="Tìm món ăn" Grid.Row="1" FontSize="16" KeyUp="searchBox_KeyUp" Margin="4"/>
         <Button x:Name="xoaBtn" Content="X" Grid.Row="1" HorizontalAlignment="Right" Click="searchBtn_Click"/>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Row="2">

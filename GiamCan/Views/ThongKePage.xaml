@@ -19,11 +19,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Padding="8 4" Height="44" Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 0 0 2">
-            <Image Source="ms-appx:///Assets/logo.png" />
-            <TextBlock TextAlignment="Left" FontSize="28" Margin="20,0,0,0" Text="GIẢM CÂN 360"/>
-        </StackPanel>
-        <ScrollViewer Margin="10,0,10,10" Grid.Row="1">
+       <TextBlock Text="Thống kê" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
+        <ScrollViewer Margin="10,2,10,10" Grid.Row="1">
             <StackPanel>
                 <StackPanel HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1">
                     <StackPanel>

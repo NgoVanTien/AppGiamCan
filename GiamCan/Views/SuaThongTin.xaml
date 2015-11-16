@@ -18,22 +18,19 @@
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Padding="8 4" Height="44" Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 0 0 2">
-            <Image Source="ms-appx:///Assets/logo.png" />
-            <TextBlock TextAlignment="Left" FontSize="28" Margin="20,0,0,0" Text="GIẢM CÂN 360"/>
-        </StackPanel>
+        <TextBlock Text="Sửa thông tin" FontSize="24" Margin="10 10 0 0" Style="{StaticResource SubheaderTextBlockStyle}"/>
         <ScrollViewer Grid.Row="1">
-            <StackPanel HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top">
-                <TextBlock Text="Tên đăng nhập" TextWrapping="Wrap"  Margin="0,20,0,4" FontSize="20"/>
-                <TextBox x:Name="tendangnhapTextBox" Text="{Binding TenDangNhap}" IsEnabled="False" FontSize="20" HorizontalAlignment="Stretch" AcceptsReturn="True"/>
+            <StackPanel HorizontalAlignment="Stretch" Margin="10,0,10,0" VerticalAlignment="Top">
+                <TextBlock Text="Tên đăng nhập" TextWrapping="Wrap"  Margin="0,20,0,4" FontSize="16"/>
+                <TextBox x:Name="tendangnhapTextBox" Text="{Binding TenDangNhap}" IsEnabled="False" FontSize="16" HorizontalAlignment="Stretch" AcceptsReturn="True"/>
                 <!--<TextBlock Text="Mật khẩu" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
                 <!--<TextBox x:Name="matkhauTextBox" Header="Mật khẩu" FontSize="20" Margin="0,12,0,0" Text="" HorizontalAlignment="Stretch"/>-->
                 <!--<TextBlock Text="Ngày sinh" TextWrapping="Wrap"  Margin="0,20,0,12" Style="{StaticResource TitleTextBlockStyle}"/>-->
-                <DatePicker x:Name="ngaysinhDatePicker" Header="Ngày sinh" Margin="0,12,0,0" FontSize="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <TextBlock Text="Giới tính" TextWrapping="Wrap"  Margin="0,12,0,0" FontSize="20"/>
+                <DatePicker x:Name="ngaysinhDatePicker" Header="Ngày sinh" Margin="0,12,0,0" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <TextBlock Text="Giới tính" TextWrapping="Wrap"  Margin="0,12,0,0" FontSize="16"/>
                 <StackPanel x:Name="gioitinhPanel" Orientation="Horizontal" >
-                    <RadioButton GroupName="gioiTinh" Content="Nam" Margin="20,0,0,0" />
-                    <RadioButton GroupName="gioiTinh" Content="Nữ" />
+                    <RadioButton GroupName="gioiTinh" Content="Nam" Margin="20,0,0,0" FontSize="16" />
+                    <RadioButton GroupName="gioiTinh" Content="Nữ" FontSize="16" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

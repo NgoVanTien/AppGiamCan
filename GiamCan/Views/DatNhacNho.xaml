@@ -13,15 +13,7 @@
         </CommandBar>
     </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Padding="8 4" Height="44" Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 0 0 2">
-            <Image Source="ms-appx:///Assets/logo.png" />
-            <TextBlock TextAlignment="Left" FontSize="28" Margin="20,0,0,0" Text="GIẢM CÂN 360"/>
-        </StackPanel>
-        <ScrollViewer Grid.Row="1" Margin="10">
+        <ScrollViewer Margin="10">
             <StackPanel>
                 <TextBlock TextWrapping="Wrap" Text="Đặt nhắc nhở" Margin="0,0,0,12" Style="{StaticResource SubheaderTextBlockStyle}"/>
                 <!--<TextBlock TextWrapping="Wrap" Text="Nội dung" Margin="0,12,0,0" Style="{StaticResource TitleTextBlockStyle}"/>-->

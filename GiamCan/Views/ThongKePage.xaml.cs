@@ -123,7 +123,7 @@ namespace GiamCan.Views
                     }
                     foreach (var tkn in ThongKeNgayKhacList)
                     {
-                        DateTime date2 = DateTime.Parse(tkn.Ngay);
+                        DateTime date2 = DateTime.ParseExact(tkn.Ngay, "dd/MM/yyyy", new CultureInfo("vi-vn"));
                         if (i == date2.Day && date2.Month == date.Month)
                         {
                             (o2 as Grid).BorderBrush = new SolidColorBrush(Colors.Yellow);
@@ -170,6 +170,7 @@ namespace GiamCan.Views
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             thongkengayFlipView.Visibility = Visibility.Visible;
+            btdetailStackPanel.Visibility = Visibility.Collapsed;
             Initialize_Calendar(calendarDate);
 
             // change background of the grid that is tapped

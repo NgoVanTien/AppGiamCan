@@ -121,7 +121,7 @@ namespace GiamCan
             Frame rootFrame = Window.Current.Content as Frame;
 
             Shell shell = rootFrame.Content as Shell;
-            if(shell.DataContext as Frame != null)
+            if(shell?.DataContext as Frame != null)
             {
                 rootFrame = shell.DataContext as Frame;
             }
