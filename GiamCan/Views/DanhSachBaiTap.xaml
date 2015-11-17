@@ -8,7 +8,7 @@
     mc:Ignorable="d">
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Back" Label="Trở về"/>
+            <AppBarButton x:Name="backButton" Icon="Back" Click="backButton_Click" Label="Trở về"/>
         </CommandBar>
     </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

@@ -55,5 +55,13 @@ namespace GiamCan.Views
         {
             Frame.Navigate(typeof(DapXe));
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
+        }
     }
 }
