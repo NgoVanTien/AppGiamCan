@@ -1,6 +1,7 @@
 ﻿using GiamCan.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -84,7 +85,7 @@ namespace GiamCan.Views
             // gan ngay sinh gioi tinh vao cho chiso
             chiso = new ChiSo();
             chiso.GioiTinh = nguoidung.GioiTinh;
-            DateTime birthday = Convert.ToDateTime(nguoidung.NgaySinh);
+            DateTime birthday = DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn"));
             chiso.Tuoi = DateTime.Today.Year - birthday.Year;
         }
 
