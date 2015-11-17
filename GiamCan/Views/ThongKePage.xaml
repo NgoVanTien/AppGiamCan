@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:valueconverter="using:GiamCan.Converters"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
-    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting" Loaded="Page_Loaded"
     >
     <Page.Resources>
         <valueconverter:StringToDateTimeConverter x:Key="StringToDateTimeConverter"/>
@@ -20,415 +20,451 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
        <TextBlock Text="Thống kê" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
-        <ScrollViewer Margin="10,2,10,10" Grid.Row="1">
-            <StackPanel>
-                <StackPanel HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1">
+        <FlipView x:Name="thongkeFlipView" Grid.Row="1" Background="White">
+            <FlipViewItem Background="LightCyan">
+                <StackPanel>
+                    <TextBlock Text="Thống kê từng ngày" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
+                
+                <ScrollViewer Margin="10,2,10,10" >
                     <StackPanel>
-                        <Grid Height="30">
-                            <Button Content="&#x2190;" Background="{x:Null}" HorizontalAlignment="Left" Click="previousMonth"/>
-                            <TextBlock Name="CalendarHeader" Text="August 2014" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraLight" FontSize="20"/>
-                            <Button Content="&#x2192;" Background="{x:Null}" HorizontalAlignment="Right" Click="nextMonth"/>
-                        </Grid>
-                    </StackPanel>
-                    <!-- T2 T3 T4 ... -->
-                    <StackPanel Orientation="Horizontal" BorderBrush="Gray" BorderThickness="0 1">
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="CN" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </Grid>
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="T2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="T3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="T4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="T5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="T6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                        <Grid Width="40" Height="20" Background="LightGray">
-                            <TextBlock Text="T7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </StackPanel>
-                    <!-- Calendar -->
-                    <StackPanel Name="Calendar" Margin="0, 0, 0, 5">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="1">
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="2">
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                            <Grid Width="40" Height="30" Tapped="Grid_Tapped">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Grid>
-                        </StackPanel>
-                    </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1">
+                            <StackPanel>
+                                <Grid Height="30">
+                                    <Button Content="&#x2190;" Background="{x:Null}" HorizontalAlignment="Left" Click="previousMonth"/>
+                                    <TextBlock Name="CalendarHeader" Text="August 2014" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraLight" FontSize="20"/>
+                                    <Button Content="&#x2192;" Background="{x:Null}" HorizontalAlignment="Right" Click="nextMonth"/>
+                                </Grid>
+                            </StackPanel>
+                            <!-- T2 T3 T4 ... -->
+                            <StackPanel Orientation="Horizontal" BorderBrush="Gray" BorderThickness="0 1">
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="CN" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Grid>
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="T2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="T3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="T4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="T5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="T6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid Width="40" Height="20" Background="LightGray">
+                                    <TextBlock Text="T7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </StackPanel>
+                            <!-- Calendar -->
+                            <StackPanel Name="Calendar" Margin="0, 0, 0, 5">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="1">
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Tag="2">
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <Grid Width="40" Height="30" Tapped="Grid_Tapped">
+                                        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
 
-                </StackPanel>
-                <Line Fill="Black" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="-10,10,-10,0" X2="1" />
-                <FlipView x:Name="thongkengayFlipView" Background="{x:Null}" Height="320">
-                    <FlipViewItem>
-                        <StackPanel Margin="20">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Ngày " Margin="-10,0,8,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
-                                <TextBlock x:Name="ngayTextBlock" Margin="0,0,0,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tổng lượng Cals tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                                <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tổng lượng Cals đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                                <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
-                                <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
-                                <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
-                            </StackPanel>
-                            
                         </StackPanel>
-                    </FlipViewItem>
-                    <FlipViewItem>
-                        <StackPanel>
-                            <charting:Chart x:Name="PieChart"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                            <charting:Chart.Series>
-                                <charting:PieSeries Tag="IdBaiTap" Margin="0" IndependentValuePath="TenBaiTap" DependentValuePath="LuongKaloTieuHao" IsSelectionEnabled="True" Tapped="PieSeries_Tapped"/>
-                            </charting:Chart.Series>
-                            <charting:Chart.Palette>
-                                <charting:ResourceDictionaryCollection>
-                                    <!-- Blue -->
-                                    <ResourceDictionary>
-                                        <SolidColorBrush
+                        <Line Fill="Black" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="-10,10,-10,0" X2="1" />
+                        <FlipView x:Name="thongkengayFlipView" Background="{x:Null}" Height="400">
+                            <FlipViewItem>
+                                <StackPanel Margin="10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Ngày " Margin="0,0,8,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
+                                        <TextBlock x:Name="ngayTextBlock" Margin="0,0,0,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Id mục tiêu: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                        <TextBlock x:Name="muctieuTextBlock" FontSize="32" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tổng lượng Cals tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                        <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tổng lượng Cals đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                        <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                                        <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                                        <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </FlipViewItem>
+                            <FlipViewItem>
+                                <StackPanel>
+                                    <charting:Chart x:Name="PieChart"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                        <charting:Chart.Series>
+                                            <charting:PieSeries Tag="IdBaiTap" Margin="0" IndependentValuePath="TenBaiTap" DependentValuePath="LuongKaloTieuHao" IsSelectionEnabled="True" Tapped="PieSeries_Tapped"/>
+                                        </charting:Chart.Series>
+                                        <charting:Chart.Palette>
+                                            <charting:ResourceDictionaryCollection>
+                                                <!-- Blue -->
+                                                <ResourceDictionary>
+                                                    <SolidColorBrush
                                             x:Key="Background"
                                             Color="#FF4586D8" />
-                                        <Style
+                                                    <Style
                                             x:Key="DataPointStyle"
                                             TargetType="Control">
-                                            <Setter
+                                                        <Setter
                                                 Property="Background"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                        <Style
+                                                    </Style>
+                                                    <Style
                                             x:Key="DataShapeStyle"
                                             TargetType="Shape">
-                                            <Setter
+                                                        <Setter
                                                 Property="Stroke"
                                                 Value="{StaticResource Background}" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeThickness"
                                                 Value="2" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeMiterLimit"
                                                 Value="1" />
-                                            <Setter
+                                                        <Setter
                                                 Property="Fill"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                    </ResourceDictionary>
-                                    <!-- Red -->
-                                    <ResourceDictionary>
-                                        <SolidColorBrush
+                                                    </Style>
+                                                </ResourceDictionary>
+                                                <!-- Red -->
+                                                <ResourceDictionary>
+                                                    <SolidColorBrush
                                             x:Key="Background"
                                             Color="#FFDC443F" />
-                                        <Style
+                                                    <Style
                                             x:Key="DataPointStyle"
                                             TargetType="Control">
-                                            <Setter
+                                                        <Setter
                                                 Property="Background"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                        <Style
+                                                    </Style>
+                                                    <Style
                                             x:Key="DataShapeStyle"
                                             TargetType="Shape">
-                                            <Setter
+                                                        <Setter
                                                 Property="Stroke"
                                                 Value="{StaticResource Background}" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeThickness"
                                                 Value="2" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeMiterLimit"
                                                 Value="1" />
-                                            <Setter
+                                                        <Setter
                                                 Property="Fill"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                    </ResourceDictionary>
-                                    <!-- Yellow -->
-                                    <ResourceDictionary>
-                                        <SolidColorBrush
+                                                    </Style>
+                                                </ResourceDictionary>
+                                                <!-- Yellow -->
+                                                <ResourceDictionary>
+                                                    <SolidColorBrush
                                             x:Key="Background"
                                             Color="#FFD6DC3B" />
-                                        <Style
+                                                    <Style
                                             x:Key="DataPointStyle"
                                             TargetType="Control">
-                                            <Setter
+                                                        <Setter
                                                 Property="Background"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                        <Style
+                                                    </Style>
+                                                    <Style
                                             x:Key="DataShapeStyle"
                                             TargetType="Shape">
-                                            <Setter
+                                                        <Setter
                                                 Property="Stroke"
                                                 Value="{StaticResource Background}" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeThickness"
                                                 Value="2" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeMiterLimit"
                                                 Value="1" />
-                                            <Setter
+                                                        <Setter
                                                 Property="Fill"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                    </ResourceDictionary>
-                                    <!-- Green -->
-                                    <ResourceDictionary>
-                                        <SolidColorBrush
+                                                    </Style>
+                                                </ResourceDictionary>
+                                                <!-- Green -->
+                                                <ResourceDictionary>
+                                                    <SolidColorBrush
                                             x:Key="Background"
                                             Color="#FFAAD34F" />
-                                        <Style
+                                                    <Style
                                             x:Key="DataPointStyle"
                                             TargetType="Control">
-                                            <Setter
+                                                        <Setter
                                                 Property="Background"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                        <Style
+                                                    </Style>
+                                                    <Style
                                             x:Key="DataShapeStyle"
                                             TargetType="Shape">
-                                            <Setter
+                                                        <Setter
                                                 Property="Stroke"
                                                 Value="{StaticResource Background}" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeThickness"
                                                 Value="2" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeMiterLimit"
                                                 Value="1" />
-                                            <Setter
+                                                        <Setter
                                                 Property="Fill"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                    </ResourceDictionary>
-                                    <ResourceDictionary>
-                                        <SolidColorBrush
+                                                    </Style>
+                                                </ResourceDictionary>
+                                                <ResourceDictionary>
+                                                    <SolidColorBrush
                                             x:Key="Background"
                                             Color="#FF4FCDD3" />
-                                        <Style
+                                                    <Style
                                             x:Key="DataPointStyle"
                                             TargetType="Control">
-                                            <Setter
+                                                        <Setter
                                                 Property="Background"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                        <Style
+                                                    </Style>
+                                                    <Style
                                             x:Key="DataShapeStyle"
                                             TargetType="Shape">
-                                            <Setter
+                                                        <Setter
                                                 Property="Stroke"
                                                 Value="{StaticResource Background}" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeThickness"
                                                 Value="2" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeMiterLimit"
                                                 Value="1" />
-                                            <Setter
+                                                        <Setter
                                                 Property="Fill"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                    </ResourceDictionary>
-                                    <ResourceDictionary>
-                                        <SolidColorBrush
+                                                    </Style>
+                                                </ResourceDictionary>
+                                                <ResourceDictionary>
+                                                    <SolidColorBrush
                                             x:Key="Background"
                                             Color="#FFAF4FD3" />
-                                        <Style
+                                                    <Style
                                             x:Key="DataPointStyle"
                                             TargetType="Control">
-                                            <Setter
+                                                        <Setter
                                                 Property="Background"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                        <Style
+                                                    </Style>
+                                                    <Style
                                             x:Key="DataShapeStyle"
                                             TargetType="Shape">
-                                            <Setter
+                                                        <Setter
                                                 Property="Stroke"
                                                 Value="{StaticResource Background}" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeThickness"
                                                 Value="2" />
-                                            <Setter
+                                                        <Setter
                                                 Property="StrokeMiterLimit"
                                                 Value="1" />
-                                            <Setter
+                                                        <Setter
                                                 Property="Fill"
                                                 Value="{StaticResource Background}" />
-                                        </Style>
-                                    </ResourceDictionary>
-                                </charting:ResourceDictionaryCollection>
-                            </charting:Chart.Palette>
+                                                    </Style>
+                                                </ResourceDictionary>
+                                            </charting:ResourceDictionaryCollection>
+                                        </charting:Chart.Palette>
 
+                                    </charting:Chart>
+                                    <StackPanel x:Name="btdetailStackPanel" Visibility="Collapsed" Padding="8">
+                                        <TextBlock x:Name="tenbaitapTextBlock" FontSize="20"/>
+                                        <Grid>
+                                            <TextBlock Text="Thời gian tập: " HorizontalAlignment="Left" FontSize="16" />
+                                            <TextBlock x:Name="thoigiantap1TextBlock" HorizontalAlignment="Right" FontSize="20" />
+                                        </Grid>
+                                        <Grid>
+                                            <TextBlock Text="Lượng Cals tiêu hao: " HorizontalAlignment="Left" FontSize="16"/>
+                                            <TextBlock x:Name="luongkalotieuhaoTextBlock" HorizontalAlignment="Right" FontSize="20"/>
+                                        </Grid>
+                                        <Grid x:Name="quangduongGrid">
+                                            <TextBlock Text="Quãng đường đi được" HorizontalAlignment="Left" FontSize="16"/>
+                                            <TextBlock x:Name="quangduongTextBlock" HorizontalAlignment="Right" FontSize="20" />
+                                        </Grid>
+                                    </StackPanel>
+                                </StackPanel>
+                            </FlipViewItem>
+                        </FlipView>
+                    </StackPanel>
+                </ScrollViewer>
+                </StackPanel>
+            </FlipViewItem>
+            <FlipViewItem Background="LightGoldenrodYellow">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Thống kê tổng quan" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/> 
+                    <charting:Chart x:Name="PieChart1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,-90,0,0" Width="250" Height="250">
+                        <charting:PieSeries Margin="10" IndependentValuePath="Title" DependentValuePath="Value" />
+                    </charting:Chart>
+                    <TextBlock x:Name="mesagBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontSize="16" Margin="10,-60,0,10"/>
+                    <!--<Charting:Chart x:Name="ColumnChart" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10" Width="400" Height="400">
+            <Charting:ColumnSeries Margin="10" IndependentValuePath="Title" DependentValuePath="Value" />
+        </Charting:Chart>-->
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" x:Name="scrollLineChart" Grid.Row="3" Width="auto" VerticalScrollBarVisibility="Visible" AllowDrop="False" VerticalAlignment="Bottom" >
+                        <charting:Chart x:Name="lineChart" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700" Height="300" Margin="10,-50,0,10" >
+                            <charting:LineSeries Margin="0" TabIndex="2" FlowDirection="LeftToRight"  IndependentValuePath="Title" DependentValuePath="Value" />
                         </charting:Chart>
-                            <StackPanel x:Name="btdetailStackPanel" Visibility="Collapsed" Padding="8">
-                                <TextBlock x:Name="tenbaitapTextBlock" FontSize="20"/>
-                                <Grid>
-                                    <TextBlock Text="Thời gian tập: " HorizontalAlignment="Left" FontSize="16" />
-                                    <TextBlock x:Name="thoigiantap1TextBlock" HorizontalAlignment="Right" FontSize="20" />
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Lượng Cals tiêu hao: " HorizontalAlignment="Left" FontSize="16"/>
-                                    <TextBlock x:Name="luongkalotieuhaoTextBlock" HorizontalAlignment="Right" FontSize="20"/>
-                                </Grid>
-                                <Grid x:Name="quangduongGrid">
-                                    <TextBlock Text="Quãng đường đi được" HorizontalAlignment="Left" FontSize="16"/>
-                                    <TextBlock x:Name="quangduongTextBlock" HorizontalAlignment="Right" FontSize="20" />
-                                </Grid>
-                                
-                                
-                            </StackPanel>
-                        </StackPanel>
-                    </FlipViewItem>
-                </FlipView>
-            </StackPanel>
-        </ScrollViewer>
+                    </ScrollViewer>
+                    <Button x:Name="shareBtn" Grid.Row="4" HorizontalAlignment="Center" Content="Share" Click="share_Clicked"/>
+                </Grid>
+            </FlipViewItem>
+        </FlipView>
+            
     </Grid>
 </Page>

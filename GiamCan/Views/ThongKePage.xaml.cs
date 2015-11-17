@@ -11,6 +11,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,6 +30,17 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class ThongKePage : Page, INotifyPropertyChanged
     {
+        public class PieData
+        {
+            public string Title { get; set; }
+            public double Value { get; set; }
+            public PieData(string title, double value)
+            {
+                Title = title;
+                Value = value;
+            }
+            public PieData() { }
+        }
         string path;
         SQLite.Net.SQLiteConnection connection;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -60,10 +72,24 @@ namespace GiamCan.Views
 
             // lay muctieu hien tai
             muctieu = e.Parameter as MucTieu;
-            // tu muc tieu lay danh sach thongkengay
+
+            // lay nguoi dung hien tai
+            NguoiDung nguoidung = connection.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).First();
+
+            // lay danh sách các ngày từ mục tiêu hiện tại
             ThongKeNgayList = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu).ToList<ThongKeNgay>();
-            // lay danh sach thongkengay tu cac muc tieu KHAC -> de nguoidung xem lai
-            ThongKeNgayKhacList = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu != muctieu.IdMucTieu).ToList<ThongKeNgay>();
+
+            // lấy danh sách các mục tiêu khác của người dùng hiện tại (để hiển thị)
+            List<MucTieu> muctieukhacList = connection.Table<MucTieu>().Where(r => r.TenDangNhap == nguoidung.TenDangNhap && r.IdMucTieu != muctieu.IdMucTieu).ToList();
+
+            ThongKeNgayKhacList = new List<ThongKeNgay>();
+            // lấy danh sách các ngày từ các mục tiêu trước
+            foreach (var muctieukhac in muctieukhacList)
+            {
+                var list = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieukhac.IdMucTieu).ToList();
+                list.ForEach(r => ThongKeNgayKhacList.Add(r));
+            }
+            
             Initialize_Calendar(calendarDate);
 
         }
@@ -183,11 +209,13 @@ namespace GiamCan.Views
 
             string date = Int32.Parse(textblock.Text).ToString("00") + "/" + CalendarHeader.Tag.ToString(); /* dd/MM/yyyy */
             ngayTextBlock.Text = date;
+            
             //DateTime date = DateTime.ParseExact(str, "dd/MM/yyyy", new CultureInfo("vi-vn"));
             ThongKeNgay tkn = connection.Table<ThongKeNgay>().Where(r => r.Ngay == date).FirstOrDefault();
-
+            
             if (tkn != null)
             {
+                muctieuTextBlock.Text = tkn.IdMucTieu.ToString();
                 kaloduavaoTextBlock.Text = tkn.LuongKaloDuaVao.ToString();
                 kalotieuhaoTextBlock.Text = tkn.LuongKaloTieuHao.ToString();
                 int soluongbaitap = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM ThongKeBaiTap WHERE IdThongKeNgay =?", tkn.IdThongKeNgay);
@@ -243,5 +271,88 @@ namespace GiamCan.Views
 
             
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadChartContents();
+        }
+
+        private void LoadChartContents()
+        {
+            List<ThongKeBaiTap> thongKeBaiTap = connection.Table<ThongKeBaiTap>().ToList<ThongKeBaiTap>(); ;
+            double tongKaloTieuHao = 0;
+            double kaloBieuDo = 0;
+            double kaloBaiTap = 0;
+            List<double> kaloTapList = new List<double>();
+            for (int i = 0; i < thongKeBaiTap.Count; i++)
+            {
+                kaloBaiTap += thongKeBaiTap[i].LuongKaloTieuHao;
+            }
+            double kaloMuonGiam = 0;
+            kaloMuonGiam = muctieu.SoCanMuonGiam * 7700;
+
+            //lay gia tri tu bang thong ke ngay
+            List<ThongKeNgay> thongKeLst  = connection.Table<ThongKeNgay>().ToList<ThongKeNgay>();
+            for (int i = 0; i < thongKeLst.Count; i++)
+            {
+                tongKaloTieuHao += kaloBaiTap + thongKeLst[i].LuongKaloTieuHao - thongKeLst[i].LuongKaloDuaVao - thongKeLst[i].LuongKaloNgoaiDuKien;
+            }
+
+            if (tongKaloTieuHao < 0)
+            {
+                mesagBlock.Text = "Lượng Kalo bạn đưa vào quá nhiều, bạn có thể bị tăng cân";
+            }
+            else
+            {
+                kaloBieuDo = kaloMuonGiam - tongKaloTieuHao; //kalocon lai can phai giam
+                mesagBlock.Text = "Bạn đã giảm được " + string.Format("{0:0.00}", tongKaloTieuHao / 7700) + " kg";
+                List<PieData> PieList = new List<PieData>()
+                {
+                    new PieData("Kalo Đã giảm",tongKaloTieuHao),
+                    new PieData("Kalo phải giảm", kaloBieuDo),
+                 };
+                (PieChart1.Series[0] as PieSeries).ItemsSource = PieList;
+            }
+
+            
+            
+            //BIEU DO COT CHO TUNG NGAY
+            //thong ke theo tung ngay
+            double kaloGiamHangNgay = muctieu.SoCanMuonGiam * 7700 / muctieu.SoNgay;
+            List<ThongKeBaiTap> thongKeBaiTapMotNgay = new List<ThongKeBaiTap>();
+            double kaloTieuHaoNgay = 0;
+            // ObservableCollection<PieData> ColunmList = new ObservableCollection<PieData>();
+            List<PieData> lineList = new List<PieData>();
+            double kaloTapTieuHao = 0;
+            double tongKaloDuaVao = 0;
+            int idNgay;
+            double kaloTap = 0;
+            //ColunmList.Add(new PieData("", 0));
+            for (int i = 0; i < thongKeLst.Count; i++)
+            {
+                idNgay = thongKeLst[i].IdThongKeNgay;
+                kaloTap = connection.ExecuteScalar<double>("Select sum(LuongKaloTieuHao) from ThongKeBaiTap where IdThongKeNgay =?", idNgay);
+                kaloTapTieuHao = kaloTap + thongKeLst[i].LuongKaloTieuHao;
+                tongKaloDuaVao = thongKeLst[i].LuongKaloDuaVao + thongKeLst[i].LuongKaloNgoaiDuKien;
+                kaloTieuHaoNgay = kaloTapTieuHao - tongKaloDuaVao;
+                //ColunmList.Add(new PieData("ngay " + (i + 1), kaloTieuHaoNgay));
+                lineList.Add(new PieData("ngày " + idNgay, kaloTieuHaoNgay));
+                kaloTap = 0;
+            }
+            //ColunmList.Add(new PieData("1", 1330));
+            //ColunmList.Add(new PieData("2", 800));
+            //ColunmList.Add(new PieData("3", 1200));
+            //ColunmList.Add(new PieData("4", 1000));
+            //(ColumnChart.Series[0] as ColumnSeries).ItemsSource = ColunmList;
+            //(lineChart.Series[0] as ColumnSeries)
+            (lineChart.Series[0] as LineSeries).ItemsSource = lineList;
+        }
+
+        public async void share_Clicked(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.facebook.com/sharer/sharer.php?app_id=113869198637480&sdk=joey&u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DhP8lqgRQC4o&display=popup&ref=plugin&src=share_button"));
+        }
+
+        
     }
 }
