@@ -1,6 +1,7 @@
 ﻿using GiamCan.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -45,6 +46,10 @@ namespace GiamCan.Views
             string today = DateTime.Today.ToString("dd/MM/yyyy");
             
             thongkengay = (muctieu != null) ? conn.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu && r.Ngay == today).FirstOrDefault() : null;
+
+            tendangnhapTextBlock.Text = nguoidung.TenDangNhap;
+            tuoiTextBlock.Text = (DateTime.Today.Year - DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn")).Year).ToString();
+            gioitinhTextBlock.Text = nguoidung.GioiTinh;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

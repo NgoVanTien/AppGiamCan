@@ -26,7 +26,13 @@
         DisplayMode="Overlay" IsPaneOpen="False" PaneBackground="LightYellow" Content="{Binding}" Grid.Row="1">
             <SplitView.Pane>
                 <StackPanel x:Name="SplitViewPanePanel">
-                    
+                    <StackPanel Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 0 0 2" Padding="10">
+                        <TextBlock x:Name="tendangnhapTextBlock" Text="Dagger229" FontSize="20" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="tuoiTextBlock" Text="21" FontSize="20" Margin="20 0"/>
+                            <TextBlock x:Name="gioitinhTextBlock" Text="Nam" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
                     <RadioButton x:Name="trangchuButton" Click="trangchuButton_Click" Tag="" Style="{StaticResource NavRadioButtonStyle}" Content="Trang chủ" GroupName="Navigation" FontSize="20" />
                     <RadioButton x:Name="baitapButton" Click="baitapButton_Click" Tag="" Style="{StaticResource NavRadioButtonStyle}" Content="Bài tập" GroupName="Navigation" FontSize="20" />
                     <RadioButton x:Name="chedoanButton" Click="chedoanButton_Click" Tag="" Style="{StaticResource NavRadioButtonStyle}" Content="Chế độ ăn" GroupName="Navigation" FontSize="20" />
