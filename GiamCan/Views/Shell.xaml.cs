@@ -10,7 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls; 
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -26,7 +26,7 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class Shell : Page
     {
-        SQLite.Net.SQLiteConnection conn;
+        SQLite.Net.SQLiteConnection connection;
         NguoiDung nguoidung;
         MucTieu muctieu;
         ThongKeNgay thongkengay;
@@ -34,18 +34,18 @@ namespace GiamCan.Views
         {
             this.InitializeComponent();
             string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
-            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            connection = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             nguoidung = e.Parameter as NguoiDung;
             // kiem tra ngay hien tai da co trong db chua, chua co thi them vao
-            muctieu = conn.Table<MucTieu>().Where(r => r.TenDangNhap == nguoidung.TenDangNhap && (r.TrangThai == "Đã bắt đầu" || r.TrangThai == "Chưa bắt đầu")).FirstOrDefault();
+            muctieu = connection.Table<MucTieu>().Where(r => r.TenDangNhap == nguoidung.TenDangNhap && (r.TrangThai == "Đã bắt đầu" || r.TrangThai == "Chưa bắt đầu")).FirstOrDefault();
 
             string today = DateTime.Today.ToString("dd/MM/yyyy");
             
-            thongkengay = (muctieu != null) ? conn.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu && r.Ngay == today).FirstOrDefault() : null;
+            thongkengay = (muctieu != null) ? connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu && r.Ngay == today).FirstOrDefault() : null;
 
             tendangnhapTextBlock.Text = nguoidung.TenDangNhap;
             tuoiTextBlock.Text = (DateTime.Today.Year - DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn")).Year).ToString();
@@ -63,12 +63,37 @@ namespace GiamCan.Views
             {
                 rootFrame.Navigate(typeof(TrangChu), nguoidung);
             }
+
             (this.DataContext as Frame).Navigated += OnNavigated;
         }
+
+   
 
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
             this.SplitView.IsPaneOpen = false;
+
+            if ((sender as Frame).Content.GetType() == typeof(TrangChu))
+            {
+                var tc = (sender as Frame).Content as TrangChu;
+                if(e.Parameter.GetType() == typeof(NguoiDung))
+                {
+                    nguoidung = e.Parameter as NguoiDung;
+                    muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+
+                    thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);
+
+                    tendangnhapTextBlock.Text = nguoidung.TenDangNhap;
+                    tuoiTextBlock.Text = (DateTime.Today.Year - DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn")).Year).ToString();
+                    gioitinhTextBlock.Text = nguoidung.GioiTinh;
+                }
+            }
+                // neu tro ve trang MainPage thi loại bỏ shell
+                if ((sender as Frame).Content.GetType() == typeof(MainPage))
+            {
+                Frame.Navigate(typeof(MainPage));
+                Frame.BackStack.Clear();
+            }
         }
 
         private void HamburgerRadioButton_Click(object sender, RoutedEventArgs e)
@@ -95,14 +120,9 @@ namespace GiamCan.Views
             Page page = frame?.Content as Page;
             if (page?.GetType() != typeof(DanhSachBaiTap))
             {
-                if(muctieu != null)
+                if(nguoidung != null)
                 {
-                    frame.Navigate(typeof(DanhSachBaiTap), muctieu);
-                }
-                else
-                {
-                    MessageDialog msDialog = new MessageDialog("Bạn phải bắt đầu mục tiêu của mình trước");
-                    await msDialog.ShowAsync();
+                    frame.Navigate(typeof(DanhSachBaiTap), nguoidung);
                 }
             }
         }
@@ -113,9 +133,9 @@ namespace GiamCan.Views
             Page page = frame?.Content as Page;
             if (page?.GetType() != typeof(MonAnPage))
             {
-                if (thongkengay != null)
+                if (nguoidung != null)
                 {
-                    frame.Navigate(typeof(MonAnPage), thongkengay);
+                    frame.Navigate(typeof(MonAnPage), nguoidung);
                 }
             }
         }
@@ -126,14 +146,9 @@ namespace GiamCan.Views
             Page page = frame?.Content as Page;
             if (page?.GetType() != typeof(ThongKePage))
             {
-                if (muctieu != null)
+                if (nguoidung != null)
                 {
-                    frame.Navigate(typeof(ThongKePage), muctieu);
-                }
-                else
-                {
-                    MessageDialog msDialog = new MessageDialog("Bạn phải bắt đầu mục tiêu của mình trước");
-                    await msDialog.ShowAsync();
+                    frame.Navigate(typeof(ThongKePage), nguoidung);
                 }
             }
         }

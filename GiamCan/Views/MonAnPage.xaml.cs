@@ -27,10 +27,12 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class MonAnPage : Page, INotifyPropertyChanged
     {
-        
-        string path;
-        SQLite.Net.SQLiteConnection conn;
-        ThongKeNgay tkngay;
+
+
+        SQLite.Net.SQLiteConnection connection = TrangChu.connection;
+        NguoiDung nguoidung;
+        MucTieu muctieu;
+        ThongKeNgay thongkengay;
         // list chua cac mon an tinh
         private List<MonAn> monAnList = new List<MonAn>();
         public List<MonAn> MonAnList
@@ -48,8 +50,9 @@ namespace GiamCan.Views
         public double TongLuongKalo
         {
             get { return kaloSum; }
-            set {
-                if(TongLuongKalo != value)
+            set
+            {
+                if (TongLuongKalo != value)
                 {
                     kaloSum = value;
                     NotifyPropertyChanged();
@@ -60,44 +63,60 @@ namespace GiamCan.Views
         public MonAnPage()
         {
             this.InitializeComponent();
-            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
-            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            monAnList = conn.Table<MonAn>().ToList<MonAn>();
-            tkngay = e.Parameter as ThongKeNgay;
-            monanDBList = conn.Table<ThucDon>().Where(r => r.IdThongKeNgay == tkngay.IdThongKeNgay).ToList<ThucDon>();
+            nguoidung = e.Parameter as NguoiDung;
+
+            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            if (muctieu != null)
+            {
+                thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);
+                // lấy danh sách món ăn đã chọn từ ngày hôm đó
+                monanDBList = connection.Table<ThucDon>().Where(r => r.IdThongKeNgay == thongkengay.IdThongKeNgay).ToList<ThucDon>();
+
+                
+            }
+            else
+            {
+                thongkengay = new ThongKeNgay();
+                monanDBList = new List<ThucDon>();
+            }
+            // lấy danh sách các món ăn từ database
+            monAnList = connection.Table<MonAn>().ToList<MonAn>();
             TongLuongKalo = 0;
         }
 
-        
+
 
         //hien thi dialog ve nhan xet luon kalo da an
         private async void XongBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(kaloSum == 0)
+            if (kaloSum == 0)
             {
-                var ms = new MessageDialog("Bạn nên chọn lượng Cals nhập vào \nđể thống kê chính xác nhất");
+                var ms = new MessageDialog("Bạn nên chọn lượng Kcal nhập vào \nđể thống kê chính xác nhất");
                 await ms.ShowAsync();
                 return;
             }
-            var msKalo = new MessageDialog("Tổng lượng Cals bạn đã ăn là: " + kaloSum);
-            await msKalo.ShowAsync();
-            conn.Execute("DELETE FROM ThucDon WHERE IdThongKeNgay =?", tkngay.IdThongKeNgay);
-            //add cac thuc an da chon vao database
-            foreach (var item in monanChonList)
-            {
-                conn.Insert(item);
-            }
 
-            tkngay.LuongKaloDuaVao = conn.ExecuteScalar<double>("SELECT SUM(LuongKalo) FROM THUCDON WHERE IdThongKeNgay =?", tkngay.IdThongKeNgay);
-            conn.Update(tkngay);
-            // lay thong tin nguoidung de chuyen ve trang chu
-            MucTieu muctieu = conn.Table<MucTieu>().Where(r => r.IdMucTieu == tkngay.IdMucTieu).FirstOrDefault();
-            NguoiDung nguoidung = conn.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
+            var msKalo = new MessageDialog("Tổng lượng Kcal bạn đã ăn là: " + kaloSum);
+            await msKalo.ShowAsync();
+
+            if (muctieu != null && thongkengay!= null)
+            {
+                connection.Execute("DELETE FROM ThucDon WHERE IdThongKeNgay =?", thongkengay.IdThongKeNgay);
+                //add cac thuc an da chon vao database
+                foreach (var item in monanChonList)
+                {
+                    connection.Insert(item);
+                }
+
+                thongkengay.LuongKaloDuaVao = connection.ExecuteScalar<double>("SELECT SUM(LuongKalo) FROM THUCDON WHERE IdThongKeNgay =?", thongkengay.IdThongKeNgay);
+                connection.Update(thongkengay);
+            }
+            
+
             Frame.Navigate(typeof(TrangChu), nguoidung);
         }
 
@@ -111,7 +130,7 @@ namespace GiamCan.Views
             ThucDon td = new ThucDon();
 
             // them cac IdThongKeNgay o day
-            td.IdThongKeNgay = tkngay.IdThongKeNgay;
+            td.IdThongKeNgay = thongkengay.IdThongKeNgay;
             var checkMonAn = sender as CheckBox;
             td.IdMonAn = (int)(checkMonAn.Content as StackPanel).Tag;
 
@@ -123,7 +142,7 @@ namespace GiamCan.Views
                 {
                     td.LuongKalo = double.Parse((item as TextBlock).Text);
                     TongLuongKalo += double.Parse((item as TextBlock).Text);
-                    
+
                 }
             }
             // chua co idThongKeNgay
@@ -175,6 +194,7 @@ namespace GiamCan.Views
             int soluong = Int32.Parse((combo.SelectedItem as ComboBoxItem).Content.ToString());
             // thay doi phan tu o list
             ThucDon td = monanChonList.Find(r => r.IdMonAn == checkTag);
+            if (td == null) td = new ThucDon();
             td.SoLuong = soluong;
 
             var lstText = AllChildren(combo.Parent).OfType<TextBlock>();
@@ -219,7 +239,7 @@ namespace GiamCan.Views
             }
         }
 
-        
+
         /// <summary>
         /// hàm này để lấy list thức ăn đã chọn từ lần trước, rồi check lại các món ăn như lần trước
         /// </summary>
@@ -231,10 +251,10 @@ namespace GiamCan.Views
                 var contentSP = checkbox.Content as StackPanel;
                 foreach (ThucDon monan in monanDBList)
                 {
-                    if(contentSP.Tag.ToString() == monan.IdMonAn.ToString())
+                    if (contentSP.Tag.ToString() == monan.IdMonAn.ToString())
                     {
                         checkbox.IsChecked = true;
-                        contentSP.Children.OfType<ComboBox>().First().SelectedIndex = (int)(monan.SoLuong - 1); 
+                        contentSP.Children.OfType<ComboBox>().First().SelectedIndex = (int)(monan.SoLuong - 1);
                     }
                 }
             }
@@ -289,7 +309,7 @@ namespace GiamCan.Views
 
         private void ThemLuongKaloBtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(KaloNgoaiPage), tkngay);
+            Frame.Navigate(typeof(KaloNgoaiPage), nguoidung);
         }
 
         private void viewLst_Loaded(object sender, RoutedEventArgs e)

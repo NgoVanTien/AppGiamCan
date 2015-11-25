@@ -29,6 +29,7 @@ namespace GiamCan.Views
     {
         MucTieu muctieu;
         ChiSo chiso;
+        NguoiDung nguoidung;
         int socanmuongiam, thoigian;
         string path;
         SQLite.Net.SQLiteConnection connection;
@@ -44,7 +45,7 @@ namespace GiamCan.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             muctieu = (MucTieu)e.Parameter;
-            NguoiDung nguoidung = connection.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
+            nguoidung = connection.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
             int tuoi = DateTime.Today.Year - DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn")).Year;
             chiso = new ChiSo(muctieu.CanNangBanDau, muctieu.ChieuCaoBanDau, nguoidung.GioiTinh, tuoi);
             // so ngay giam de nghi cho mac dinh = 30;
@@ -79,16 +80,25 @@ namespace GiamCan.Views
             
             if (await checkNumberTextBox() == true)
             {
+                // xóa mục tiêu hiện tại
+                var mtht = connection.Table<MucTieu>().Where(r => r.TenDangNhap == nguoidung.TenDangNhap && (r.TrangThai == "Đã bắt đầu" || r.TrangThai == "Chưa bắt đầu")).FirstOrDefault();
+                if (mtht != null)
+                {
+                    mtht.TrangThai = "Hủy";
+                    connection.Update(mtht);
+                }
+
+                // thêm mục tiêu mới vào db
                 muctieu.SoCanMuonGiam = socanmuongiam;
                 muctieu.SoNgay = thoigian;
                 muctieu.TrangThai = "Chưa bắt đầu";
                 // 1kg = 7700;
                 muctieu.LuongKaloCanTieuHaoMoiNgay = Math.Round(socanmuongiam * 7700.0 / thoigian,2);
                 connection.Insert(muctieu);
+
                 MessageDialog msDialog = new MessageDialog("Tạo mục tiêu thành công");
                 await msDialog.ShowAsync();
-                // lay du lieu NguoiDung de gui về lại trang chủ
-                NguoiDung nguoidung = connection.Query<NguoiDung>("SELECT * FROM NguoiDung WHERE TenDangNhap=?", muctieu.TenDangNhap).FirstOrDefault();
+                
                 Frame.Navigate(typeof(TrangChu), nguoidung);
             }
         }

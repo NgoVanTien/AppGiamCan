@@ -27,6 +27,9 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class DapXe : Page
     {
+        NguoiDung nguoidung;
+        MucTieu muctieu;
+        ThongKeNgay thongkengay;
         //Geolocator location;
         Geoposition position;
         Geolocator locator;
@@ -40,16 +43,14 @@ namespace GiamCan.Views
         long timeCount = 0;
         bool tracking = false;
 
-        
+
         ThreadPoolTimer timeThread;
-        string path;
-        SQLite.Net.SQLiteConnection connection;
+
+        SQLite.Net.SQLiteConnection connection = TrangChu.connection;
         ThongKeBaiTap dapXe = new ThongKeBaiTap();
         public DapXe()
         {
             this.InitializeComponent();
-            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
-            connection = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
 
             pauseBtn.Visibility = Visibility.Collapsed;
             contiBtn.Visibility = Visibility.Collapsed;
@@ -60,34 +61,64 @@ namespace GiamCan.Views
 
         private async void UpdateTime(ThreadPoolTimer timer)
         {
-          //  while(true)
-            {
-                long currentTime = DateTime.Now.Ticks;
-                long toDisplay = currentTime - timeStart;
-                if (isPause) return;
-                DateTime time = DateTime.FromBinary(toDisplay);
-                if (isPause) return;
-                timeCount = time.Second + time.Minute * 60 + time.Hour * 3600 + saveTime;
-                long hour = timeCount / 3600;
-                long timeMin = timeCount - (hour * 3600);
-                long minutes = timeCount / 60;
-                long timeSe = timeCount - (minutes * 60);
-                await Dispatcher.RunAsync(
-                           CoreDispatcherPriority.High,
-                           () =>
-                           {
-                                string s = hour.ToString() + ":" + minutes.ToString() + ":" + timeSe.ToString();
-                                timeBlock.Text = s;
-           });
+            //  while(true)
 
-            }
+            long currentTime = DateTime.Now.Ticks;
+            long toDisplay = currentTime - timeStart;
+            if (isPause) return;
+            DateTime time = DateTime.FromBinary(toDisplay);
+            if (isPause) return;
+            timeCount = time.Second + time.Minute * 60 + time.Hour * 3600 + saveTime;
+            long hour = timeCount / 3600;
+            long timeMin = timeCount - (hour * 3600);
+            long minutes = timeCount / 60;
+            long timeSe = timeCount - (minutes * 60);
+            await Dispatcher.RunAsync(
+                       CoreDispatcherPriority.High,
+                       () =>
+                       {
+                           string s = hour.ToString() + ":" + minutes.ToString() + ":" + timeSe.ToString();
+                           timeBlock.Text = s;
+                       });
+
+
         }
 
         //get current location
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
-            //check da tap lan nao trong ngay chua
+            nguoidung = e.Parameter as NguoiDung;
+
+
+            // lấy mục tiêu hiện tại (có thể null)
+            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            if (muctieu != null)
+            {
+                // lấy thống kê ngày hiện tại (có thể null)
+                thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);
+                //check da tap lan nao trong ngay chua
+
+                dapXe = connection.Table<ThongKeBaiTap>().Where(r => r.IdThongKeNgay == thongkengay.IdThongKeNgay && r.IdBaiTap == 2).FirstOrDefault();
+                if (dapXe == null)
+                {
+                    dapXe = new ThongKeBaiTap()
+                    {
+                        IdBaiTap = 2,
+                        IdThongKeNgay = thongkengay.IdThongKeNgay,
+                        QuangDuong = 0,
+                        LuongKaloTieuHao = 0,
+                        ThoiGianTap = 0
+                    };
+                    connection.Insert(dapXe);
+                }
+
+            }
+
+            // neu khong thi cho tap nhung khong dua vao database
+            else
+            {
+                dapXe = new ThongKeBaiTap();
+            }
 
 
             var accessStatus = await Geolocator.RequestAccessAsync();
@@ -111,7 +142,7 @@ namespace GiamCan.Views
                     icon.Location = position.Coordinate.Point;
                     icon.Title = "You are here";
                     myMap.MapElements.Add(icon);
-                  //  locator = new Geolocator { ReportInterval = 500 };
+                    //  locator = new Geolocator { ReportInterval = 500 };
 
                     // Subscribe to PositionChanged event to get location updates
                     locator.PositionChanged += OnPositionChanged;
@@ -140,7 +171,7 @@ namespace GiamCan.Views
                 });
                 await myMap.TrySetViewAsync(point);
             }
-            
+
             else
             {
                 currentPoint = e.Position.Coordinate.Point;
@@ -174,9 +205,9 @@ namespace GiamCan.Views
                 }
                 await myMap.TrySetViewAsync(currentPoint);
             }
-            
+
         }
-      
+
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
             startBtn.Visibility = Visibility.Collapsed;
@@ -210,9 +241,9 @@ namespace GiamCan.Views
             tracking = false;
             timeThread.Cancel();
             double tocDo;
-            //get values into THONGKEBAITAP.tb
-            dapXe.ThoiGianTap = timeCount / 60;
-            dapXe.QuangDuong = Distance;
+
+            dapXe.ThoiGianTap += timeCount;
+            dapXe.QuangDuong += Distance;
             double kaloTieuHao = 0;
             try
             {
@@ -222,20 +253,21 @@ namespace GiamCan.Views
             {
                 tocDo = 0;
             }
-            if(tocDo <= 5) kaloTieuHao = (115/30) *(timeCount / 60);
+            if (tocDo == 0) kaloTieuHao = 0;
+            if (tocDo <= 5 && tocDo > 0) kaloTieuHao = (115 / 30) * (timeCount / 60);
             if (tocDo > 5 && tocDo < 10) kaloTieuHao = (330 / 30) * (timeCount / 60);
             if (tocDo >= 10) kaloTieuHao = (400 / 30) * (timeCount / 60);
-            dapXe.LuongKaloTieuHao = kaloTieuHao;
-            var ketQua = new MessageDialog("Thời gian bạn đã đi là: " + timeBlock.Text + ". Quãng đường bạn đã đi được là: "+distanceBlock.Text +
-                ". Lượng kalo tiêu hao: "+ kaloTieuHao + "kalo");
-            ketQua.Commands.Add(new UICommand("Ok", new UICommandInvokedHandler(chuyenPage)));
+            dapXe.LuongKaloTieuHao += kaloTieuHao;
+
+            // nếu mục tiêu và thống kê ngày != null mới đưa vào database
+            if (muctieu != null && thongkengay != null)
+                connection.Update(dapXe);
+
+            var ketQua = new MessageDialog("Thời gian bạn đã đi là: " + timeBlock.Text + ". Quãng đường bạn đã đi được là: " + distanceBlock.Text +
+                ". Lượng kalo tiêu hao: " + kaloTieuHao + "kalo");
             await ketQua.ShowAsync();
 
-           
-        }
-        public void chuyenPage(IUICommand command)
-        {
-            Frame.Navigate(typeof(TrangChu));
+            if (Frame.CanGoBack) Frame.GoBack();
         }
     }
 }

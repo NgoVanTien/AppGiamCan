@@ -6,17 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
-    mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        
+
+
         <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
             <StackPanel>
-                <Grid x:Name="calsGiamGrid" Padding="8 0" Background="Bisque" BorderBrush="OrangeRed" BorderThickness="0 1">
+                <Grid x:Name="calsGiamGrid" Padding="8 0"  BorderBrush="OrangeRed" BorderThickness="0 1">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Bisque" Opacity="0.5" />
+                    </Grid.Background>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -27,7 +30,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Mức giảm: " FontSize="14"/>      
+                    <TextBlock Text="Mức giảm: " FontSize="14"/>
                     <TextBlock Text="Tập bài tập giảm: " Grid.Row="1" FontSize="14" />
                     <TextBlock Text="Thực đơn giảm:" Grid.Row="2" FontSize="14" />
                     <TextBlock Text="Cals cần tiêu hao:" Grid.Row="3" FontSize="14" />
@@ -60,15 +63,48 @@
                         <RowDefinition Height="100"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="baitapButton" Click="baitapButton_Click" Content="Bài tập hôm nay" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="chedoanButton" Click="chedoanButton_Click" Content="Chế độ ăn" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="thongtinButton" Click="thongtinButton_Click" Content="Thông tin cá nhân" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="thongkeButton" Click="thongkeButton_Click" Content="Thống kê" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="nhacnhoButton" Click="nhacnhoButton_Click" Content="Đặt nhắc nhở tập" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="lichtapButton" Content="Lịch tập" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="muctieumoiButton" Click="muctieumoiButton_Click" Content="Mục tiêu mới" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4,4,4,4"/>
-                    <Button x:Name="dangxuatButton" Click="dangxuatButton_Click" Content="Đăng xuất" Grid.Row="3" Margin="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Button x:Name="baitapButton" Click="baitapButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
 
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/baitaphomhay2.png"/>
+                        </Button.Background>
+
+                    </Button>
+                    <Button x:Name="chedoanButton" Click="chedoanButton_Click"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/chedoan2.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="thongtinButton" Click="thongtinButton_Click" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/thongtincanhan2.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="thongkeButton" Click="thongkeButton_Click" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/thongke2.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="nhacnhoButton" Click="nhacnhoButton_Click" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/datnhacnho2.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="lichtapButton" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/lichtap2.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="muctieumoiButton" Click="muctieumoiButton_Click" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/muctieumoi2.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="dangxuatButton" Click="dangxuatButton_Click" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/dangxuat2.png"/>
+                        </Button.Background>
+                    </Button>
                 </Grid>
             </StackPanel>
         </ScrollViewer>

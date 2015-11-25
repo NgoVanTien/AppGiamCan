@@ -24,40 +24,44 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class KaloNgoaiPage : Page
     {
-        String path;
-        SQLite.Net.SQLiteConnection conn;
+  
+        SQLite.Net.SQLiteConnection connection = TrangChu.connection;
         List<ThucDon> thucDonLst = new List<ThucDon>();
         public static double kaloRieng;
         ThongKeNgay tkNgay;
+        NguoiDung nguoidung;
+        MucTieu muctieu;
         public KaloNgoaiPage()
         {
             this.InitializeComponent();
-            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
-            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            tkNgay = e.Parameter as ThongKeNgay;
-            kaloBox.Text = tkNgay.LuongKaloNgoaiDuKien.ToString();
+            nguoidung = e.Parameter as NguoiDung;
+            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            if(muctieu != null)
+            {
+                tkNgay = TrangChu.getThongKeNgayHienTai(muctieu);
+                kaloBox.Text = tkNgay.LuongKaloNgoaiDuKien.ToString();
+            }
+            else
+            {
+                tkNgay = new ThongKeNgay();
+                kaloBox.Text = "0";
+            }
         }
         private void XongBtn_Click(object sender, RoutedEventArgs e)
         {
 
             kaloRieng = double.Parse(kaloBox.Text);
-            //dua cac mon an da check vao thuc don
-            //ThucDon thucDonChon = new ThucDon();
-            //thucDonChon.IdMonAn = MonAnPage.idChecked;
-            //thucDonChon.SoLuong = MonAnPage.slChon;
-            //thucDonChon.LuongKalo = MonAnPage.kaloSum;
-            //thucDonChon.LuongKaloNgoaiDuKien = kaloRieng;
-            //thucDonLst.Add(thucDonChon);
+
             tkNgay.LuongKaloNgoaiDuKien = kaloRieng;
-            conn.Update(tkNgay);
-            MessageDialog msDialog = new MessageDialog("Thành công");
-            // lay thong tin nguoidung de chuyen ve trang chu
-            MucTieu muctieu = conn.Table<MucTieu>().Where(r => r.IdMucTieu == tkNgay.IdMucTieu).FirstOrDefault();
-            NguoiDung nguoidung = conn.Table<NguoiDung>().Where(r => r.TenDangNhap == muctieu.TenDangNhap).FirstOrDefault();
+            if(muctieu != null && tkNgay != null)
+            {
+                connection.Update(tkNgay);
+                MessageDialog msDialog = new MessageDialog("Thành công");
+            }
             Frame.Navigate(typeof(TrangChu), nguoidung);
         }
 

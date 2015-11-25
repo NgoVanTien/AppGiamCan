@@ -29,126 +29,62 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class TrangChu : Page, INotifyPropertyChanged
     {
-        string path;
-        SQLite.Net.SQLiteConnection conn;
-        NguoiDung nguoidung;
-        MucTieu muctieuhientai;
+
+        public static SQLite.Net.SQLiteConnection connection;
+        public NguoiDung nguoidung;
+        public MucTieu muctieu;
         ThongKeNgay thongkengay;
         public TrangChu()
         {
             this.InitializeComponent();
-            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
-            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
+            connection = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // lay nguoidung tu trang dang nhap vao
-            nguoidung = (NguoiDung)e.Parameter;
-
-            // kiem tra ngay hien tai da co trong db chua, chua co thi them vao
-            muctieuhientai = conn.Table<MucTieu>().Where(r => r.TenDangNhap == nguoidung.TenDangNhap && (r.TrangThai == "Đã bắt đầu" || r.TrangThai == "Chưa bắt đầu")).FirstOrDefault();
-
-            // neu muctieuhientai == null ---> tuc nguoidung chua co muc tieu nao hien tai
-            if (muctieuhientai == null)
+            try
             {
-                // an header dau tien
-                calsGiamGrid.Visibility = Visibility.Collapsed;
+                // lay nguoidung tu trang dang nhap vao
+                nguoidung = (NguoiDung)e.Parameter;
 
-                MessageDialog msDialog = new MessageDialog("Bạn chưa bắt đầu một mục tiêu nào!");
-                msDialog.Commands.Add(new UICommand("Bắt đầu ngay"));
-                msDialog.Commands.Add(new UICommand("Để sau"));
-                var result = await msDialog.ShowAsync();
-                if (result.Label != "Để sau")
-                {
-                    denTaoMucTieuMoiPage();
-                }
-                return;
+                // lay muctieu hien tai cua nguoidung
+                muctieu = getMucTieuHienTai(nguoidung);
             }
-
-            string today = DateTime.Today.ToString("dd/MM/yyyy");
-
-            // neu nguoi dung chua bat dau muc tieu hien tai
-            if (muctieuhientai.ThoiGianBatDau == null || muctieuhientai.TrangThai == "Chưa bắt đầu")
+            catch (Exception)
             {
-                calsGiamGrid.Visibility = Visibility.Collapsed;
-                MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa bắt đầu tập luyện!\n");
-                msDialog.Commands.Add(new UICommand("Ok, đến trang tập luyện"));
-                msDialog.Commands.Add(new UICommand("Để sau"));
-                var result = await msDialog.ShowAsync();
-                if (result.Label.Equals("Để sau"))
-                {
-                    return;
-                }
-                else
-                {
-                    // dat thoi gian bat dau la ngay hom nay
-                    muctieuhientai.ThoiGianBatDau = today;
-                    muctieuhientai.TrangThai = "Đã bắt đầu";
-                    conn.Update(muctieuhientai);
-                    Frame.Navigate(typeof(DanhSachBaiTap), muctieuhientai);
-                }
-
+                MessageDialog msDialog = new MessageDialog("Một số lỗi đã xảy ra");
+                await msDialog.ShowAsync();
+                Frame.Navigate(typeof(MainPage));
             }
-            // kiem tra thoigianketthuc cua muc tieu
-
-            //DateTime ngayketthuc = DateTime.Parse(muctieuhientai.ThoiGianBatDau).AddDays((int)muctieuhientai.SoNgay); <--- nho dung ParseExact de theo chuan dd/MM/yyyy
-            DateTime ngayketthuc = DateTime.ParseExact(muctieuhientai.ThoiGianBatDau, "dd/MM/yyyy", new CultureInfo("vi-vn"));
-
-            // neu da vuot qua so ngay
-            if (DateTime.Today > ngayketthuc)
-            {
-                muctieuhientai.TrangThai = "Hoàn thành";
-                conn.Update(muctieuhientai);
-                MessageDialog msDialog = new MessageDialog("Chúc mừng, bạn đã tập hết số ngày của mục tiêu đề ra\nHãy xem lại quá trình luyện tập của bạn!");
-                msDialog.Commands.Add(new UICommand("Xem thống kê"));
-                msDialog.Commands.Add(new UICommand("Mục tiêu mới"));
-                var result = await msDialog.ShowAsync();
-                if (result.Label.Equals("Mục tiêu mới"))
-                {
-                    // chuyển tới trang mục tiêu mới
-                    denTaoMucTieuMoiPage();
-                }
-                else
-                {
-                    // chuyển đến trang thống kê
-                    Frame.Navigate(typeof(ThongKePage), muctieuhientai);
-                }
-            }
-            // neu van con trong thoi han cua muc tieu
-            else
-            {
-                thongkengay = conn.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieuhientai.IdMucTieu && r.Ngay == today).FirstOrDefault();
-                if (thongkengay == null)
-                {
-                    thongkengay = new ThongKeNgay();
-                    thongkengay.IdMucTieu = muctieuhientai.IdMucTieu;
-                    thongkengay.Ngay = today;
-                    // mặc định = chỉ số bmr
-                    thongkengay.LuongKaloDuaVao = muctieuhientai.ChiSoBMR;
-                    conn.Insert(thongkengay);
-                }
-                // LuongKaloCanGiamHomNay = KaloCanTieuHaoMoiNgay (để giảm cân) - LuongKaloTieuHao (chohoatdongbaitap) - chisobmr (luongkalo chohoatdonghangngay) + tongluongkaloduavao
-
-                double calsCanGiam = muctieuhientai.LuongKaloCanTieuHaoMoiNgay;
-                calsCanGiamTextBlock.Text = calsCanGiam.ToString();
-                // luong cals giam tu bai tap
-                double calsGiamBaiTap = thongkengay.LuongKaloTieuHao;
-                calsBaiTapTextBlock.Text = calsGiamBaiTap.ToString();
-
-                // luong Cals giam tu thuc don
-                double calsGiamThucDon = muctieuhientai.ChiSoBMR - thongkengay.LuongKaloDuaVao - thongkengay.LuongKaloNgoaiDuKien;
-                calsThucDonTextBlock.Text = calsGiamThucDon.ToString();
-
-                double calsConThieu = calsCanGiam - calsGiamBaiTap - calsGiamThucDon;
-                calsConThieuTextBlock.Text = calsConThieu.ToString();
-
-            }
-
         }
 
+        /// <summary>
+        /// lấy mục tiêu hiện tại của người dùng
+        /// </summary>
+        /// <param name="nd">người dùng</param>
+        /// <returns>mục tiêu hiện tại</returns>
+        public static MucTieu getMucTieuHienTai(NguoiDung nd)
+        {
+            MucTieu muctieu = connection.Table<MucTieu>().Where(r => r.TenDangNhap == nd.TenDangNhap && (r.TrangThai == "Đã bắt đầu" || r.TrangThai == "Chưa bắt đầu")).FirstOrDefault();
+            return muctieu;
+        }
+
+        /// <summary>
+        /// lấy thống kê ngày hiện tại 
+        /// </summary>
+        /// <param name="mtht">mục tiêu hiện tại</param>
+        /// <returns>thống kê ngày</returns>
+        public static ThongKeNgay getThongKeNgayHienTai(MucTieu mtht)
+        {
+            string today = DateTime.Today.ToString("dd/MM/yyyy");
+
+            ThongKeNgay thongkengay = mtht != null ? connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == mtht.IdMucTieu && r.Ngay == today).FirstOrDefault() : null;
+            return thongkengay;
+        }
         private void nhacnhoButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DatNhacNho), nguoidung);
+            if (nguoidung != null)
+                Frame.Navigate(typeof(DatNhacNho), nguoidung);
         }
 
         private void muctieumoiButton_Click(object sender, RoutedEventArgs e)
@@ -158,28 +94,32 @@ namespace GiamCan.Views
 
         private void thongtinButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ThongTinCaNhan), nguoidung);
+            if (nguoidung != null)
+                Frame.Navigate(typeof(ThongTinCaNhan), nguoidung);
         }
 
         private void baitapButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DanhSachBaiTap), muctieuhientai);
+            if (nguoidung != null)
+                Frame.Navigate(typeof(DanhSachBaiTap), nguoidung);
         }
 
         private void thongkeButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ThongKePage), muctieuhientai);
+            if (nguoidung != null)
+                Frame.Navigate(typeof(ThongKePage), nguoidung);
         }
 
         private void chedoanButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MonAnPage), thongkengay);
+            if (nguoidung != null)
+                Frame.Navigate(typeof(MonAnPage), nguoidung);
         }
 
         private async void denTaoMucTieuMoiPage()
         {
-            // kiem tra muctieuhientai da hoan thanh chua, neu chua thi se hien len thong bao
-            if (muctieuhientai != null && muctieuhientai.TrangThai != "Hoàn thành")
+            // kiem tra muctieu da hoan thanh chua, neu chua thi se hien len thong bao
+            if (muctieu != null && muctieu.TrangThai != "Hoàn thành")
             {
                 MessageDialog msDialog = new MessageDialog("TẠO MỚI MỤC TIÊU\nBạn sẽ hủy mục tiêu hiện tại?");
 
@@ -189,8 +129,7 @@ namespace GiamCan.Views
                 var result = await msDialog.ShowAsync();
                 if (result.Label == "Đồng ý")
                 {
-                    muctieuhientai.TrangThai = "Hủy";
-                    conn.Update(muctieuhientai);
+                    Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung);
                 }
                 else
                 {
@@ -203,15 +142,123 @@ namespace GiamCan.Views
         private void dangxuatButton_Click(object sender, RoutedEventArgs e)
         {
             IsolatedStorageFile ISOFile = IsolatedStorageFile.GetUserStoreForApplication();
-            if(ISOFile.FileExists("CurrentUser"))
+            if (ISOFile.FileExists("CurrentUser"))
             {
                 ISOFile.DeleteFile("CurrentUser");
             }
-           
+
             Frame.Navigate(typeof(MainPage));
             Frame.BackStack.Clear();
 
         }
+
+        private async void muctieunull()
+        {
+            MessageDialog msDialog = new MessageDialog("Bạn chưa bắt đầu một mục tiêu nào!");
+            msDialog.Commands.Add(new UICommand("Bắt đầu ngay"));
+            msDialog.Commands.Add(new UICommand("Để sau"));
+            var result = await msDialog.ShowAsync();
+            if (result.Label != "Để sau")
+            {
+                denTaoMucTieuMoiPage();
+            }
+        }
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            // neu muctieu == null ---> tuc nguoidung chua co muc tieu nao hien tai
+            if (muctieu == null)
+            {
+                // an header dau tien
+                calsGiamGrid.Visibility = Visibility.Collapsed;
+
+            }
+            else
+            {
+                string today = DateTime.Today.ToString("dd/MM/yyyy");
+                // neu nguoi dung chua bat dau muc tieu hien tai
+                if (muctieu.ThoiGianBatDau == null || muctieu.TrangThai == "Chưa bắt đầu")
+                {
+                    calsGiamGrid.Visibility = Visibility.Collapsed;
+                    MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa bắt đầu tập luyện!\n");
+                    msDialog.Commands.Add(new UICommand("Ok, đến trang tập luyện"));
+                    msDialog.Commands.Add(new UICommand("Để sau"));
+                    var result = await msDialog.ShowAsync();
+                    if (result.Label.Equals("Để sau"))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        // dat thoi gian bat dau la ngay hom nay
+                        muctieu.ThoiGianBatDau = today;
+                        muctieu.TrangThai = "Đã bắt đầu";
+                        connection.Update(muctieu);
+                        Frame.Navigate(typeof(DanhSachBaiTap), nguoidung);
+                    }
+
+                }
+
+                // kiem tra thoigianketthuc cua muc tieu
+
+                //DateTime ngayketthuc = DateTime.Parse(muctieu.ThoiGianBatDau).AddDays((int)muctieu.SoNgay); <--- nho dung ParseExact de theo chuan dd/MM/yyyy
+                DateTime ngayketthuc = DateTime.ParseExact(muctieu.ThoiGianBatDau, "dd/MM/yyyy", new CultureInfo("vi-vn")).AddDays(muctieu.SoNgay);
+                // neu da vuot qua so ngay
+                if (DateTime.Today > ngayketthuc)
+                {
+                    muctieu.TrangThai = "Hoàn thành";
+                    connection.Update(muctieu);
+                    MessageDialog msDialog = new MessageDialog("Chúc mừng, bạn đã tập hết số ngày của mục tiêu đề ra\nHãy xem lại quá trình luyện tập của bạn!");
+                    msDialog.Commands.Add(new UICommand("Xem thống kê"));
+                    msDialog.Commands.Add(new UICommand("Mục tiêu mới"));
+                    var result = await msDialog.ShowAsync();
+                    if (result.Label.Equals("Mục tiêu mới"))
+                    {
+                        // chuyển tới trang mục tiêu mới
+                        denTaoMucTieuMoiPage();
+                    }
+                    else
+                    {
+                        // chuyển đến trang thống kê
+                        Frame.Navigate(typeof(ThongKePage), nguoidung);
+                    }
+                }
+                // neu van con trong thoi han cua muc tieu
+                else
+                {
+                    thongkengay = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu && r.Ngay == today).FirstOrDefault();
+                    if (thongkengay == null)
+                    {
+                        thongkengay = new ThongKeNgay();
+                        thongkengay.IdMucTieu = muctieu.IdMucTieu;
+                        thongkengay.Ngay = today;
+                        // mặc định = chỉ số bmr
+                        thongkengay.LuongKaloDuaVao = muctieu.ChiSoBMR;
+                        connection.Insert(thongkengay);
+                    }
+                }
+                // LuongKaloCanGiamHomNay = KaloCanTieuHaoMoiNgay (để giảm cân) - LuongKaloTieuHao (chohoatdongbaitap) - chisobmr (luongkalo chohoatdonghangngay) + tongluongkaloduavao
+                if(muctieu != null && thongkengay != null)
+                {
+                    double calsCanGiam = muctieu.LuongKaloCanTieuHaoMoiNgay;
+                    calsCanGiamTextBlock.Text = calsCanGiam.ToString();
+
+                    // luong cals giam tu bai tap
+                    double calsGiamBaiTap = thongkengay.LuongKaloTieuHao;
+                    calsBaiTapTextBlock.Text = calsGiamBaiTap.ToString();
+
+                    // luong Cals giam tu thuc don
+                    double calsGiamThucDon = muctieu.ChiSoBMR - thongkengay.LuongKaloDuaVao - thongkengay.LuongKaloNgoaiDuKien;
+                    calsThucDonTextBlock.Text = calsGiamThucDon.ToString();
+
+                    double calsConThieu = calsCanGiam - calsGiamBaiTap - calsGiamThucDon;
+                    calsConThieuTextBlock.Text = calsConThieu.ToString();
+                }
+                
+
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {

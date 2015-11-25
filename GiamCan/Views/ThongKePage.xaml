@@ -19,13 +19,17 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-       <TextBlock Text="Thống kê" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
+       
         <FlipView x:Name="thongkeFlipView" Grid.Row="1" Background="White">
             <FlipViewItem Background="LightCyan">
-                <StackPanel>
-                    <TextBlock Text="Thống kê từng ngày" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Thống kê từng ngày" Grid.Row="0" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
                 
-                <ScrollViewer Margin="10,2,10,10" >
+                <ScrollViewer Margin="10,2,10,10" Grid.Row="1" >
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1">
                             <StackPanel>
@@ -203,36 +207,38 @@
 
                         </StackPanel>
                         <Line Fill="Black" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="-10,10,-10,0" X2="1" />
-                        <FlipView x:Name="thongkengayFlipView" Background="{x:Null}" Height="400">
+                        <FlipView x:Name="thongkengayFlipView" Background="{x:Null}" Visibility="Collapsed">
                             <FlipViewItem>
-                                <StackPanel Margin="10">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Ngày " Margin="0,0,8,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
-                                        <TextBlock x:Name="ngayTextBlock" Margin="0,0,0,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Id mục tiêu: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                                        <TextBlock x:Name="muctieuTextBlock" FontSize="32" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Tổng lượng Cals tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                                        <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Tổng lượng Cals đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
-                                        <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
-                                        <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
-                                        <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
-                                    </StackPanel>
+                                    <ScrollViewer>
+                                        <StackPanel Margin="10">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Ngày " Margin="0,0,8,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
+                                                <TextBlock x:Name="ngayTextBlock" Margin="0,0,0,0" FontWeight="Bold" FontSize="20" VerticalAlignment="Bottom" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Id mục tiêu: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                                <TextBlock x:Name="muctieuTextBlock" FontSize="32" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Tổng lượng Cals tiêu hao: " Margin="0,0,8,0" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                                <TextBlock x:Name="kalotieuhaoTextBlock" FontSize="32" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Tổng lượng Cals đưa vào: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom" />
+                                                <TextBlock x:Name="kaloduavaoTextBlock" FontSize="32"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Số bài tập đã tập: " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                                                <TextBlock x:Name="soluongbtTextBlock" FontSize="32"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Tổng thời gian tập " Margin="0,0,8,0"  TextWrapping="Wrap" FontSize="16" VerticalAlignment="Bottom"/>
+                                                <TextBlock x:Name="thoigiantapTextBlock" FontSize="32"/>
+                                            </StackPanel>
 
-                                </StackPanel>
-                            </FlipViewItem>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </FlipViewItem>
                             <FlipViewItem>
                                 <StackPanel>
                                     <charting:Chart x:Name="PieChart"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -437,31 +443,33 @@
                         </FlipView>
                     </StackPanel>
                 </ScrollViewer>
-                </StackPanel>
+                </Grid>
             </FlipViewItem>
             <FlipViewItem Background="LightGoldenrodYellow">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Thống kê tổng quan" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/> 
-                    <charting:Chart x:Name="PieChart1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,-90,0,0" Width="250" Height="250">
-                        <charting:PieSeries Margin="10" IndependentValuePath="Title" DependentValuePath="Value" />
-                    </charting:Chart>
-                    <TextBlock x:Name="mesagBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontSize="16" Margin="10,-60,0,10"/>
-                    <!--<Charting:Chart x:Name="ColumnChart" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10" Width="400" Height="400">
+                    <TextBlock Text="Thống kê tổng quan" FontSize="24" Style="{StaticResource SubheaderTextBlockStyle}" Margin="10 0"/>
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel>
+                            <charting:Chart x:Name="PieChart1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,-90,0,0" Width="250" Height="250">
+                                <charting:PieSeries Margin="10" IndependentValuePath="Title" DependentValuePath="Value" />
+                            </charting:Chart>
+                            
+                            <TextBlock x:Name="mesagBlock" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontSize="16"/>
+                            <!--<Charting:Chart x:Name="ColumnChart" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10" Width="400" Height="400">
             <Charting:ColumnSeries Margin="10" IndependentValuePath="Title" DependentValuePath="Value" />
         </Charting:Chart>-->
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" x:Name="scrollLineChart" Grid.Row="3" Width="auto" VerticalScrollBarVisibility="Visible" AllowDrop="False" VerticalAlignment="Bottom" >
-                        <charting:Chart x:Name="lineChart" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700" Height="300" Margin="10,-50,0,10" >
-                            <charting:LineSeries Margin="0" TabIndex="2" FlowDirection="LeftToRight"  IndependentValuePath="Title" DependentValuePath="Value" />
-                        </charting:Chart>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" x:Name="scrollLineChart" VerticalScrollBarVisibility="Visible" AllowDrop="False" VerticalAlignment="Bottom" >
+                                <charting:Chart x:Name="lineChart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" Height="300" Margin="10,-20,0,10" >
+                                    <charting:LineSeries Margin="0" TabIndex="2" FlowDirection="LeftToRight"  IndependentValuePath="Ngay" DependentValuePath="LuongKaloTieuHao" />
+                                </charting:Chart>
+                            </ScrollViewer>
+                            <Button x:Name="shareBtn" Grid.Row="4" HorizontalAlignment="Center" Content="Share" Click="share_Clicked"/>
+                        </StackPanel>
                     </ScrollViewer>
-                    <Button x:Name="shareBtn" Grid.Row="4" HorizontalAlignment="Center" Content="Share" Click="share_Clicked"/>
                 </Grid>
             </FlipViewItem>
         </FlipView>

@@ -170,11 +170,20 @@
     <None Include="GiamCan_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\background.jpg" />
+    <Content Include="Assets\baitaphomhay2.png" />
+    <Content Include="Assets\chedoan2.png" />
+    <Content Include="Assets\dangxuat2.png" />
+    <Content Include="Assets\datnhacnho2.png" />
+    <Content Include="Assets\lichtap2.png" />
     <Content Include="Assets\logo.png" />
+    <Content Include="Assets\muctieumoi2.png" />
     <Content Include="Assets\pin.png" />
     <Content Include="Assets\Square150x150Logo.scale-400.png" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\thongke2.png" />
+    <Content Include="Assets\thongtincanhan2.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,37 +24,52 @@ namespace GiamCan.Views
     /// </summary>
     public sealed partial class DanhSachBaiTap : Page
     {
-
-        string path;
-        SQLite.Net.SQLiteConnection connection;
-        MucTieu muctieuhientai;
+        NguoiDung nguoidung;
+        MucTieu muctieu;
+        SQLite.Net.SQLiteConnection connection = TrangChu.connection;
         public DanhSachBaiTap()
         {
             this.InitializeComponent();
-            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "giamcandb.sqlite");
-            connection = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            muctieuhientai = e.Parameter as MucTieu;
-            if(muctieuhientai.ThoiGianBatDau==null || muctieuhientai.TrangThai=="Chưa bắt đầu")
+            nguoidung = e.Parameter as NguoiDung;
+            // get muctieu hien tai cua nguoid ung hien tai
+            try
             {
-                muctieuhientai.TrangThai = "Đã bắt đầu";
-                muctieuhientai.ThoiGianBatDau = DateTime.Today.ToString("dd/MM/yyyy");
-                connection.Update(muctieuhientai);
+                muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+                if (muctieu.ThoiGianBatDau == null || muctieu.TrangThai == "Chưa bắt đầu")
+                {
+                    muctieu.TrangThai = "Đã bắt đầu";
+                    muctieu.ThoiGianBatDau = DateTime.Today.ToString("dd/MM/yyyy");
+                    connection.Update(muctieu);
+                }
+
+                
             }
-           
+            catch (NullReferenceException)
+            {
+                MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa có mục tiêu nào");
+                msDialog.Commands.Add(new UICommand("Tạo mục tiêu"));
+                msDialog.Commands.Add(new UICommand("Để sau"));
+                var result = await msDialog.ShowAsync();
+                if (result.Label != "Để sau")
+                {
+                    Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung);
+                }
+            }
+            
         }
 
         private void chayboButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ChayBo_Version1));
+            Frame.Navigate(typeof(ChayBo_Version1), nguoidung);
         }
 
         private void dapxeButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DapXe));
+            Frame.Navigate(typeof(DapXe), nguoidung);
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -63,5 +79,7 @@ namespace GiamCan.Views
                 Frame.GoBack();
             }
         }
+
+
     }
 }

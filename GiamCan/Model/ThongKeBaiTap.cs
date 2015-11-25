@@ -14,6 +14,7 @@ namespace GiamCan.Model
         public int IdThongKeNgay { get; set; }
         public int IdBaiTap { get; set; }
         public double QuangDuong { get; set; }
+        public double SoBuoc { get; set; }
         public double ThoiGianTap { get; set; }
         public double LuongKaloTieuHao { get; set; }
     }

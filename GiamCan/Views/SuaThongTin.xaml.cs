@@ -1,9 +1,12 @@
 ﻿using GiamCan.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -37,7 +40,7 @@ namespace GiamCan.Views
         {
             NguoiDung = (NguoiDung)e.Parameter;
             this.DataContext = NguoiDung;
-            ngaysinhDatePicker.Date = DateTime.Parse(NguoiDung.NgaySinh);
+            ngaysinhDatePicker.Date = DateTime.ParseExact(NguoiDung.NgaySinh,"dd/MM/yyyy", new CultureInfo("vi-vn"));
             if (NguoiDung.GioiTinh == "Nam")
             {
                 gioitinhPanel.Children.OfType<RadioButton>().FirstOrDefault(r => r.Content.ToString() == "Nam").IsChecked = true;
@@ -53,6 +56,21 @@ namespace GiamCan.Views
             RadioButton selectedRadio = gioitinhPanel.Children.OfType<RadioButton>().FirstOrDefault(r => r.IsChecked == true);
             NguoiDung.GioiTinh = selectedRadio.Content.ToString();
             connection.Update(NguoiDung);
+
+            // cap nhat lai file nguoi dung hien tai
+            IsolatedStorageFile ISOFile = IsolatedStorageFile.GetUserStoreForApplication();
+            if (ISOFile.FileExists("CurrentUser"))
+            {
+                ISOFile.DeleteFile("CurrentUser");
+                using (IsolatedStorageFileStream fileStream = ISOFile.OpenFile("CurrentUser", FileMode.Create))
+                {
+                    DataContractSerializer serializer = new DataContractSerializer(typeof(NguoiDung));
+
+                    serializer.WriteObject(fileStream, NguoiDung);
+
+                }
+            }
+
             Frame.Navigate(typeof(ThongTinCaNhan), NguoiDung);
             Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);
             Frame.BackStack.RemoveAt(Frame.BackStackDepth - 1);

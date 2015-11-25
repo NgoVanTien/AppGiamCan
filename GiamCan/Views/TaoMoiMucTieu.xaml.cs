@@ -80,9 +80,7 @@ namespace GiamCan.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             nguoidung = (NguoiDung)e.Parameter;
-            // if(Frame.BackStack.)
 
-            // gan ngay sinh gioi tinh vao cho chiso
             chiso = new ChiSo();
             chiso.GioiTinh = nguoidung.GioiTinh;
             DateTime birthday = DateTime.ParseExact(nguoidung.NgaySinh, "dd/MM/yyyy", new CultureInfo("vi-vn"));
