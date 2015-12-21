@@ -345,7 +345,7 @@ namespace GiamCan.Views
             int buoc = counter;
             double kaloTieuHao = 0;
 
-            kaloTieuHao = buoc * 4;
+            kaloTieuHao = buoc * 3;
             chaybo.SoBuoc += buoc;
             chaybo.QuangDuong += (double)counter * 54 / 10000;
             chaybo.LuongKaloTieuHao += kaloTieuHao;

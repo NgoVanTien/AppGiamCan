@@ -17,5 +17,6 @@ namespace GiamCan.Model
         public double SoBuoc { get; set; }
         public double ThoiGianTap { get; set; }
         public double LuongKaloTieuHao { get; set; }
+        public double SoLan { get; set; }
     }
 }

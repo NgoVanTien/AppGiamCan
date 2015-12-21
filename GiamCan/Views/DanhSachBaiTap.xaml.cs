@@ -32,34 +32,23 @@ namespace GiamCan.Views
             this.InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             nguoidung = e.Parameter as NguoiDung;
             // get muctieu hien tai cua nguoid ung hien tai
-            try
+
+            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            if(muctieu != null)
             {
-                muctieu = TrangChu.getMucTieuHienTai(nguoidung);
                 if (muctieu.ThoiGianBatDau == null || muctieu.TrangThai == "Chưa bắt đầu")
                 {
                     muctieu.TrangThai = "Đã bắt đầu";
                     muctieu.ThoiGianBatDau = DateTime.Today.ToString("dd/MM/yyyy");
                     connection.Update(muctieu);
                 }
+            }
 
-                
-            }
-            catch (NullReferenceException)
-            {
-                MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa có mục tiêu nào");
-                msDialog.Commands.Add(new UICommand("Tạo mục tiêu"));
-                msDialog.Commands.Add(new UICommand("Để sau"));
-                var result = await msDialog.ShowAsync();
-                if (result.Label != "Để sau")
-                {
-                    Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung);
-                }
-            }
-            
+
         }
 
         private void chayboButton_Click(object sender, RoutedEventArgs e)
@@ -80,6 +69,9 @@ namespace GiamCan.Views
             }
         }
 
-
+        private void gapbungButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChonMucTap), nguoidung);
+        }
     }
 }

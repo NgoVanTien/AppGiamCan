@@ -31,9 +31,9 @@ namespace GiamCan.Views
     {
 
         public static SQLite.Net.SQLiteConnection connection;
-        public NguoiDung nguoidung;
-        public MucTieu muctieu;
-        ThongKeNgay thongkengay;
+        public static NguoiDung nguoidung;
+        public static MucTieu muctieu;
+        public static ThongKeNgay thongkengay;
         public TrangChu()
         {
             this.InitializeComponent();
@@ -98,10 +98,17 @@ namespace GiamCan.Views
                 Frame.Navigate(typeof(ThongTinCaNhan), nguoidung);
         }
 
-        private void baitapButton_Click(object sender, RoutedEventArgs e)
+        private async void baitapButton_Click(object sender, RoutedEventArgs e)
         {
             if (nguoidung != null)
-                Frame.Navigate(typeof(DanhSachBaiTap), nguoidung);
+            {
+                MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa có mục tiêu nào!");
+                msDialog.Commands.Add(new UICommand("Tạo mục tiêu", r => Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung)));
+                msDialog.Commands.Add(new UICommand("Để sau", r => Frame.Navigate(typeof(DanhSachBaiTap), nguoidung)));
+                await msDialog.ShowAsync();
+                
+            }
+                
         }
 
         private void thongkeButton_Click(object sender, RoutedEventArgs e)
