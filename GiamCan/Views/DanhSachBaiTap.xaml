@@ -24,13 +24,48 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="chayboButton" Click="chayboButton_Click" Content="Chạy bộ" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="dapxeButton" Click="dapxeButton_Click" Content="Đạp xe" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="gapbungButton" Click="gapbungButton_Click" Content="Gập bụng" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="yogaButton" Content="Yoga" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="nhaydayButton" Content="Nhảy dây" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="lacvongButton" Content="Lắc vòng" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
-                <Button x:Name="hitdatButton" Content="Hít đất" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4"/>
+                <Button x:Name="chayboButton" Click="chayboButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/chaybo.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="dapxeButton" Click="dapxeButton_Click" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/dap xe.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="gapbungButton" Click="gapbungButton_Click" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/gapbung.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="yogaButton" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/yoga.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="nhaydayButton" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/nhayday.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="lacvongButton" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/lacvong.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="hitdatButton" Click="hitdatButton_Click" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/hitdat.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="nhaytantabataButton" Click="nhaytantabataButton_Click" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                    <Button.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/nhaytan.png"/>
+                    </Button.Background>
+                </Button>
             </Grid>
         </ScrollViewer>
 

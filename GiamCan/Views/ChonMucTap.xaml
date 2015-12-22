@@ -9,7 +9,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="tiepButton" Click="tiepButton_Click" Icon="Accept" Label="Tiếp tục" />
-            <AppBarButton x:Name="huyButton" Icon="Cancel" Label="Hủy" />
+            <AppBarButton x:Name="huyButton" Icon="Cancel" Label="Hủy" Click="huyButton_Click" />
         </CommandBar>
     </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

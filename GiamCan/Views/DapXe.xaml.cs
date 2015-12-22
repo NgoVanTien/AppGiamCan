@@ -87,7 +87,7 @@ namespace GiamCan.Views
         //get current location
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            nguoidung = e.Parameter as NguoiDung;
+            nguoidung = TrangChu.nguoidung;
 
 
             // lấy mục tiêu hiện tại (có thể null)
@@ -254,17 +254,17 @@ namespace GiamCan.Views
                 tocDo = 0;
             }
             if (tocDo == 0) kaloTieuHao = 0;
-            if (tocDo <= 5 && tocDo > 0) kaloTieuHao = (115 / 30) * (timeCount / 60);
-            if (tocDo > 5 && tocDo < 10) kaloTieuHao = (330 / 30) * (timeCount / 60);
-            if (tocDo >= 10) kaloTieuHao = (400 / 30) * (timeCount / 60);
+            if (tocDo <= 5 && tocDo > 0) kaloTieuHao = (115 / 30) * (timeCount / 60.0);
+            if (tocDo > 5 && tocDo < 10) kaloTieuHao = (330 / 30) * (timeCount / 60.0);
+            if (tocDo >= 10) kaloTieuHao = (400 / 30) * (timeCount / 60.0);
             dapXe.LuongKaloTieuHao += kaloTieuHao;
 
             // nếu mục tiêu và thống kê ngày != null mới đưa vào database
             if (muctieu != null && thongkengay != null)
                 connection.Update(dapXe);
 
-            var ketQua = new MessageDialog("Thời gian bạn đã đi là: " + timeBlock.Text + ". Quãng đường bạn đã đi được là: " + distanceBlock.Text +
-                ". Lượng kalo tiêu hao: " + kaloTieuHao + "kalo");
+            var ketQua = new MessageDialog("Thời gian: " + timeBlock.Text + "\nQuãng đường: " + distanceBlock.Text +
+                "\nLượng kalo tiêu hao: " + kaloTieuHao + "kalo");
             await ketQua.ShowAsync();
 
             if (Frame.CanGoBack) Frame.GoBack();

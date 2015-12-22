@@ -144,6 +144,9 @@
     <Compile Include="Views\NhacNho.xaml.cs">
       <DependentUpon>NhacNho.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NhayTanTabata.xaml.cs">
+      <DependentUpon>NhayTanTabata.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -176,20 +179,35 @@
     <None Include="GiamCan_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\bip.wav" />
     <Content Include="Assets\background.jpg" />
     <Content Include="Assets\baitaphomhay2.png" />
+    <Content Include="Assets\chaybo.png" />
     <Content Include="Assets\chedoan2.png" />
     <Content Include="Assets\dangxuat2.png" />
+    <Content Include="Assets\dap xe.png" />
     <Content Include="Assets\datnhacnho2.png" />
+    <Content Include="Assets\dungngoi.png" />
+    <Content Include="Assets\gapbung.png" />
+    <Content Include="Assets\hitdat.png" />
+    <Content Include="Assets\lacvong.png" />
     <Content Include="Assets\lichtap2.png" />
     <Content Include="Assets\logo.png" />
     <Content Include="Assets\muctieumoi2.png" />
+    <Content Include="Assets\nhayday.png" />
+    <Content Include="Assets\nhaytan.png" />
     <Content Include="Assets\pin.png" />
     <Content Include="Assets\Square150x150Logo.scale-400.png" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\tabata1.png" />
+    <Content Include="Assets\tabata2.png" />
+    <Content Include="Assets\tabata3.png" />
+    <Content Include="Assets\tabata4.png" />
+    <Content Include="Assets\tabata5.png" />
     <Content Include="Assets\thongke2.png" />
     <Content Include="Assets\thongtincanhan2.png" />
+    <Content Include="Assets\yoga.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -251,6 +269,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NhayTanTabata.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -294,6 +316,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Study\Windows Phone\ArcControl\ArcControl\ArcControl\ArcControl.csproj">
+      <Project>{161838ea-4322-44f8-9f18-8640d8258b4e}</Project>
+      <Name>ArcControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

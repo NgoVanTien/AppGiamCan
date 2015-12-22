@@ -44,7 +44,7 @@
                    Text="số lần tập"
                    VerticalAlignment="Top"
                    Visibility="Collapsed"/>
-        
+
         <TextBlock x:Name="caloText"
                    HorizontalAlignment="Center"
                    Margin="20,150,0,0" 
@@ -64,35 +64,27 @@
                       VerticalAlignment="Bottom"
                       Margin="4,4,4,4"
                       AutoPlay="False"         
-                      Source="ms-appx:///Assets/bip sound.wav"
+                      Source="ms-appx:///Assets/bip.wav"
                       Volume="1"
                      />
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+
                 </Grid.ColumnDefinitions>
                 <Button
                 x:Name="startButton"
                 Grid.Column="0"                
-                Content="Bắt đầu"
+                Content="Bắt Đầu"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Click="startButton_Click"/>
-                <Button
-                x:Name="tamdungButton"
-                Grid.Column="1"                
-                Content="Tạm dừng"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
-                Click="tamdungButton_Click"/>
-                
                 <Button
                 x:Name="dungButton"
                 Grid.Column="2"                
@@ -101,13 +93,7 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" Click="dungButton_Click"
                 />
-                <Button x:Name="troVeDSButton"
-                        Content="Danh Sách Bài Tập"
-                        Grid.Column="1" 
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        Visibility="Collapsed"
-                        Click="troVeDSButton_Click"/>
+
             </Grid>
 
             <TextBlock x:Name="solanText"
@@ -116,10 +102,10 @@
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="40"
+                   FontSize="30" Grid.ColumnSpan="2" Margin="75,48,74,48"
             />
         </Grid>
-      
+
 
 
     </Grid>

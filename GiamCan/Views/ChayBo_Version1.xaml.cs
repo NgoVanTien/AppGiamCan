@@ -132,8 +132,8 @@ namespace GiamCan.Views
             ScenarioDisableButton.IsEnabled = false;
             ScenarioPauseButton.IsEnabled = false;
 
-            nguoidung = e.Parameter as NguoiDung;
-            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            nguoidung = TrangChu.nguoidung;
+            muctieu = TrangChu.muctieu;
             if (muctieu != null)
             {
                 thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);

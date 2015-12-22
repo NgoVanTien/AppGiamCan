@@ -67,9 +67,9 @@ namespace GiamCan.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // lấy người dùng hiện tại
-            nguoidung = e.Parameter as NguoiDung;
+            nguoidung = TrangChu.nguoidung;
             // lay muctieu hien tai
-            muctieu = connection.Table<MucTieu>().Where(r => r.TenDangNhap == nguoidung.TenDangNhap && (r.TrangThai == "Đã bắt đầu" || r.TrangThai == "Chưa bắt đầu")).FirstOrDefault();
+            muctieu = TrangChu.muctieu;
             
             // neu muctieu == null -> thu lay muctieu da hoan thanh truoc do
             if (muctieu == null) muctieu = connection.Table<MucTieu>().Where(r=>r.TenDangNhap == nguoidung.TenDangNhap && r.TrangThai=="Hoàn thành").OrderBy(r=>r.IdMucTieu).FirstOrDefault();
@@ -155,7 +155,7 @@ namespace GiamCan.Views
                 foreach (var o2 in (o1 as StackPanel).Children)
                 {
                     var o3 = (o2 as Grid).Children[0] as TextBlock;
-                    if (Int32.TryParse(o3.Text, out i) == false) return;
+                    if (Int32.TryParse(o3.Text, out i) == false) break;
                     // hight light ngay hien tai
                     if (i == date.Day && DateTime.Today.Month == date.Month)
                     {
@@ -225,7 +225,7 @@ namespace GiamCan.Views
             ngayTextBlock.Text = date;
 
             //DateTime date = DateTime.ParseExact(str, "dd/MM/yyyy", new CultureInfo("vi-vn"));
-            ThongKeNgay tkn = connection.Table<ThongKeNgay>().Where(r => r.Ngay == date).FirstOrDefault();
+            ThongKeNgay tkn = connection.Table<ThongKeNgay>().Where(r => r.IdMucTieu == muctieu.IdMucTieu && r.Ngay == date).FirstOrDefault();
 
             if (tkn != null)
             {

@@ -34,10 +34,8 @@ namespace GiamCan.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            nguoidung = e.Parameter as NguoiDung;
-            // get muctieu hien tai cua nguoid ung hien tai
-
-            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            nguoidung = TrangChu.nguoidung;
+            muctieu = TrangChu.muctieu;
             if(muctieu != null)
             {
                 if (muctieu.ThoiGianBatDau == null || muctieu.TrangThai == "Chưa bắt đầu")
@@ -53,12 +51,12 @@ namespace GiamCan.Views
 
         private void chayboButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ChayBo_Version1), nguoidung);
+            Frame.Navigate(typeof(ChayBo_Version1));
         }
 
         private void dapxeButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DapXe), nguoidung);
+            Frame.Navigate(typeof(DapXe));
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -71,7 +69,17 @@ namespace GiamCan.Views
 
         private void gapbungButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ChonMucTap), nguoidung);
+            Frame.Navigate(typeof(ChonMucTap), "Gập bụng");
+        }
+
+        private void hitdatButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ChonMucTap), "Hít đất");
+        }
+
+        private void nhaytantabataButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NhayTanTabata));
         }
     }
 }

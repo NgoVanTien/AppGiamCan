@@ -37,25 +37,34 @@ namespace GiamCan.Views
         int level;
         ThongKeBaiTap thongKeTapBung = new ThongKeBaiTap();
         ThongKeNgay thongKeNgay = new ThongKeNgay();
-        BaiTap baiTapBung;
+         private  BaiTap baiTapBung = new BaiTap();
         SQLite.Net.SQLiteConnection connection = TrangChu.connection;
-        int idBT = 3;
+        int idBT ;
+        string tenBt;
 
-        public object Controls { get; private set; }
+        //public object Controls { get; private set; }
 
         public BaiTapBung()
         {
             this.InitializeComponent();
-            baiTapBung = connection.Table<BaiTap>().Where(r => r.TenBaiTap == "Gập bụng").FirstOrDefault();
-            //idBT = baiTapBung.IdBaiTap;
+            
             //ngay = DateTime.Today.ToString("dd/MM/yyyy");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            level = (int)e.Parameter;
+            // lấy thông tin từ  trang muc tap
+            mucTap muctap = (mucTap)e.Parameter;
+            tenBt = muctap.tenBaiTap;
+            level = muctap.level;
+            tenBT.Text = tenBt;
             nguoidung = TrangChu.nguoidung;
             muctieu = TrangChu.muctieu;
+            
+            //
+            baiTapBung = connection.Table<BaiTap>().Where(r => r.TenBaiTap == tenBt).FirstOrDefault();
+            idBT = baiTapBung.IdBaiTap;
+
             if (muctieu != null)
             {
                 thongKeNgay = TrangChu.getThongKeNgayHienTai(muctieu);
@@ -81,115 +90,106 @@ namespace GiamCan.Views
         // tính tổng calo tiêu thụ
         public double tinhTongCalo(int x)
         {
-            baiTapBung = connection.Table<BaiTap>().Where(r=>r.TenBaiTap == "Gập bụng").FirstOrDefault();
+            baiTapBung = connection.Table<BaiTap>().Where(r => r.TenBaiTap == tenBt).FirstOrDefault();
             tongCalo = baiTapBung.LuongKaloTrenDVT * x;
             return tongCalo;
         }
-        //public void updateThongKeNgay(String ngay, double tongCalo)
-        //{
-        //    // update thong ke ngay
-        //    var thongKeNgayCollect = connection.Table<ThongKeNgay>().Where(r => r.Ngay == ngay).FirstOrDefault();
-        //    muctieu = connection.Query<MucTieu>("SELECT * FROM MUCTIEU WHERE TrangThai = ?", "Đã bắt đầu").FirstOrDefault();
-
-        //    if (thongKeNgayCollect != null)
-        //    {
-        //        thongKeNgay.IdMucTieu = muctieu.IdMucTieu;
-        //        thongKeNgay.Ngay = ngay;
-        //        thongKeNgay.LuongKaloTieuHao = tongCalo + thongKeNgayCollect.LuongKaloTieuHao;
-        //        connection.Update(thongKeNgay);
-
-        //    }
-        //    else
-        //    {
-        //        thongKeNgay.IdMucTieu = muctieu.IdMucTieu;
-        //        thongKeNgay.Ngay = ngay;
-        //        thongKeNgay.LuongKaloTieuHao = tongCalo;
-        //        connection.Insert(thongKeNgay);
-
-        //    }
-        //}
-
-        // update thống kê baitap
-
-
+       
 
         private async void startButton_Click(object sender, RoutedEventArgs e)
         {
             // chế độ tập với người mới tập
-
-            startButton.IsEnabled = false;
-            startButton.Content = "Tiếp tục";
-            flag = true;
-            Stopwatch stopwatch = new Stopwatch();
-            while (true)
+            if ("Bắt Đầu".Equals(startButton.Content) || "Tiếp Tục".Equals(startButton.Content))
             {
-                stopwatch.Start();
-                bipMedia.Play();
+                thongKeText.Visibility = Visibility.Collapsed;
+                tongText.Visibility = Visibility.Collapsed;
+               // startButton.IsEnabled = false;
+                startButton.Content = "Tạm Dừng";
+                flag = true;
+                Stopwatch stopwatch = new Stopwatch();
+                while (true)
+                {
+                    stopwatch.Start();
+                    bipMedia.Play();
 
-                if (level == 1)
-                {
-                    count += 1;
-                    await System.Threading.Tasks.Task.Delay(3000);
+                    if (level == 1)
+                    {
+                        count += 1;
+                        await System.Threading.Tasks.Task.Delay(3500);
+                        
+                    }
+                    else if (level == 2)
+                    {
+                        count += 1;
+                        await System.Threading.Tasks.Task.Delay(2500);
+                       
+                    }
+                    else if (level == 3)
+                    {
+                        count += 1;
+                        await System.Threading.Tasks.Task.Delay(1500);
+                      }
+                    if (flag == false) break;
+                    solanText.Text = "SỐ LẦN: " + count.ToString();
                 }
-                else if (level == 2)
+            }
+            else if("Tạm Dừng".Equals(startButton.Content))
                 {
-                    count += 1;
-                    await System.Threading.Tasks.Task.Delay(2000);
-                }
-                else if (level == 3)
+                startButton.Content = "Tiếp Tục";
+                flag = false;
+                startButton.IsEnabled = true;
+                bipMedia.Pause();
+
+            }
+          
+           else if("Tiếp Tục".Equals(startButton.Content))
                 {
-                    count += 1;
-                    await System.Threading.Tasks.Task.Delay(1000);
-                }
-                if (flag == false) break;
-                solanText.Text = count.ToString();
+                startButton.Content = "Tạm dừng";
             }
 
         }
 
-        private void tamdungButton_Click(object sender, RoutedEventArgs e)
-        {
-            flag = false;
-            startButton.IsEnabled = true;
-            bipMedia.Pause();
-        }
 
         private void dungButton_Click(object sender, RoutedEventArgs e)
         {
-            flag = false;
-            bipMedia.Stop();
-            tongCalo = tinhTongCalo(count);
-            // thống kê
-            thongKeText.Visibility = Visibility;
+            if ("Dừng".Equals(dungButton.Content ) )
+            {
+                startButton.IsEnabled = false;
+                startButton.Visibility = Visibility.Collapsed;
+                dungButton.Content = "Trở Về";
+                flag = false;
+                bipMedia.Stop();
+                tongCalo = tinhTongCalo(count);
+                // thống kê
+                thongKeText.Visibility = Visibility;
 
-            // update so lần
-            tongText.Text = "Số lần tập: " + count.ToString();
-            tongText.Visibility = Visibility;
-            // update tong calo
-            caloText.Text = "Tổng lượng calo: " + tongCalo.ToString();
-            caloText.Visibility = Visibility;
-            troVeDSButton.Visibility = Visibility;
-            // set count bằng 0 sau khi dừng tập. 
-            //updateThongKeNgay(ngay, tongCalo);
+                // update so lần
+                tongText.Text = "Số lần tập: " + count.ToString();
+                tongText.Visibility = Visibility;
+                // update tong calo
+                caloText.Text = "Tổng lượng calo: " + tongCalo.ToString();
+                caloText.Visibility = Visibility;
+                thongKeTapBung.SoLan += count;
+                thongKeTapBung.LuongKaloTieuHao += tongCalo;
+                thongKeNgay.LuongKaloTieuHao += tongCalo;
 
-            thongKeTapBung.SoLan += count;
-            thongKeTapBung.LuongKaloTieuHao += tongCalo;
+                if (muctieu != null && thongKeNgay != null)
+                {
+                    connection.Update(thongKeTapBung);
+                    connection.Update(thongKeNgay);
+                }
 
-            if (muctieu != null && thongKeNgay != null)
-            { 
-                connection.Update(thongKeTapBung);
+                count = 0;
+                startButton.Content = "Bắt Đầu";
+            }
+            else if("Trở Về".Equals(dungButton.Content))
+            {
+                startButton.IsEnabled = false;
+                Frame.Navigate(typeof(DanhSachBaiTap),nguoidung);
             }
 
-            count = 0;
-            startButton.Content = "Bắt Đầu";
-            startButton.IsEnabled = true;
-
 
         }
 
-        private void troVeDSButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(DanhSachBaiTap));
-        }
     }
 }

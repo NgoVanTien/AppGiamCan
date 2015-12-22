@@ -102,10 +102,17 @@ namespace GiamCan.Views
         {
             if (nguoidung != null)
             {
-                MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa có mục tiêu nào!");
-                msDialog.Commands.Add(new UICommand("Tạo mục tiêu", r => Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung)));
-                msDialog.Commands.Add(new UICommand("Để sau", r => Frame.Navigate(typeof(DanhSachBaiTap), nguoidung)));
-                await msDialog.ShowAsync();
+                if(muctieu == null)
+                {
+                    MessageDialog msDialog = new MessageDialog("Bạn vẫn chưa có mục tiêu nào!");
+                    msDialog.Commands.Add(new UICommand("Tạo mục tiêu", r => Frame.Navigate(typeof(TaoMoiMucTieu), nguoidung)));
+                    msDialog.Commands.Add(new UICommand("Để sau", r => Frame.Navigate(typeof(DanhSachBaiTap), nguoidung)));
+                    await msDialog.ShowAsync();
+                }
+                else
+                {
+                    Frame.Navigate(typeof(DanhSachBaiTap), nguoidung);
+                }
                 
             }
                 
@@ -114,13 +121,13 @@ namespace GiamCan.Views
         private void thongkeButton_Click(object sender, RoutedEventArgs e)
         {
             if (nguoidung != null)
-                Frame.Navigate(typeof(ThongKePage), nguoidung);
+                Frame.Navigate(typeof(ThongKePage));
         }
 
         private void chedoanButton_Click(object sender, RoutedEventArgs e)
         {
             if (nguoidung != null)
-                Frame.Navigate(typeof(MonAnPage), nguoidung);
+                Frame.Navigate(typeof(MonAnPage));
         }
 
         private async void denTaoMucTieuMoiPage()
