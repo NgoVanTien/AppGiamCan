@@ -81,5 +81,20 @@ namespace GiamCan.Views
         {
             Frame.Navigate(typeof(NhayTanTabata));
         }
+
+        private void dungngoiButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DungLenNgoiXuong));
+        }
+
+        private void lacvongButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(LacVong));
+        }
+
+        private void nhaydayButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NhayDay));
+        }
     }
 }

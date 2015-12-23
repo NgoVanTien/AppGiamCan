@@ -132,8 +132,14 @@
     <Compile Include="Views\DatNhacNho.xaml.cs">
       <DependentUpon>DatNhacNho.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DungLenNgoiXuong.xaml.cs">
+      <DependentUpon>DungLenNgoiXuong.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\KaloNgoaiPage.xaml.cs">
       <DependentUpon>KaloNgoaiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LacVong.xaml.cs">
+      <DependentUpon>LacVong.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LichTapPage.xaml.cs">
       <DependentUpon>LichTapPage.xaml</DependentUpon>
@@ -143,6 +149,9 @@
     </Compile>
     <Compile Include="Views\NhacNho.xaml.cs">
       <DependentUpon>NhacNho.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NhayDay.xaml.cs">
+      <DependentUpon>NhayDay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NhayTanTabata.xaml.cs">
       <DependentUpon>NhayTanTabata.xaml</DependentUpon>
@@ -188,13 +197,43 @@
     <Content Include="Assets\dap xe.png" />
     <Content Include="Assets\datnhacnho2.png" />
     <Content Include="Assets\dungngoi.png" />
+    <Content Include="Assets\dungngoi1.png" />
+    <Content Include="Assets\dungngoi2.png" />
+    <Content Include="Assets\dungngoi3.png" />
+    <Content Include="Assets\dungngoi4.png" />
+    <Content Include="Assets\dungngoi5.png" />
     <Content Include="Assets\gapbung.png" />
+    <Content Include="Assets\gapbung1.png" />
+    <Content Include="Assets\gapbung2.png" />
+    <Content Include="Assets\gapbung3.png" />
+    <Content Include="Assets\gapbung4.png" />
     <Content Include="Assets\hitdat.png" />
+    <Content Include="Assets\hitdat1.png" />
+    <Content Include="Assets\hitdat2.png" />
+    <Content Include="Assets\hitdat3.png" />
+    <Content Include="Assets\hitdat4.png" />
+    <Content Include="Assets\hitdat5.png" />
+    <Content Include="Assets\hitdat6.png" />
     <Content Include="Assets\lacvong.png" />
+    <Content Include="Assets\lacvong1.png" />
+    <Content Include="Assets\lacvong10.png" />
+    <Content Include="Assets\lacvong11.png" />
+    <Content Include="Assets\lacvong12.png" />
+    <Content Include="Assets\lacvong13.png" />
+    <Content Include="Assets\lacvong2.png" />
+    <Content Include="Assets\lacvong3.png" />
+    <Content Include="Assets\lacvong4.png" />
+    <Content Include="Assets\lacvong5.png" />
+    <Content Include="Assets\lacvong6.png" />
+    <Content Include="Assets\lacvong7.png" />
+    <Content Include="Assets\lacvong8.png" />
+    <Content Include="Assets\lacvong9.png" />
     <Content Include="Assets\lichtap2.png" />
     <Content Include="Assets\logo.png" />
     <Content Include="Assets\muctieumoi2.png" />
     <Content Include="Assets\nhayday.png" />
+    <Content Include="Assets\nhayday01.png" />
+    <Content Include="Assets\nhayday02.png" />
     <Content Include="Assets\nhaytan.png" />
     <Content Include="Assets\pin.png" />
     <Content Include="Assets\Square150x150Logo.scale-400.png" />
@@ -253,9 +292,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DungLenNgoiXuong.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\KaloNgoaiPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LacVong.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LichTapPage.xaml">
       <SubType>Designer</SubType>
@@ -268,6 +315,10 @@
     <Page Include="Views\NhacNho.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NhayDay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NhayTanTabata.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -6,127 +6,104 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Main"
-    mc:Ignorable="d">
-   
-    
-    <Grid x:Name="LayoutRoot"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Height="481.667">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Margin="10,20,10,10" Grid.Row="1">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>
-                <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Khoảng cách" VerticalAlignment="Center" FontSize="25"/>
-                <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Thời gian" VerticalAlignment="Center" FontSize="25"/>
-                <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Bước chân" VerticalAlignment="Center" FontSize="25"/>
-                <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Thành tích" VerticalAlignment="Center" FontSize="25"/>
 
-                <RelativePanel Grid.Row="1" Grid.Column="0" Background="Green" BorderBrush="Black" BorderThickness="1" Margin="4 4 2 4">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="40"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10 20">
-                            <Button.Background>
-                                <ImageBrush Stretch="Fill" ImageSource="/Assets/khoangcach.png"/>
-                            </Button.Background>
-                            
-                        </Button>
-                        <TextBlock x:Name="Distance" Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Center" Text="0" VerticalAlignment="Center" FontSize="20"/>
-                        <TextBlock Grid.Column="2" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Km" FontSize="18"/>
-                    </Grid>
-                    
-                </RelativePanel>
-                <RelativePanel Grid.Row="1" Grid.Column="1" Background="Green" BorderBrush="Black" BorderThickness="1" Margin="2 4 4 4">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="75"/>
-                            <ColumnDefinition Width="40"/>
-                            
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10 20">
-                            <Button.Background>
-                                <ImageBrush Stretch="Fill" ImageSource="/Assets/time.png"/>
-                            </Button.Background>
-                        </Button>
-                        
-                        <TextBlock x:Name="timeblock" Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Center" Text="00:00:00" VerticalAlignment="Center" FontSize="20"/>
-                        <TextBlock  Grid.Column="2" TextWrapping="Wrap" HorizontalAlignment="Center" Text="S" VerticalAlignment="Center" FontSize="20"/>
-                        
-                    </Grid>
-                </RelativePanel>
-                <RelativePanel Grid.Row="3" Grid.Column="0" Background="Green" BorderBrush="Black" BorderThickness="1" Margin="4 4 2 4">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30"/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="40"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="7 16">
-                            <Button.Background>
-                                <ImageBrush Stretch="Fill" ImageSource="/Assets/banchan.png"/>
-                            </Button.Background>
-
-                        </Button>
-                        <TextBlock x:Name="Steps" Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Center" Text="0" VerticalAlignment="Center" FontSize="20"/>
-                        <TextBlock Grid.Column="2" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Bước" FontSize="18"/>
-                    </Grid>
-                </RelativePanel>
-                <RelativePanel Grid.Row="3" Grid.Column="1" Background="Green" BorderBrush="Black" BorderThickness="1" Margin="2 4 4 4">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="40"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10 20">
-                            <Button.Background>
-                                <ImageBrush Stretch="Fill" ImageSource="/Assets/rank1.png"/>
-                            </Button.Background>
-
-                        </Button>
-                        <TextBlock x:Name="Rank" Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Center" Text="0" VerticalAlignment="Center" FontSize="20"/>
-                        <TextBlock Grid.Column="2" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Bậc" FontSize="18"/>
-                    </Grid>
-                </RelativePanel>
-                <Grid Grid.Row="4" Grid.ColumnSpan="2">
+        <ScrollViewer  Grid.Row="1" VerticalAlignment="Top">
+            <StackPanel>
+                <Grid x:Name="calsGiamGrid">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="ScenarioEnableButton" Grid.Column="0"  Content="Start"  Margin="4" Click="ScenarioEnable" Background="Blue" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" FontSize="16"/>
-                    <Button x:Name="ScenarioPauseButton" Grid.Column="1"  Margin="4"  Content="Pause"  Click="ScenarioPause" Background="Green" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" FontSize="16"/>
-                    <Button x:Name="ScenarioDisableButton" Grid.Column="2"  Margin="4"  Content="Stop"  Click="ScenarioDisable" Background="Red" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" FontSize="16"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Quảng đường" VerticalAlignment="Center" FontSize="25"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Thời gian" VerticalAlignment="Center" FontSize="25"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="0" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Bước chân" VerticalAlignment="Center" FontSize="25"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="Thành tích" VerticalAlignment="Center" FontSize="25"/>
+
+                    <RelativePanel Grid.Row="1" Grid.Column="0" Background="#FF4700" BorderBrush="Black" BorderThickness="1" Margin="4 4 2 4">
+                        <Grid Margin="0,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="Distance" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" Text="0" VerticalAlignment="Center" FontSize="30"/>
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Km" FontSize="25"/>
+                        </Grid>
+
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="1" Grid.Column="1" Background="#FF4700" BorderBrush="Black" BorderThickness="1" Margin="2 4 4 4">
+                        <Grid Margin="0,0,7,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="timeblock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" Text="00:00:00" VerticalAlignment="Center" FontSize="30"/>
+                            <TextBlock  Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Center" Text="Giây" VerticalAlignment="Center" FontSize="22"/>
+
+                        </Grid>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="3" Grid.Column="0" Background="#FF4700" BorderBrush="Black" BorderThickness="1" Margin="4 4 2 4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="Steps" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" Text="0" VerticalAlignment="Center" FontSize="30"/>
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Bước" FontSize="22"/>
+                        </Grid>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="3" Grid.Column="1" Background="#FF4700" BorderBrush="Black" BorderThickness="1" Margin="2 4 4 4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="Rank" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" Text="0" VerticalAlignment="Center" FontSize="30"/>
+                            <TextBlock Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Bậc" FontSize="22"/>
+                        </Grid>
+                    </RelativePanel>
+                    <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="ScenarioEnableButton" Height="55" Grid.Column="0"  Content="Start"  Margin="6 4 2 4" Click="ScenarioEnable" Background="#FF5900" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" FontSize="20"/>
+                            <Button x:Name="ScenarioPauseButton"  Height="55" Grid.Column="1"  Margin="2 4 4 4"  Content="Pause"  Click="ScenarioPause" Background="#FF5900" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" FontSize="20"/>
+                            <Button x:Name="ScenarioDisableButton" Height="55" Grid.Column="2"  Margin="2 4 4 4"  Content="Stop"  Click="ScenarioDisable" Background="#FF5900" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" FontSize="20"/>
+                        </Grid>
+               
                 </Grid>
-            </Grid>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </Page>

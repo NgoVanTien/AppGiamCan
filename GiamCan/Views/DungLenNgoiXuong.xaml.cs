@@ -1,10 +1,15 @@
-﻿using System;
+﻿using GiamCan.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Sensors;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System.Threading;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -12,28 +17,27 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.Devices.Sensors;
-using Windows.UI.Core;
-using Windows.System.Threading;
-using GiamCan.Model;
-using Windows.UI.Popups;
-
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace GiamCan.Views
 {
-
-    public sealed partial class ChayBo_Version1 : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class DungLenNgoiXuong : Page
     {
+        int currentImage = 0;
         SQLite.Net.SQLiteConnection connection = TrangChu.connection;
         NguoiDung nguoidung;
         MucTieu muctieu;
         ThongKeNgay thongkengay;
-        ThongKeBaiTap chaybo;
+        ThongKeBaiTap dungngoi;
         private Accelerometer _accelerometer;
         private uint _desiredReportInterval;
-
+        ThreadPoolTimer threadImg;
+        List<ImageSource> imgLst = new List<ImageSource>();
         float x, x_old;
         float y, y_old;
         float z, z_old;
@@ -56,7 +60,7 @@ namespace GiamCan.Views
             Paused
         }
         private MediaState state = MediaState.Playing;
-        public ChayBo_Version1()
+        public DungLenNgoiXuong()
         {
             this.InitializeComponent();
 
@@ -74,60 +78,69 @@ namespace GiamCan.Views
 
         }
 
-
-
         private async void UpdateTime(ThreadPoolTimer timer)
         {
-            //while (true)
-            {
-                string s1, s2, s3;
-                long currentTime = DateTime.Now.Ticks;
-                long toDisplay = currentTime - timeStart;
-                if (isPause) return;
-                DateTime time = DateTime.FromBinary(toDisplay);
-                if (isPause) return;
-                timeCount = time.Second + time.Minute * 60 + time.Hour * 3600 + saveTime;
-                long hour = timeCount / 3600;
-                long timeMin = timeCount - (hour * 3600);
-                long minutes = timeCount / 60;
-                long timeSe = timeCount - (minutes * 60);
-                await Dispatcher.RunAsync(
-                           CoreDispatcherPriority.High,
-                           () =>
+            string s1, s2, s3;
+            long currentTime = DateTime.Now.Ticks;
+            long toDisplay = currentTime - timeStart;
+            if (isPause) return;
+            DateTime time = DateTime.FromBinary(toDisplay);
+            if (isPause) return;
+            timeCount = time.Second + time.Minute * 60 + time.Hour * 3600 + saveTime;
+            long hour = timeCount / 3600;
+            long timeMin = timeCount - (hour * 3600);
+            long minutes = timeCount / 60;
+            long timeSe = timeCount - (minutes * 60);
+            await Dispatcher.RunAsync(
+                       CoreDispatcherPriority.High,
+                       () =>
+                       {
+                           if (hour < 10)
                            {
-                               if (hour < 10)
-                               {
-                                   s1 = "0" + hour.ToString();
-                               }
-                               else
-                               {
-                                   s1 = hour.ToString();
-                               }
-                               if (minutes < 10)
-                               {
-                                   s2 = "0" + minutes.ToString();
-                               }
-                               else
-                               {
-                                   s2 = minutes.ToString();
-                               }
-                               if (timeSe < 10)
-                               {
-                                   s3 = "0" + timeSe.ToString();
-                               }
-                               else
-                               {
-                                   s3 = timeSe.ToString();
-                               }
-                               string s = s1 + ":" + s2 + ":" + s3;
-                               timeblock.Text = s;
-                           });
+                               s1 = "0" + hour.ToString();
+                           }
+                           else
+                           {
+                               s1 = hour.ToString();
+                           }
+                           if (minutes < 10)
+                           {
+                               s2 = "0" + minutes.ToString();
+                           }
+                           else
+                           {
+                               s2 = minutes.ToString();
+                           }
+                           if (timeSe < 10)
+                           {
+                               s3 = "0" + timeSe.ToString();
+                           }
+                           else
+                           {
+                               s3 = timeSe.ToString();
+                           }
+                           string s = s1 + ":" + s2 + ":" + s3;
+                           timetime.Text = s;
+                       });
 
-            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            //image
+            List<Uri> uriLst = new List<Uri>();
+            for (int i = 1; i <= 5; i++)
+            {
+                uriLst.Add(new Uri("ms-appx:///Assets/dungngoi" + i + ".png"));
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                imgLst.Add(new BitmapImage(uriLst[i]));
+            }
+            threadImg = ThreadPoolTimer.CreatePeriodicTimer(UpdateSprite, TimeSpan.FromMilliseconds(400));
+
             ScenarioEnableButton.IsEnabled = true;
             ScenarioDisableButton.IsEnabled = false;
             ScenarioPauseButton.IsEnabled = false;
@@ -137,26 +150,41 @@ namespace GiamCan.Views
             if (muctieu != null)
             {
                 thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);
-                chaybo = connection.Table<ThongKeBaiTap>().Where(r => r.IdThongKeNgay == thongkengay.IdThongKeNgay && r.IdBaiTap == 1).FirstOrDefault();
-                if (chaybo == null)
+                dungngoi = connection.Table<ThongKeBaiTap>().Where(r => r.IdThongKeNgay == thongkengay.IdThongKeNgay && r.IdBaiTap == 4).FirstOrDefault();
+                if (dungngoi == null)
                 {
-                    chaybo = new ThongKeBaiTap()
+                    dungngoi = new ThongKeBaiTap()
                     {
-                        IdBaiTap = 1,
+                        IdBaiTap = 4,
                         IdThongKeNgay = thongkengay.IdThongKeNgay,
                         QuangDuong = 0,
                         SoBuoc = 0,
                         LuongKaloTieuHao = 0,
                         ThoiGianTap = 0
                     };
-                    connection.Insert(chaybo);
+                    connection.Insert(dungngoi);
                 }
             }
 
             // mục tiêu == null || thống kê ngày == null -> tập nhưng không đưa vào database
             else
             {
-                chaybo = new ThongKeBaiTap();
+                dungngoi = new ThongKeBaiTap();
+            }
+
+        }
+
+        private async void UpdateSprite(ThreadPoolTimer timer)
+        {
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                tabataImg.Source = imgLst.ElementAt(currentImage);
+            });
+            currentImage = currentImage + 1;
+            if (currentImage == 5)
+            {
+                currentImage = 0;
             }
 
         }
@@ -219,19 +247,15 @@ namespace GiamCan.Views
                     double oldValue = ((x_old * x) + (y_old * y)) + (z_old * z);
                     double oldValueSqrT = Math.Abs(Math.Sqrt((double)(((x_old * x_old) + (y_old * y_old)) + (z_old * z_old))));
                     double newValue = Math.Abs(Math.Sqrt((double)(((x * x) + (y * y)) + (z * z))));
-                    nowtime = DateTime.Now.Millisecond;
-
-                    double index = Math.Abs(nowtime - savetime0);
-
                     oldValue /= oldValueSqrT * newValue;
-                    if ((oldValue <= 0.994) && (oldValue > 0.9) && index > 400)
+                    if ((oldValue <= 0.994) && (oldValue > 0.9))
                     {
                         if (!hasChanged)
                         {
                             hasChanged = true;
                             counter++; //here the counter
-                            Steps.Text = String.Format("{0,5:####}", counter);
-                            Distance.Text = String.Format("{0:0.000}", (double)counter * 54 / 10000);
+                            Lan.Text = String.Format("{0,5:####}", counter);
+
 
                         }
                         else
@@ -246,34 +270,7 @@ namespace GiamCan.Views
                     mInitialized = false;
                     ///Rank
 
-                    if (counter > 200)
-                    {
-                        Rank.Text = String.Format("{0,5:####}", 1);
-                    }
-                    if (counter > 500)
-                    {
-                        Rank.Text = String.Format("{0,5:####}", 2);
-                    }
-                    if (counter > 1000)
-                    {
-                        Rank.Text = String.Format("{0,5:####}", 3);
-                    }
-                    if (counter > 3000)
-                    {
-                        Rank.Text = String.Format("{0,5:####}", 4);
-                    }
-                    if (counter > 5000)
-                    {
-                        Rank.Text = "Đồng";
-                    }
-                    if (counter > 7000)
-                    {
-                        Rank.Text = "Bạc";
-                    }
-                    if (counter > 10000)
-                    {
-                        Rank.Text = "Vàng";
-                    }
+
                 }
 
             });
@@ -330,8 +327,13 @@ namespace GiamCan.Views
 
         }
 
-        private async void ScenarioDisable(object sender, RoutedEventArgs e)
+        private void ScenarioDisable(object sender, RoutedEventArgs e)
         {
+            if("Trở về".Equals(ScenarioDisableButton.Content))
+            {
+                Frame.Navigate(typeof(DanhSachBaiTap));
+                return;
+            }
             Window.Current.VisibilityChanged -= new WindowVisibilityChangedEventHandler(VisibilityChanged);
             _accelerometer.ReadingChanged -= new TypedEventHandler<Accelerometer, AccelerometerReadingChangedEventArgs>(ReadingChanged);
 
@@ -345,23 +347,29 @@ namespace GiamCan.Views
             int buoc = counter;
             double kaloTieuHao = 0;
 
-            kaloTieuHao = buoc * 3;
-            chaybo.SoBuoc += buoc;
-            chaybo.QuangDuong += Math.Round(counter * 54.0 / 10000,2);
-            chaybo.LuongKaloTieuHao += Math.Round(kaloTieuHao,2);
-            chaybo.ThoiGianTap += (double)timeCount;
+            kaloTieuHao = buoc * 0.015;
+            dungngoi.SoBuoc += buoc;
+            dungngoi.LuongKaloTieuHao += kaloTieuHao;
+            dungngoi.ThoiGianTap += (double)timeCount;
 
             // nếu chưa có mục tiêu và thống kê ngày thì không đưa vào database
             if (muctieu != null && thongkengay != null)
-                connection.Update(chaybo);
+                connection.Update(dungngoi);
 
-            var ketQua = new MessageDialog("Số bước: " + Steps.Text + "\nQuãng đường bạn đã đi được là: " + Distance.Text +
-                "Km \nLượng kalo tiêu hao: " + kaloTieuHao + "kalo");
-            await ketQua.ShowAsync();
-            if (Frame.CanGoBack) { Frame.GoBack(); }
+            tabataImg.Visibility = Visibility.Collapsed;
+            huongdanTextBlock.Visibility = Visibility.Collapsed;
+            ScenarioEnableButton.Visibility = Visibility.Collapsed;
+            ScenarioPauseButton.Visibility = Visibility.Collapsed;
+            ketquaStackPanel.Visibility = Visibility.Visible;
+            solanthuchienTextBlock.Text = "Số lần thực hiện: " + Lan.Text;
+            thoigiantapTextBlock.Text = "Thời gian tập: " + timetime.Text;
+            luongkcalTextBlock.Text = "Lượng kcal tiêu hao: " + kaloTieuHao + "kcal";
+            ScenarioDisableButton.Content = "Trở về";
+            //var ketQua = new MessageDialog("Số lần thực hiện: " + Lan.Text + "\nThời gian tập là:" + timetime.Text +
+            //    "Lần \nLượng kalo tiêu hao: " + kaloTieuHao + "kalo");
+            //await ketQua.ShowAsync();
+            //if (Frame.CanGoBack) { Frame.GoBack(); }
 
         }
-
     }
-
 }

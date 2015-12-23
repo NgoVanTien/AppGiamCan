@@ -67,9 +67,9 @@ namespace GiamCan.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            nguoidung = e.Parameter as NguoiDung;
+            nguoidung = TrangChu.nguoidung;
 
-            muctieu = TrangChu.getMucTieuHienTai(nguoidung);
+            muctieu = TrangChu.muctieu;
             if (muctieu != null)
             {
                 thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);

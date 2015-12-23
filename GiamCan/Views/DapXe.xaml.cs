@@ -257,6 +257,7 @@ namespace GiamCan.Views
             if (tocDo <= 5 && tocDo > 0) kaloTieuHao = (115 / 30) * (timeCount / 60.0);
             if (tocDo > 5 && tocDo < 10) kaloTieuHao = (330 / 30) * (timeCount / 60.0);
             if (tocDo >= 10) kaloTieuHao = (400 / 30) * (timeCount / 60.0);
+            kaloTieuHao = Math.Round(kaloTieuHao, 2);
             dapXe.LuongKaloTieuHao += kaloTieuHao;
 
             // nếu mục tiêu và thống kê ngày != null mới đưa vào database

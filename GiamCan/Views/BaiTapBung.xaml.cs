@@ -17,6 +17,9 @@ using System.Diagnostics;
 using System.Threading;
 using GiamCan.Model;
 using Windows.UI.Popups;
+using Windows.System.Threading;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Core;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -41,6 +44,9 @@ namespace GiamCan.Views
         SQLite.Net.SQLiteConnection connection = TrangChu.connection;
         int idBT ;
         string tenBt;
+        ThreadPoolTimer threadImg;
+        int currentImage = 0;
+        List<ImageSource> imgLst = new List<ImageSource>();
 
         //public object Controls { get; private set; }
 
@@ -51,8 +57,25 @@ namespace GiamCan.Views
             //ngay = DateTime.Today.ToString("dd/MM/yyyy");
         }
 
+        private async void UpdateSprite(ThreadPoolTimer timer)
+        {
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                gapbungImg.Source = imgLst.ElementAt(currentImage);
+            });
+            currentImage = currentImage + 1;
+            if (currentImage == 4)
+            {
+                currentImage = 0;
+            }
+
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            
             // lấy thông tin từ  trang muc tap
             mucTap muctap = (mucTap)e.Parameter;
             tenBt = muctap.tenBaiTap;
@@ -60,8 +83,34 @@ namespace GiamCan.Views
             tenBT.Text = tenBt;
             nguoidung = TrangChu.nguoidung;
             muctieu = TrangChu.muctieu;
+
+
+            //image
+            List<Uri> uriLst = new List<Uri>();
+            if(tenBt == "Gập bụng")
+            {
+                for (int i = 1; i <= 4; i++)
+                {
+                    uriLst.Add(new Uri("ms-appx:///Assets/gapbung" + i + ".png"));
+                }
+            }
+            else
+            {
+                for (int i = 1; i <= 6; i++)
+                {
+                    uriLst.Add(new Uri("ms-appx:///Assets/hitdat" + i + ".png"));
+                }
+            }
             
-            //
+            for (int i = 0; i < 4; i++)
+            {
+                imgLst.Add(new BitmapImage(uriLst[i]));
+            }
+
+            threadImg = ThreadPoolTimer.CreatePeriodicTimer(UpdateSprite, TimeSpan.FromMilliseconds(200));
+
+
+            // lay thong tin bai tap bung hay hit dat dua vao ten
             baiTapBung = connection.Table<BaiTap>().Where(r => r.TenBaiTap == tenBt).FirstOrDefault();
             idBT = baiTapBung.IdBaiTap;
 
@@ -90,7 +139,6 @@ namespace GiamCan.Views
         // tính tổng calo tiêu thụ
         public double tinhTongCalo(int x)
         {
-            baiTapBung = connection.Table<BaiTap>().Where(r => r.TenBaiTap == tenBt).FirstOrDefault();
             tongCalo = baiTapBung.LuongKaloTrenDVT * x;
             return tongCalo;
         }
@@ -156,10 +204,11 @@ namespace GiamCan.Views
             {
                 startButton.IsEnabled = false;
                 startButton.Visibility = Visibility.Collapsed;
+                gapbungImg.Visibility = Visibility.Collapsed;
                 dungButton.Content = "Trở Về";
                 flag = false;
                 bipMedia.Stop();
-                tongCalo = tinhTongCalo(count);
+                tongCalo = Math.Round(tinhTongCalo(count),2);
                 // thống kê
                 thongKeText.Visibility = Visibility;
 

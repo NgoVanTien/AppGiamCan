@@ -14,6 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Image x:Name="gapbungImg" Grid.Row="2" Grid.ColumnSpan="2" Source="ms-appx:///Assets/gapbung1.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock x:Name="tenBT"
                    TextAlignment="Center"
                    HorizontalAlignment="Stretch"

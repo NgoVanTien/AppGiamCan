@@ -36,22 +36,21 @@
                 </Button>
                 <Button x:Name="gapbungButton" Click="gapbungButton_Click" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
                     <Button.Background>
-
                         <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/gapbung.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="yogaButton" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                <Button x:Name="dungngoiButton" Click="dungngoiButton_Click" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
                     <Button.Background>
 
-                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/yoga.png"/>
+                        <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/dungngoi.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="nhaydayButton" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                <Button x:Name="nhaydayButton" Click="nhaydayButton_Click" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
                     <Button.Background>
                         <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/nhayday.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="lacvongButton" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
+                <Button x:Name="lacvongButton" Click="lacvongButton_Click" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" Margin="4">
                     <Button.Background>
                         <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/lacvong.png"/>
                     </Button.Background>

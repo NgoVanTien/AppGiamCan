@@ -28,29 +28,23 @@ namespace GiamCan.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NhayTanTabata : Page, INotifyPropertyChanged
+    public sealed partial class LacVong : Page, INotifyPropertyChanged
     {
-        private string timeStr;
-        private string noiDung = "Bạn nên tập 20s, nghỉ 10s rồi lại tiếp tục\nMỗi 1 phút tiêu hao 14,3kals";
         MucTieu muctieu;
+        private string timeStr;
         ThongKeNgay thongkengay;
-        ThongKeBaiTap tabata;
+        ThongKeBaiTap lacVong;
         NguoiDung nguoidung;
         SQLite.Net.SQLiteConnection connection = TrangChu.connection;
-        public string NoiDung
-        {
-            get { return noiDung; }
-            set { noiDung = value; RaiseProperty(nameof(NoiDung)); }
-        }
-        public NhayTanTabata()
+        public LacVong()
         {
             this.InitializeComponent();
             this.DataContext = this;
-            //noiDung = "Bạn nên tập 20s, nghỉ 10s rồi lại tiếp tục";
-            maxtime = 20;
+            maxtime = 5*60;
             solantick = 0; // so lan tick
-     
+            timeStr = "00:00";
         }
+        //Image mainImage;
         ThreadPoolTimer threadImg;
         int saveTime = 0;
         int currentImage = 0;
@@ -61,8 +55,7 @@ namespace GiamCan.Views
         private int time;
         private int maxtime;
         private int solantick;
-        
-       
+
         public string TimeStr
         {
             get { return timeStr; }
@@ -70,32 +63,18 @@ namespace GiamCan.Views
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //Uri uri1 = new System.Uri("ms-appx:///Assets/tabata1.png");
-            //Uri uri2 = new System.Uri("ms-appx:///Assets/tabata2.png");
-            //Uri uri3 = new System.Uri("ms-appx:///Assets/tabata3.png");
-            //Uri uri4 = new System.Uri("ms-appx:///Assets/tabata4.png");
-            //Uri uri5 = new System.Uri("ms-appx:///Assets/tabata5.png");
-            //List<Uri> uriLst = new List<Uri>();
-            //uriLst.Add(uri1);
-            //uriLst.Add(uri2);
-            //uriLst.Add(uri3);
-            //uriLst.Add(uri4);
-            //uriLst.Add(uri5);
+
             List<Uri> uriLst = new List<Uri>();
-            for(int i=1; i<=5; i++)
+            for (int i = 1; i <= 13; i++)
             {
-                uriLst.Add(new Uri("ms-appx:///Assets/tabata" + i + ".png"));
+                uriLst.Add(new Uri("ms-appx:///Assets/lacvong" + i + ".png"));
             }
-            //List<ImageSource> imglstSou = new List<ImageSource>();
-            //for(int i = 0; i < 5; i++)
-            //{
-            //    imglstSou.Add(new BitmapImage(uriLst[i]));
-            //}
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 13; i++)
             {
                 imgLst.Add(new BitmapImage(uriLst[i]));
             }
-            threadImg = ThreadPoolTimer.CreatePeriodicTimer(UpdateSprite, TimeSpan.FromMilliseconds(400));
+           
+            threadImg = ThreadPoolTimer.CreatePeriodicTimer(UpdateSprite, TimeSpan.FromMilliseconds(100));
 
             //kiem tra bai tap nay da co trong database chua
             nguoidung = TrangChu.nguoidung;
@@ -108,25 +87,26 @@ namespace GiamCan.Views
                 thongkengay = TrangChu.getThongKeNgayHienTai(muctieu);
                 //check da tap lan nao trong ngay chua
 
-                tabata = connection.Table<ThongKeBaiTap>().Where(r => r.IdThongKeNgay == thongkengay.IdThongKeNgay && r.IdBaiTap == 8).FirstOrDefault();
-                if (tabata == null)
+                lacVong = connection.Table<ThongKeBaiTap>().Where(r => r.IdThongKeNgay == thongkengay.IdThongKeNgay && r.IdBaiTap == 6).FirstOrDefault();
+                if (lacVong == null)
                 {
-                    tabata = new ThongKeBaiTap()
+                    lacVong = new ThongKeBaiTap()
                     {
-                        IdBaiTap = 8,
+                        IdBaiTap = 6,
                         IdThongKeNgay = thongkengay.IdThongKeNgay,
                         QuangDuong = 0,
                         LuongKaloTieuHao = 0,
                         ThoiGianTap = 0
                     };
-                    connection.Insert(tabata);
+                    connection.Insert(lacVong);
                 }
+
             }
 
             // neu khong thi cho tap nhung khong dua vao database
             else
             {
-                tabata = new ThongKeBaiTap();
+                lacVong = new ThongKeBaiTap();
             }
         }
         private async void UpdateSprite(ThreadPoolTimer timer)
@@ -134,10 +114,10 @@ namespace GiamCan.Views
 
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                tabataImg.Source = imgLst.ElementAt(currentImage);
+                lacVongImg.Source = imgLst.ElementAt(currentImage);
             });
             currentImage = currentImage + 1;
-            if (currentImage == 5)
+            if (currentImage == 13)
             {
                 currentImage = 0;
             }
@@ -164,20 +144,20 @@ namespace GiamCan.Views
                 Time++;
                 int min = Time / 60;
                 int second = Time % 60;
-                if (min > 0)
+                if(min>0)
                 {
-                    if (second < 10)
+                    if(second < 10 )
                     {
-                        TimeStr = "0" + min + ":" + "0" + second;
+                        TimeStr = "0" + min + ":" + "0"+second;
                     }
                     else TimeStr = "0" + min + ":" + second;
                 }
                 else
                 {
-                    if (second < 10) TimeStr = "00:0" + Time.ToString();
+                    if(second < 10) TimeStr = "00:0" +  Time.ToString();
                     else TimeStr = "00:" + Time.ToString();
                 }
-
+                    
             }
             if (Percent == 100)
             {
@@ -219,16 +199,17 @@ namespace GiamCan.Views
 
         private void stopBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             if("Trở về".Equals(stopBtn.Content))
             {
                 Frame.Navigate(typeof(DanhSachBaiTap));
                 return;
             }
             threadImg.Cancel();
-            double kaloTieuHao = 0;
+            double kaloTieuHao;
             if (Percent == 100)
             {
-                kaloTieuHao = 4.47;
+                kaloTieuHao = 33.7;
             }
             else
             {
@@ -236,24 +217,33 @@ namespace GiamCan.Views
                 saveTime = Time;
                 saveTime++;
                 timer.Tick -= OnTimerTick;
-                kaloTieuHao = Math.Round((13.4 /  60) * saveTime,2);
+                kaloTieuHao = Math.Round((200.0 / (30 * 60)) * saveTime,2);
             }
 
-            tabata.ThoiGianTap += saveTime;
-            tabata.LuongKaloTieuHao += kaloTieuHao;
+            lacVong.ThoiGianTap += saveTime;
+            lacVong.LuongKaloTieuHao += kaloTieuHao;
 
             // nếu mục tiêu và thống kê ngày != null mới đưa vào database
             if (muctieu != null && thongkengay != null)
-                connection.Update(tabata);
+                connection.Update(lacVong);
 
             stopBtn.Content = "Trở về";
-            tabataImg.Visibility = Visibility.Collapsed;
-            huongdanTextBlock.Visibility = Visibility.Collapsed;
+            huongdanStackPanel.Visibility = Visibility.Collapsed;
+            lacVongImg.Visibility = Visibility.Collapsed;
 
             ketquaStackPanel.Visibility = Visibility.Visible;
-            thoigiantapTextBlock.Text = "Thời gian tập: " + saveTime;
-            luongkcalTextBlock.Text = "Lượng Kcal tiêu hao: " + kaloTieuHao + "kcal";
+            thoigiantapTextBlock.Text = "Thời gian tập: " + TimeStr;
+            luongkcalTextBlock.Text = "Lượng Kcal tiêu hao: " + kaloTieuHao;
+            
+        }
+        public void chuyenPage2(IUICommand command)
+        {
+            Frame.Navigate(typeof(DanhSachBaiTap));
+        }
 
+        public void chuyenPage1(IUICommand command)
+        {
+            Frame.Navigate(typeof(LacVong));
         }
     }
 
